@@ -1,0 +1,67 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+
+	"version": "2.0.0",
+	"inputs": [
+		{
+			"id": "nmQemuPath",
+			"type": "promptString",
+			"default": "nmc-qemu",
+			"description": "path to nmc-qemu"
+		}
+	],
+	"tasks": [
+		{
+			"label": "build board",
+			"type": "shell",
+			"command": "make",
+			"group": "build",
+			"args": [ "board"  ]
+		},
+		{
+			"label": "build board debug",
+			"type": "shell",
+			"command": "make",
+			"group": "build",
+			"args": [ "testd.abs"  ]
+		},
+		{
+			"label": "build qemu",
+			"type": "shell",
+			"command": "make",
+			"group": "build",
+			"args": [ "qemu" ]
+		},
+		{
+			"label": "board run",
+			"command": "make run",
+			"type": "shell"
+		},
+		{
+			"label": "board debug run",
+			"command": "Start-Process",
+			"args": [ "make ","rund"],
+			"type": "shell"
+		},
+		{
+			"label": "qemu run",
+			"command": "make qrun",
+			"type": "shell"
+		},
+		{
+			"label": "qemu debug run",
+			"type": "shell",
+			"command": "Start-Process",
+			"args": [ "make","qrund"],
+		},
+		{
+			"label": "gcc run",
+			"command": "gcc",
+			"args": [ "-Wall","./x86/main.cpp","./x86/minmax.cpp","./x86/tests.cpp","./mprintx.cpp","-o","./x86/result"],
+			"type": "shell"
+		},
+	],
+
+
+}
