@@ -1,3 +1,4 @@
+# Структура
 /include    заголовочные файлы: *.h  
 /nm         исходники для NMC:  *.S *.cpp  
 /pc         исходники для x86:  *.cpp        
@@ -5,11 +6,11 @@
 /test       папка с тестами соcтоит из полноценных проектов с запуском на x86/nmc/qemu). Одна функция - один тест (main.cpp)  
 /dev-xxx    личная песочница    
    
-# nmc
 
 
 
 # Замечания по оформлению
+
 void nmppsHadamardInitSort(nm2s* Hsrc, nm2s* Hdst, int size);
 
 Пока используем camelCase стиль . Cоответсвенно переменные/аргументы  надо так:
@@ -26,10 +27,10 @@ size - путает что есть рамер , то ли общий разме
 void nmppsHadamardInitSort(const nm2s* srcNaturalOrderdMtr, nm2s* dstSequencyOrderedMtr, int dim);
 
 
-#Тесты 
-test_hadamard 
-тесты и так лежат в папке test. Префикс test_  не требуется
+# Тесты 
 
-для сборки тестов не хватает .ld файлов. Положить рядом с Makefile 
+test_hadamard и так лежат в папке test. Соответсвенно префикс test_  не требуется
+
+Для сборки тестов не хватает .ld файлов. Положить рядом с Makefile 
 
 
