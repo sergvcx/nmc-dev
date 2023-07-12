@@ -13,7 +13,7 @@
 
 void nmppsHadamardInitSort(nm2s* Hsrc, nm2s* Hdst, int size);
 
-Пока используем camelCase стиль . Cоответсвенно переменные/аргументы  надо так:
+Используем camelCase стиль . Cоответсвенно переменные/аргументы  надо так:
 void nmppsHadamardInitSort(nm2s* hSrc, nm2s* hDst, int size);
 
 однако h полезной информации не несет . Желательно  полностью расшифровать до: srcNaturalOrderdMtr , dstSequencyOrderedMtr, либо вообще опустить до src,dst .
