@@ -1,4 +1,4 @@
-#include "../common/nmtype.h"
+#include "../include/nmtype.h"
 #include "nmpp.h"
 
 bool isPowerOfTwo(int n) {
