@@ -1,5 +1,4 @@
-#include "nmtype.h"
-#include "minmax.h"
+#include "../include/nmtype.h"
 
 char afifo8;
 short afifo16;
