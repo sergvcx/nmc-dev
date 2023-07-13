@@ -1,4 +1,5 @@
 #include "../include/nmtype.h"
+#include "../include/hadamard.h"
 #include "nmpp.h"
 
 /*size=32, time=2.843628
@@ -21,9 +22,9 @@ void nmppsHadamard(nm32s* src, nm32s* dst, nm2s* H, nm32s* temp, int size) {
 	// dst = H * (H * src^T)^T
 
 	nmppsTranspose(src, temp, size, size);
-	nmppsMulMM_2s32s_W2(H, size, size, temp, dst, size);
+	nmppsMulMM_2s32s(H, size, size, temp, dst, size);
 	nmppsTranspose(dst, temp, size, size);
-	nmppsMulMM_2s32s_W2(H, size, size, temp, dst, size);
+	nmppsMulMM_2s32s(H, size, size, temp, dst, size);
 }
 
 void nmppsHadamardInverse(nm32s* src, nm32s* dst, nm2s* H, nm32s* temp, int size) {
@@ -32,10 +33,10 @@ void nmppsHadamardInverse(nm32s* src, nm32s* dst, nm2s* H, nm32s* temp, int size
 	int nShift = 0;
 	while (size >>= 1) nShift++; 
 
-	nmppsMulMM_2s32s_W2(H, size, size, src, temp, size);
+	nmppsMulMM_2s32s(H, size, size, src, temp, size);
 	nmppsRShiftC_32s(temp, nShift, dst, size*size);
 	nmppsTranspose(dst, temp, size, size);
-	nmppsMulMM_2s32s_W2(H, size, size, temp, dst, size);
+	nmppsMulMM_2s32s(H, size, size, temp, dst, size);
 	nmppsRShiftC_32s(dst, nShift, temp, size*size);
 	nmppsTranspose(temp, dst, size, size);
 }
