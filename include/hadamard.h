@@ -20,14 +20,14 @@
     \param H
         \ru Адрес начала матрицы.
 		\~
-    \param size
+    \param dim
         \ru Количество строк или столбцов квадратной матрицы в элементах.
 		\~
     \return \e void
 
     */
     //! \{
-		void nmppsHadamardInit(nm2s* H, int size);
+		void nmppsHadamardInit(nm2s* H, int dim);
     //! \}
 
 //*****************************************************************************
@@ -41,20 +41,20 @@
     \ru Функция сортирует матрицу Адамара в зависимости от количества переходов с 1 на -1 и наоборот в строке.
 		\~
 		\~
-    \param Hsrc
+    \param srcNaturalOrderdMtr
         \ru Адрес начала матрицы Адамара.
 		\~
-    \param Hdst
+    \param dstSequencyOrderedMtr
         \ru Адрес начала отсортированной матрицы Адамара (результата).
 		\~
-	\param size
+	\param dim
         \ru Количество строк или столбцов квадратной матрицы в элементах.
 		\~
     \return \e void
 
     */
     //! \{
-		void nmppsHadamardInitSort(nm2s* Hsrc, nm2s* Hdst, int size);
+		void nmppsHadamardInitSort(nm2s* srcNaturalOrderdMtr, nm2s* dstSequencyOrderedMtr, int dim);
     //! \}
 
 //*****************************************************************************
