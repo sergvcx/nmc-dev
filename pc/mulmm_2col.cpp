@@ -1,4 +1,4 @@
-#include "../common/nmtype.h"
+#include "../include/nmtype.h"
 
 int get_2s(long long * p, int index){
 	p += index/32;

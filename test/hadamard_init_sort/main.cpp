@@ -2,7 +2,7 @@
 #include "time.h"
 #include "string.h"
 #include "stdlib.h"
-#include "./nmtype.h"
+#include "../../include/nmtype.h"
 #include "../include/hadamard.h"
 
 int main() {

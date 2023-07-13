@@ -1,4 +1,4 @@
-#include "./nmtype.h"
+#include "../include/nmtype.h"
 #include "../include/hadamard.h"
 
 void nmppsMulMM_2s32s(nm2s* A, int H, int W1, nm32s* B, nm32s* C, int W2) {

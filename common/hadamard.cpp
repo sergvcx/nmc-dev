@@ -1,4 +1,4 @@
-#include "./nmtype.h"
+#include "../include/nmtype.h"
 #include "nmpp.h"
 
 /*size=32, time=2.843628
