@@ -5,7 +5,7 @@
 void fill_array( long long * a, int size) {
 	srand((unsigned) 23);
 	for (int i = 0; i < size*size/2; i++) {
-		a[i] = (((long long)rand()<<32)>>32) | (rand());
+		a[i] = ((long long)rand()<<32) | (rand());
 	}
 }
 
@@ -29,5 +29,5 @@ int main()
 		hash ^= nmppsHash64u((long long *) A_had_result, i*i/2);
 	}
 
-	return hash ^ 0x4c56615b;
+	return hash ^ 0x7ee68ca5;
 }
