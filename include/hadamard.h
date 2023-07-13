@@ -286,10 +286,10 @@
     \return \e void
     */
     //! \{
-void nmppsAbs2_8s(long long * a, long long * b, int size);
-void nmppsAbs2_16s(long long * a, long long * b, int size);
-void nmppsAbs2_32s(long long * a, long long * b, int size);
-void nmppsAbs2_64s(long long * a, long long * b, int size);
+void nmppsAbs2_8s( nm8s *srcA, nm8s *dstB, int size);
+void nmppsAbs2_16s( nm16s *srcA, nm16s *dstB, int size);
+void nmppsAbs2_32s( nm32s *srcA, nm32s *dstB, int size);
+void nmppsAbs2_64s( nm64s *srcA, nm64s *dstB, int size);
     //! \}
 
 #ifdef __cplusplus
