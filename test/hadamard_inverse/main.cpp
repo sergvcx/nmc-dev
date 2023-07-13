@@ -8,7 +8,7 @@
 void fill_array( long long * a, int size) {
 	srand((unsigned) 23);
 	for (int i = 0; i < size*size/2; i++) {
-		a[i] = (((long long)rand()<<32)>>32) | (rand());
+		a[i] = ((long long)rand()<<32) | (rand());
 	}
 }
 
