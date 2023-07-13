@@ -3,6 +3,7 @@
 *.map
 *.abs
 dasm.txt
+c_cpp_properties.json
 
 # Compiled source #
 ###################
