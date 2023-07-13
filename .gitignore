@@ -1,7 +1,8 @@
 # nmc
 #####
 *.map
-
+*.abs
+dasm.txt
 
 # Compiled source #
 ###################
