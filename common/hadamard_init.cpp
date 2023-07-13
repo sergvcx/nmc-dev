@@ -25,7 +25,7 @@ void nmppsHadamardInit(nm2s* H, int dim) {
 	}
 };
 
-void nmppsHadamardInitSort(nm2s* srcNaturalOrderdMtr, nm2s* dstSequencyOrderedMtr, int dim) {
+void nmppsHadamardInitSort(const nm2s* srcNaturalOrderdMtr, nm2s* dstSequencyOrderedMtr, int dim) {
 	if (!isPowerOfTwo(dim)) return;
 
 	int *final_pos;
