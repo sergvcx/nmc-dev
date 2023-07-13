@@ -249,6 +249,49 @@
 		void nmppsHadamardInverse(nm32s* src, nm32s* dst, nm2s* H, nm32s* temp, int size);
     //! \}
 
+//*****************************************************************************
+	/**
+    \defgroup nmppsAbs2 nmppsAbs2
+    \ingroup vArithmetics
+    \brief
+        \ru Функция вычисления абсолютных элементов вектора.
+        \en Calculation of absolute values for vec elements.
+
+		\~
+
+	\f[
+        b[ i] =\begin{cases}
+			a[ i] , & if\ a[ i] \geq 0\\
+			-a[ i] , & if\ 0 >a[ i]  >-2^{n-1}\\
+			2^{n-1} -1, & if\ a[ i] =-2^{n-1}
+		\end{cases}
+    \f]
+
+	\f[ i = \overline{0 \ldots size-1} \f]
+
+	n - разрядность элементов.
+
+    \param a
+        \ru Входной вектор.
+        \en Input vec.
+		\~
+    \param size
+        \ru Размер векторов в элементах.
+        \en Vector size in elements.
+		\~
+    \retval b
+        \ru Результирующий вектор.
+        \en The result vec.
+		\~
+    \return \e void
+    */
+    //! \{
+void nmppsAbs2_8s(long long * a, long long * b, int size);
+void nmppsAbs2_16s(long long * a, long long * b, int size);
+void nmppsAbs2_32s(long long * a, long long * b, int size);
+void nmppsAbs2_64s(long long * a, long long * b, int size);
+    //! \}
+
 #ifdef __cplusplus
 	};
 #endif
