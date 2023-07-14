@@ -318,10 +318,10 @@ void nmppsAbs2_64s( nm64s *srcA, nm64s *dstB, int size);
     \return \e void
     */
     //! \{
-void MinMax_8s( nm8s *srcA, nm8s *srcB, nm8s *dstMin, nm8s *dstMax, int size);
-void MinMax_16s( nm16s *srcA, nm16s *srcB, nm16s *dstMin, nm16s *dstMax, int size);
-void MinMax_32s( nm32s *srcA, nm32s *srcB, nm32s *dstMin, nm32s *dstMax, int size);
-void MinMax_64s( nm64s *srcA, nm64s *srcB, nm64s *dstMin, nm64s *dstMax, int size);
+void nmppsMinMax_8s( nm8s *srcA, nm8s *srcB, nm8s *dstMin, nm8s *dstMax, int size);
+void nmppsMinMax_16s( nm16s *srcA, nm16s *srcB, nm16s *dstMin, nm16s *dstMax, int size);
+void nmppsMinMax_32s( nm32s *srcA, nm32s *srcB, nm32s *dstMin, nm32s *dstMax, int size);
+void nmppsMinMax_64s( nm64s *srcA, nm64s *srcB, nm64s *dstMin, nm64s *dstMax, int size);
     //! \}
 
 #ifdef __cplusplus
