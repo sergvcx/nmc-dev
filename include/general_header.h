@@ -26,7 +26,7 @@ extern "C" int transpose_2x2_32s ( int* FirstMatrix, int* SecondMatrix );
 extern "C" int transpose_3x3_32s ( int* FirstMatrix, int* SecondMatrix );
 extern "C" int transpose_4x4_32s ( int* FirstMatrix, int* SecondMatrix );
 extern "C" int transpose_64x64_32s ( int* FirstMatrix, int* SecondMatrix );
-extern "C" int transposeEvenSizes_32s ( int* FirstMatrix, int* SecondMatrix, int Height, int Width );
+extern "C" int nmppsTranspose ( int* FirstMatrix, int* SecondMatrix, int Height, int Width );
 
 void transpose_C(int* matrica, int* result, int height, int width);
 bool testTransposeCorrect(int* given_mtr, int* res_mtr, int* res_mtr_C, int height, int width);

@@ -1,4 +1,3 @@
-.global _vecMinMaxMas
 .global _vecMinMaxRep32
 #include "printx.hs"
 

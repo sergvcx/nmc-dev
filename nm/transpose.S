@@ -8,247 +8,189 @@
 	Matrix_2X2:
 		.quad 0x0000000100000000
 		.quad 0x0000000000000001
-	Matrix_gen:
-		.quad 0x0000000000000001
-		.quad 0x0000000000000000
-		.quad 0x0000000100000000
-		.quad 0x0000000000000000
-		.quad 0x0000000000000000
-		.quad 0x0000000100000000
-		.quad 0x0000000000000000
-		.quad 0x0000000000000001
+	Array_addr:
+		.space 1<<2
+	Res_addr:
+		.space 1<<2
 
 .macro Transpose_rep N
-	ar2 = Matrix_gen;
-    rep 8 wfifo = [ar2++],ftw, wtw;
+	rep \N ram = [ar5];
+	rep \N data = [ar0++gr0] with vsum , data, ;			//input addr
+	ar0 = ar3;
+	rep \N data = [ar0++gr0] with mask ram, afifo, data;	//input addr + Width
+	ar1 = ar2;
+	rep \N [ar1++gr1] = afifo;								//output res + Height
+	ar2 = ar1;
 
-	rep \N data = [ar0++gr0], ftw with vsum , data, ;
-	wtw;
-	rep \N data = [ar3++gr3], ftw with vsum , data, afifo;
-	rep \N [ar1++] = afifo, wtw;
-
-	ar0 = gr7;
-	gr7 = gr7 + gr1;
-	ar3 = gr7;
-	rep \N data = [ar3++gr3], ftw with vsum , data, ;
-	wtw;
-	rep \N data = [ar0++gr0] with vsum , data, afifo;
-	rep \N [ar4++] = afifo;
-    
-    goto RET_MACRO;
-.endm
-
-.macro Transpose_rep_mask N
-	gr7 = Masks;
-	rep \N ram = [gr7];
-	rep \N data = [ar3++] with vsum , data, ;
-	rep \N data = [ar0++] with mask ram, data, afifo;
-	rep \N [ar1++gr1] = afifo;
-
-	ar3 = gr3;
-    ar0 = ar6;
-    ar1 = ar5;
-	rep \N data = [ar0++] with vsum , data, ;
-	rep \N data = [ar3++] with mask ram, afifo, data;
-	rep \N [ar1++gr1] = afifo;
-
-    goto RET_MACRO_MASK;
+	ar0 = ar3;
+	rep \N data = [ar0++gr0] with vsum , data, ;			//input addr + Width
+	ar3 = ar0;
+	ar6 = Array_addr;
+	ar0 = [ar6];
+	rep \N data = [ar0++gr0] with mask ram, data, afifo;	//input addr
+	ar6 = Res_addr;
+	delayed return;
+		ar1 = [ar6];
+		rep \N [ar1++gr1] = afifo;							//output res
+		rep 32 ram = [ar5];
 .endm
 
 .section .text.MyCode
-//-------------------------------------------------GENERAL---------------------?-per-elem
+//-------------------------------------------------GENERAL---------------------1.264-per-elem
 _nmppsTranspose:
     ar5 = ar7 - 2;
-	push ar0, gr0; 	//array addr
-	push ar1, gr1;	//result addr
-	push ar2, gr2;	//counter
-	push ar3, gr3;	//array addr + width
-	push ar4, gr4;	//
-    push ar5, gr5;  //_ n height
-	push ar6, gr6;  //_ n width
+	push ar0, gr0; 	//array addr			step
+	push ar1, gr1;	//result addr			step
+	push ar2, gr2;	//result addr + Height	counter1
+	push ar3, gr3;	//array addr + Width	counter2
+	push ar4, gr4;	//pointer				width
+    push ar5, gr5;  //Masks addr			height
+	push ar6, gr6;  //MACRO addr			shift
 
 	ar0 = [--ar5];  //array addr
+	ar6 = Array_addr;
+	[ar6] = ar0;
 
 	ar1 = [--ar5];  //result addr
+	ar6 = Res_addr;
+	[ar6] = ar1;
 
 	gr5 = [--ar5];	//height
-	gr6 = [--ar5];	//width
+	gr4 = [--ar5];	//width
 
-	
-	gr7 = gr6 - gr5;
-	if < delayed goto Columns;
-		gr1 = gr6;		//width
-		gr2 = gr1;
-Lines:
 	sir = 80000000h;
 	nb1 = sir;
 	sir = 2h;
 	sb = sir;
 	ar2 = Matrix_2X2;
     rep 2 wfifo = [ar2++],ftw, wtw;
-	ar2 = Masks;
-	rep 32 ram = [ar2];
+	ar5 = Masks;
+	rep 32 ram = [ar5];
 
-    gr0 = gr5;
-    gr0 = gr0 >> 1; //counter for lines
+	gr7 = ar0;
+    gr7 = gr7 + gr4;
+    ar3 = gr7;      //array addr + width
 
-    gr4 = gr6;
-    gr4 = gr4 >> 6; //counter for columns-reps
-    
-    gr3 = ar0;
-    gr3 = gr3 + gr6;
-    ar3 = gr3;      //array addr + width
-
-    ar6 = ar0;		//saved array addr
-    
 	gr7 = ar1;
     gr7 = gr7 + gr5;
-    ar5 = gr7;		//result addr + height
+    ar2 = gr7;		//result addr + height
 
-	ar4 = ar1;		//result addr saved
+	gr7 = gr5 - gr4;
+	if < goto Lines_to_Columns;
 
-	delayed goto Con2;
-		gr1 = gr5;
-    	gr1 = gr1 << 1; //height * 2
-Cycle:
-	rep 32 data = [ar3++] with vsum , data, ;
-	rep 32 data = [ar0++] with mask ram, data, afifo;
-	rep 32 [ar1++gr1] = afifo;
-
-	ar3 = gr3;
-    ar0 = ar6;
-    ar1 = ar5;
-	rep 32 data = [ar0++] with vsum , data, ;
-	rep 32 data = [ar3++] with mask ram, afifo, data;
-	rep 32 [ar1++gr1] = afifo;
-
-    ar5 = ar1;
-	gr7 = ar1;		//optimize by switching operations
-    gr7 = gr7 - gr5;
-	ar1 = gr7;
-Con2:
-    gr4--;
-    if >= delayed goto Cycle;
-		ar6 = ar0;
-		gr3 = ar3;
-
-	ar2 = Transpose_rep_mask_mark;
-	gr2 = gr6;
-	gr2 = gr2 << 26;
-	gr2 = gr2 >> 27;
-	if =0 delayed goto RET_MACRO_MASK;
-		gr2--;
-		gr2 <<= 4;
-	ar2 += gr2;
-    goto ar2;		//goto rep (W % 64) / 2
-
-RET_MACRO_MASK:
-	gr7 = Masks;
-	rep 32 ram = [gr7];
-	ar6 = ar3;
-	ar0 = ar3;
-    gr3 = ar0;
-    gr3 = gr3 + gr6;
-    ar3 = gr3;
-    ar4 = ar4 + 2;
-	ar1 = ar4;
-	gr7 = ar1;
-    gr7 = gr7 + gr5;
-    ar5 = gr7;
-	gr0--;
-	if > delayed goto Con2;
-		gr4 = gr6;
-		gr4 = gr4 >> 6;
-
-	goto End;
-
-Columns:
+Columns_to_Lines:
+	gr2 = gr4;
     gr2 = gr2 >> 1; //counter for columns
 
-    gr4 = gr5;
-    gr4 = gr4 >> 6; //counter for lines-reps
+    gr3 = gr5;
+    gr3 = gr3 >> 6; //counter for lines-reps
 
-	//save addr
-    ar5 = ar0;
-    //set step
-    gr0 = gr1;
-    gr0 = gr0 << 1;
+	gr1 = 2;		//res step = 2
 
-	//saved addr + width
-    gr7 = ar0;
-	gr7 = gr7 + gr1;
-    ar3 = gr7;
-    //set step
-	gr3 = gr0;
+	ar4 = ar0;		//pointer for addr
 
-    gr7 = ar1;
-	gr7 = gr7 + gr5;
-    ar4 = gr7;
+	delayed goto Condition_rep32;
+		gr0 = gr4;
+    	gr0 = gr0 << 1; //addr step = width * 2
 
-	gr7 = ar0;
+Lines_to_Columns:
+	gr2 = gr5;
+    gr2 = gr2 >> 1; //counter for lines
 
-	sir = 80000000h;
-	nb1 = sir;
-	sir = 2h;
-	sb = sir;
-	goto Con1;
+    gr3 = gr4;
+    gr3 = gr3 >> 6; //counter for columns-reps
+
+	gr0 = 2;		//add step = 2
+
+	ar4 = ar1;		//pointer for res
+
+	delayed goto Condition_rep32;
+		gr1 = gr5;
+		gr1 = gr1 << 1; //res step = height * 2
+
 Loop:
-    rep 8 wfifo = [ar2++],ftw, wtw;
+	rep 32 data = [ar0++gr0] with vsum , data, ;			//input addr
+	ar0 = ar3;
+	rep 32 data = [ar0++gr0] with mask ram, afifo, data;	//input addr + Width
+	ar1 = ar2;
+	rep 32 [ar1++gr1] = afifo;								//output res + Height
+	ar2 = ar1;
 
-	rep 32 data = [ar0++gr0], ftw with vsum , data, ;
-	wtw;
-	rep 32 data = [ar3++gr3], ftw with vsum , data, afifo;
-	rep 32 [ar1++] = afifo, wtw;
-
-	ar0 = gr7;
-	gr7 = gr7 + gr1;
-	ar3 = gr7;
-	rep 32 data = [ar3++gr3], ftw with vsum , data, ;
-	wtw;
-	rep 32 data = [ar0++gr0] with vsum , data, afifo;
-	rep 32 [ar4++] = afifo;
-
-	gr7 = ar0;
-Con1:
-	gr4--;
+	ar0 = ar3;
+	rep 32 data = [ar0++gr0] with vsum , data, ;			//input addr + Width
+	ar3 = ar0;
+	ar6 = Array_addr;
+	ar0 = [ar6];
+	rep 32 data = [ar0++gr0] with mask ram, data, afifo;	//input addr
+	[ar6] = ar0;
+	ar6 = Res_addr;
+    ar1 = [ar6];
+	rep 32 [ar1++gr1] = afifo;								//output res
+Condition_rep32:
+    gr3--;
     if >= delayed goto Loop;
-		ar2 = Matrix_gen;
+		[ar6] = ar1;
+		nul;
 
-	ar6 = Transpose_rep_mark;
+	gr7 = gr5 - gr4;
+	if < delayed goto Common_Tail;
+		gr6 = gr4;
+		nul;
+
+Columns_Tail:
 	gr6 = gr5;
+
+Common_Tail:
 	gr6 = gr6 << 26;
 	gr6 = gr6 >> 27;
-	if =0 delayed goto RET_MACRO;
+	if =0 delayed goto Iteration_End;
 		gr6--;
 		gr7 = gr6;
 	gr6 <<= 4;
-	gr7 <<= 1;
+	gr7 <<= 2;
 	gr6 = gr6 + gr7;
+	ar6 = Transpose_rep_mark;
 	ar6 += gr6;
-	gr7 = ar0;
-    goto ar6;		//goto rep (H % 64) / 2
-		
-RET_MACRO:
+	call ar6;
+	
+Iteration_End:
+	gr7 = gr5 - gr4;
+	if < delayed goto Lines_recovery;
+		gr3 = gr4;
+	    gr3 = gr3 >> 6;	//counter recover
+
+Columns_recovery:
+	gr3 = gr5;
+    gr3 = gr3 >> 6;	//counter recover
+	ar4 = ar4 + 2;
+	delayed goto Common_recovery;
+		ar0 = ar4;
+		ar1 = ar2;
+
+Lines_recovery:
+	ar0 = ar3;
+	ar4 = ar4 + 2;
 	ar1 = ar4;
-    gr7 = ar4;
-    gr7 = gr7 + gr5;
-    ar4 = gr7;
-	ar5 = ar5 + 2;
-	ar0 = ar5;
-	gr7 = ar0;
-	gr7 = gr7 + gr1;
-	ar3 = gr7;
+
+Common_recovery:
+	gr7 = ar1;
+	gr7 = gr7 + gr5;
+	ar2 = gr7;
+	ar6 = Array_addr;
+	[ar6] = ar0;
+	ar6 = Res_addr;
+	[ar6] = ar1;
 	gr7 = ar0;
 	gr2--;
-	if > delayed goto Con1;
-		gr4 = gr5;
-		gr4 = gr4 >> 6;
+	if > delayed goto Condition_rep32;
+		gr7 = gr7 + gr4;
+		ar3 = gr7;
 
 	goto End;
 
 Transpose_rep_mark:
-	Transpose_rep 1
-	Transpose_rep 2
+    Transpose_rep 1
+    Transpose_rep 2
 	Transpose_rep 3
 	Transpose_rep 4
 	Transpose_rep 5
@@ -278,38 +220,6 @@ Transpose_rep_mark:
 	Transpose_rep 29
 	Transpose_rep 30
 	Transpose_rep 31
-Transpose_rep_mask_mark:
-    Transpose_rep_mask 1
-    Transpose_rep_mask 2
-	Transpose_rep_mask 3
-	Transpose_rep_mask 4
-	Transpose_rep_mask 5
-	Transpose_rep_mask 6
-	Transpose_rep_mask 7
-	Transpose_rep_mask 8
-	Transpose_rep_mask 9
-	Transpose_rep_mask 10
-	Transpose_rep_mask 11
-	Transpose_rep_mask 12
-	Transpose_rep_mask 13
-	Transpose_rep_mask 14
-	Transpose_rep_mask 15
-	Transpose_rep_mask 16
-	Transpose_rep_mask 17
-	Transpose_rep_mask 18
-	Transpose_rep_mask 19
-	Transpose_rep_mask 20
-	Transpose_rep_mask 21
-	Transpose_rep_mask 22
-	Transpose_rep_mask 23
-	Transpose_rep_mask 24
-	Transpose_rep_mask 25
-	Transpose_rep_mask 26
-	Transpose_rep_mask 27
-	Transpose_rep_mask 28
-	Transpose_rep_mask 29
-	Transpose_rep_mask 30
-	Transpose_rep_mask 31
 
 End:
 	pop ar6, gr6;

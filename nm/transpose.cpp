@@ -22,7 +22,7 @@ bool testTransposeCorrect(int* givenMatrix, int* resultMatrix, int* resultMatrix
 		resultMatrix_C[i] = 0;
 	}
 
-	transposeEvenSizes_32s(givenMatrix, resultMatrix, height, width);
+	nmppsTranspose(givenMatrix, resultMatrix, height, width);
 
 	transpose_C(givenMatrix, resultMatrix_C, height, width);
 	

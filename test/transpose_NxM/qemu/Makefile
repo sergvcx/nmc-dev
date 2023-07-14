@@ -17,7 +17,7 @@ LDFLAGS  = -Wl,-Map=test.map  -Wl,-Tmc12101-nmpu1.lds
 LDFLAGSD = -Wl,-Map=testd.map -Wl,-Tmc12101-nmpu1.lds 
 INC_DIRS = -I../../../include -I..
 LIB_DIRS = 
-SOURCES  = ../main.cpp ../../../nm/hash.S ../../../nm/transp_32s.S ../../../nm/transpose.cpp ../../../common/dataInit.cpp
+SOURCES  = ../main.cpp ../../../nm/hash.S ../../../nm/transpose.S ../../../nm/transpose.cpp ../../../common/dataInit.cpp
 
 .DEFAULT_GOAL := all
 
