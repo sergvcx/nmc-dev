@@ -1,8 +1,10 @@
 # nmc
 #####
+*.bat
 *.map
 *.abs
 dasm.txt
+dasmd.txt
 c_cpp_properties.json
 
 # Compiled source #
