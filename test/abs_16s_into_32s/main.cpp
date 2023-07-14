@@ -39,24 +39,6 @@ int main()
 		}
 	}
 	
-	//x86
-	/*
-	int Sum = 0;
-	for(int i = 0; i < (1 << 13); i += 4)
-	{
-		for (int j = -32768; j < 32767; j += i)
-		{
-			if (i == 0)
-				break;
-			if (32768 - j < i)
-				break;
-			makeShortArray(sourceArray, j, j + i);
-			abs_16s_C_(sourceArray, absResultArray, i);
-			Sum += hash_C((long long*)absResultArray, i);
-		}
-	}	
-	*/
-
 	printf("\n-----------------------------------------------------------------------------------------------------");
 	printf("\nAbs test passed\n\n");
 

@@ -17,7 +17,7 @@ int main()
 		{
 			Array[i] = rand() ^ (rand() << 31);
 		}
-		hash_cxx = hashMimic((long*)Array, dim);
+		hash_cxx = hash_C((long*)Array, dim);
 		hash_asm = hashRep32(Array, dim);
 		if(hash_asm != hash_cxx)
 		{
