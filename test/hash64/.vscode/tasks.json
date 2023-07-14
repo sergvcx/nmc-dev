@@ -63,7 +63,7 @@
 				"-I${env:NMPP}/include",
 				"-L${env:MC12101}/lib",
 				"-L${env:NMPP}/lib",
-				"-Wall","../../pc/hash64.cpp", "../../pc/mulmm_2col.cpp", "../../pc/transpose.cpp", "../../common/hadamard_init.cpp", "../../common/hadamard.cpp", "../../common/mulmm.cpp", "main.cpp","-o","result",
+				"-Wall","../../pc/hash64.cpp", "main.cpp","-o","result",
 				"-lnmpp-x64",
 			],
 			"type": "shell"
