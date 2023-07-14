@@ -22,13 +22,10 @@ void minMaxMas_C ( int* a, int* b, int size );
 extern "C" int vecMinMaxRep32 ( int* a, int* b, int size );
 
 //-----------------------------------------------------------------------------------------------Transpose--------------------------
-extern "C" int transpose_2x2 ( int* FirstMatrix, int* SecondMatrix );
+extern "C" int transpose_2x2_32s ( int* FirstMatrix, int* SecondMatrix );
 extern "C" int transpose_3x3_32s ( int* FirstMatrix, int* SecondMatrix );
-extern "C" int transpose_3x3_RISC_32s ( int* FirstMatrix, int* SecondMatrix );
-extern "C" int transpose_4x4 ( int* FirstMatrix, int* SecondMatrix );
-extern "C" int transpose_64x64 ( int* FirstMatrix, int* SecondMatrix );
-extern "C" int transpose_64x64_Mask_bL ( int* FirstMatrix, int* SecondMatrix );
-extern "C" int transpose_64x64_Mask_bC ( int* FirstMatrix, int* SecondMatrix );
+extern "C" int transpose_4x4_32s ( int* FirstMatrix, int* SecondMatrix );
+extern "C" int transpose_64x64_32s ( int* FirstMatrix, int* SecondMatrix );
 extern "C" int transposeEvenSizes_32s ( int* FirstMatrix, int* SecondMatrix, int Height, int Width );
 
 void transpose_C(int* matrica, int* result, int height, int width);

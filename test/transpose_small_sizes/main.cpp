@@ -17,7 +17,7 @@ int main()
 	
 	transpose_C(givenMatrix, resultMatrix_C, side, side);
 
-	transpose_2x2(givenMatrix, resultMatrix);
+	transpose_2x2_32s(givenMatrix, resultMatrix);
 	if( !(hashRep32(resultMatrix, side * side) == hashRep32(resultMatrix_C, side * side)) )
 	{
 		printf("\n*****************************************************************************************************");
@@ -39,21 +39,13 @@ int main()
 		return -1;
 	}
 	
-	transpose_3x3_RISC_32s(givenMatrix, resultMatrix);
-	if( !(hashRep32(resultMatrix, side * side) == hashRep32(resultMatrix_C, side * side)) )
-	{
-		printf("\n*****************************************************************************************************");
-		printf("\nMatrix 3x3 transposed incorrectly on RISC\n\n");
-		return -1;
-	}
-	
 	side = 4;
 
 	initMatrices(givenMatrix, resultMatrix, resultMatrix_C, side, side);
 	
 	transpose_C(givenMatrix, resultMatrix_C, side, side);
 
-	transpose_4x4(givenMatrix, resultMatrix);
+	transpose_4x4_32s(givenMatrix, resultMatrix);
 	if( !(hashRep32(resultMatrix, side * side) == hashRep32(resultMatrix_C, side * side)) )
 	{
 		printf("\n*****************************************************************************************************");
@@ -65,27 +57,11 @@ int main()
 	
 	transpose_C(givenMatrix, resultMatrix_C, matrixHeight, matrixWidth);
 
-	transpose_64x64_Mask_bC(givenMatrix, resultMatrix);
+	transpose_64x64_32s(givenMatrix, resultMatrix);
 	if( !(hashRep32(resultMatrix, matrixHeight * matrixWidth) == hashRep32(resultMatrix_C, matrixHeight * matrixWidth)) )
 	{
 		printf("\n*****************************************************************************************************");
-		printf("\nMatrix 64x64 transposed incorrectly with mask algorithm by columns\n\n");
-		return -1;
-	}
-
-	transpose_64x64_Mask_bL(givenMatrix, resultMatrix);
-	if( !(hashRep32(resultMatrix, matrixHeight * matrixWidth) == hashRep32(resultMatrix_C, matrixHeight * matrixWidth)) )
-	{
-		printf("\n*****************************************************************************************************");
-		printf("\nMatrix 64x64 transposed incorrectly with mask algorithm by lines\n\n");
-		return -1;
-	}
-
-	transpose_64x64(givenMatrix, resultMatrix);
-	if( !(hashRep32(resultMatrix, matrixHeight * matrixWidth) == hashRep32(resultMatrix_C, matrixHeight * matrixWidth)) )
-	{
-		printf("\n*****************************************************************************************************");
-		printf("\nMatrix 64x64 transposed incorrectly by algorithm without mask\n\n");
+		printf("\nMatrix 64x64 transposed incorrectly\n\n");
 		return -1;
 	}
 	

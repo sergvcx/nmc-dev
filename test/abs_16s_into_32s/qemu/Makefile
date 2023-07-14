@@ -3,7 +3,6 @@ SHELL=cmd
 OS_RM    = del 
 .SUFFIXES:
 
-
 TARGET   = test.abs
 TARGETD  = testd.abs
 
@@ -17,7 +16,7 @@ LDFLAGS  = -Wl,-Map=test.map  -Wl,-Tmc12101-nmpu1.lds
 LDFLAGSD = -Wl,-Map=testd.map -Wl,-Tmc12101-nmpu1.lds 
 INC_DIRS = -I../../../include -I..
 LIB_DIRS = 
-SOURCES  = ../main.cpp ../../../nm/*.S ../../../nm/*.cpp ../../../common/*.cpp ../../../nm/*.cpp
+SOURCES  = ../main.cpp ../../../common/dataInit.cpp ../../../nm/*.S ../../../nm/*.cpp ../../../pc/*.cpp
 
 .DEFAULT_GOAL := all
 

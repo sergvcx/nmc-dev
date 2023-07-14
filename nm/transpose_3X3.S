@@ -1,5 +1,4 @@
 .global _transpose_3x3_32s
-.global _transpose_3x3_RISC_32s
 #include "printx.hs"
 
 .p2align 3	
@@ -74,48 +73,4 @@ _transpose_3x3_32s:
 	pop ar2, gr2;
 	pop ar3, gr3;
 	pop ar4, gr4;
-	return;
-
-//----------------------------------------------3X3--RISC---------------164tacts
-_transpose_3x3_RISC_32s:
-    ar5 = ar7 - 2;
-	push ar2, gr2;
-	push ar1, gr1;	//result addr
-	push ar0, gr0; 	//array addr
-	ar0 = [--ar5];
-	ar1 = [--ar5];
-	
-	gr2 = 3;
-	gr0 = 3;
-	gr1 = ar0;
-MARK_1:
-	gr7 = [ar0];
-	ar0 += gr0;
-	[ar1++] = gr7;
-	gr2--;
-	if > goto MARK_1;
-	
-	gr1++;
-	ar0 = gr1;
-    gr2 = gr0;
-MARK_2:
-	gr7 = [ar0];
-	ar0 += gr0;
-	[ar1++] = gr7;
-	gr2--;
-	if > goto MARK_2;
-
-	gr1++;
-	ar0 = gr1;
-    gr2 = gr0;
-MARK_3:
-	gr7 = [ar0];
-	ar0 += gr0;
-	[ar1++] = gr7;
-	gr2--;
-	if > goto MARK_3;
-
-	pop ar0, gr0;
-	pop ar1, gr1;
-	pop ar2, gr2;
 	return;
