@@ -4,7 +4,7 @@ char afifo8;
 short afifo16;
 int afifo32;
 long long afifo64;
-
+extern "C" {
 void nmppsMinMax_8s( nm8s *srcA, nm8s *srcB, nm8s *dstMin, nm8s *dstMax, int size) {
 	char *a = (char*) srcA;
 	char *b = (char*) srcB;
@@ -56,3 +56,4 @@ void nmppsMinMax_64s( nm64s *srcA, nm64s *srcB, nm64s *dstMin, nm64s *dstMax, in
 		b_res[i] = (afifo64&b[i]) | (~afifo64&a[i]);
 	}
 }
+};
