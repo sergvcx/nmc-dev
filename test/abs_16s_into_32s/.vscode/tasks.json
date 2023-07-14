@@ -68,10 +68,20 @@
             "label": "gcc run",
             "command": "gcc",
             "args": [
-
+                "-Wall",
+                "-I../../include/",
+                "main.cpp",
+                "../../common/dataInit.cpp",
+                "../../pc/abs_16s_C.cpp",
+                "../../pc/hash_C.cpp",
+                "-o",
+                "result"
             ],
-            
             "type": "shell"
+        },
+        {
+            "label": "run result",
+            "command": "result.exe"
         }
     ],
     
