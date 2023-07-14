@@ -4,10 +4,9 @@ extern "C" int abs_16s ( int* x, int* y , int size );
 extern "C" int hashRep32 ( int* x, int size );
 
 void abs_16s_C(int* a, int* b, int size);
-int hashMimic(long* a, int size);
+int hash_C(long* a, int size);
 
 //-------------------------------------------------------------------------------------------------Abs-Hash-x86---------------------
-void abs_16s_C_(int* a, int* b, int size);
 int hash_C(long long* a, int size);
 
 //-------------------------------------------------------------------------------------------------data-init------------------------

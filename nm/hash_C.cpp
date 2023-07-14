@@ -2,7 +2,7 @@
 #include "stdlib.h"
 #include "../include/general_header.h"
 
-int hashMimic(long* source, int dim)
+int hash_C(long* source, int dim)
 {
 	long Array[32];
 	for(int i = 0; i < 32; i++)
