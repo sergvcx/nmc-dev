@@ -2,38 +2,6 @@
 #include "stdlib.h"
 #include "../include/general_header.h"
 
-int sumArray(int* source, int dim)
-{
-	int Sum = 0;
-	for(int i = 0; i < dim; i++)
-	{
-		Sum += *(source + i);
-	}
-	return Sum;
-}
-
-bool tupoCompare(int* source, int* b, int dim)
-{
-	for(int i = 0; i < dim; i++)
-	{
-		if( *(source + i) != *(b + i) )
-			return false;
-	}	
-	return true;
-}
-
-int hash_C(int* source, int dim)
-{
-	unsigned int Sum = 0;
-	int mask = 1 << 31;
-	for(int i = 0; i < dim; i++)
-	{
-		//Sum = ((Sum >> 31) | (Sum << 1)) ^ (*(source + i));
-		Sum = (((Sum << 31) & mask) | ((Sum >> 1) & (mask - 1))) ^ (*(source + i));
-	}
-	return Sum;
-}
-
 int hashMimic(long* source, int dim)
 {
 	long Array[32];

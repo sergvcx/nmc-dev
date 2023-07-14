@@ -1,15 +1,4 @@
-
-void minMax_C(int* a, int* b)
-{
-	if(*a > *b)
-	{
-		*a = *b - *a;
-		*b = *b - *a;
-		*a = *a + *b;	
-	}
-}
-
-void minMaxMas_C(int* a, int* b, int size) // 36  max 29  min 
+void minMaxMas_C(int* a, int* b, int size)
 {
 	while(size > 0)
 	{
