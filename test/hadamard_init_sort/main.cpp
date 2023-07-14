@@ -1,5 +1,5 @@
 #include "../../include/nmtype.h"
-#include "../include/hadamard.h"
+#include "../../include/hadamard.h"
 
 const int size_had = 512;
 __attribute__((section(".data.imu0"))) long long H2[size_had*(size_had/32)];

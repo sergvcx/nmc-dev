@@ -56,19 +56,21 @@
 			"args": [ "make","qrund"],
 		},
 		{
-			"label": "gcc run",
+			"label": "gcc build",
 			"command": "gcc",
 			"args": [
-				"-IC:/Module/MC12101/include",
-				"-IC:/Module/nmpp-nm6407-2.1.5-win64/include",
-				"-LC:/Module/MC12101/lib",
-				"-LC:/Module/nmpp-nm6407-2.1.5-win64/lib",
-				// "-I$(MC12101)/include",
-				// "-I$(NMPP)/include",
-				// "-L$(MC12101)/lib",
-				// "-L$(NMPP)/lib",
+				"-I${env:MC12101}/include",
+				"-I${env:NMPP}/include",
+				"-L${env:MC12101}/lib",
+				"-L${env:NMPP}/lib",
+				"-Wall","../../pc/hash64.cpp", "../../pc/mulmm_2col.cpp", "../../pc/transpose.cpp", "../../common/hadamard_init.cpp", "../../common/hadamard.cpp", "../../common/mulmm.cpp", "main.cpp","-o","result",
 				"-lnmpp-x64",
-				"-Wall","../../pc/hash64.cpp", "../../pc/mulmm_2col.cpp", "../../pc/transpose.cpp", "../../common/hadamard_init.cpp", "../../common/hadamard.cpp", "../../common/mulmm.cpp", "main.cpp","-o","result"],
+			],
+			"type": "shell"
+		},
+		{
+			"label": "gcc run",
+			"command": ".\\result.exe",
 			"type": "shell"
 		},
 	],
