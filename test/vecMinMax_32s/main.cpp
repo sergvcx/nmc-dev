@@ -26,8 +26,16 @@ int main()
 		vecMinMaxRep32(minArray, maxArray, i);
 
 		if( hashRep32(minArray, i) != hashRep32(minArray_C, i) || (hashRep32(maxArray, i) != hashRep32(maxArray_C, i)) )
+		{
+			printf("\n*****************************************************************************************************");
+			printf("\nVecMinMax_32s on some sizes working incorrectly\n\n");			
+			printf("Array size: %d\n\n", i);
 			return -1;
+		}
 	}
+
+	printf("\n-----------------------------------------------------------------------------------------------------");
+	printf("\nVecMinMax_32s test passed\n\n");
 
 	return 0;
 }

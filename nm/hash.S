@@ -1,4 +1,3 @@
-.global _hash
 .global _hashRep32
 #include "printx.hs"
 
@@ -14,39 +13,6 @@
 		.quad 0x0000000000000001
 		
 .section .text.SomeCode
-//-------------------------------------------HASH------------------------
-_hash:
-	ar5 = ar7 - 2;
-	push ar1, gr1;
-	push ar0, gr0;
-	ar0 = [--ar5]; 	//array addr
-	gr0 = [--ar5];	//counter
-	
-	sir = 0h;
-	nb1 = sir;
-	sb = sir;
-	ar1 = Matrix;
-	rep 1 wfifo = [ar1++],ftw, wtw;
-	
-	gr0 = gr0 >> 1;
-	gr0--;
-	rep 1 with 0;
-Loop:
-	rep 1 data = [ar0++] with vsum , shift afifo, data;
-	if > delayed goto Loop with gr0--;
-	nul;
-	nul;
-	
-	ar0 = B;
-	rep 1 [ar0] = afifo;
-	gr7 = [ar0++];
-	gr1 = [ar0];
-	gr7 = gr7 + gr1;
-	
-	pop ar0, gr0;
-	pop ar1, gr1;
-	return gr7;
-
 //-------------------------------------------HASH-rep32-------------
 _hashRep32:
 	ar5 = ar7 - 2;
@@ -69,9 +35,6 @@ _hashRep32:
 	ar1 = Matrix;
 	rep 1 wfifo = [ar1++],ftw, wtw;
 	
-	
-	//PRINTF1("counter rep 32 =%d\n",gr0)
-	//PRINTF1("counter rep 1 =%d\n",gr1)
 	rep 32 with 0;
 	gr0--;
 	goto Condition;

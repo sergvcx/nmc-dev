@@ -1,8 +1,6 @@
 
-//---------------------------------------------------------Abs-Hash-NM----------------------
-extern "C" int mod ( int* x, int* y );
+//-----------------------------------------------------------------------------------------------Abs-Hash-NM----------------------
 extern "C" int abs_16s ( int* x, int* y , int size );
-extern "C" int hash ( int* x, int size );
 extern "C" int hashRep32 ( int* x, int size );
 
 void abs_16s_C(int* a, int* b, int size);

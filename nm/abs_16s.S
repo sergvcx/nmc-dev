@@ -1,4 +1,3 @@
-.global _mod
 .global _abs_16s
 #include "printx.hs"
 
@@ -20,39 +19,6 @@
 		.quad 0x0000000000000000
 		
 .section .text.MyCode	
-_mod:
-	ar5 = ar7 - 2;
-	push ar2, gr2;
-	push ar1, gr1;
-	push ar0, gr0;
-	ar0 = [--ar5]; 	//array addr
-	ar2 = [--ar5];	//result addr
-	gr2 = ar2;
-	ar1 = Masks;
-	
-	sir = 80008000h;
-	nb1 = sir;
-	sir = 00020002h;
-	sb = sir;
-	rep 12 wfifo = [ar1++],ftw, wtw;
-	sir = 80008000h;
-	f1cr = sir;
-	
-	rep 1 ram = [ar0] with activate data or 0;
-	rep 1 ftw with vsum afifo, ram, ram;
-	rep 1 [ar2] = afifo, wtw;
-	
-	rep 1 data = [ar2++], ftw with vsum , data, 0;
-	rep 1 [ar2] = afifo, wtw;
-	ar2 = gr2;
-	rep 1 data = [ar2] with vsum , data, 0;
-	rep 1 [ar2] = afifo;
-	
-	pop ar0, gr0;
-	pop ar1, gr1;
-	pop ar2, gr2;
-	return;
-
 //--------------------------------------------------abs_16s--- ~1,05 per elem --------
 _abs_16s:
 	ar5 = ar7 - 2;
