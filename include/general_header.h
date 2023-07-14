@@ -4,15 +4,10 @@ extern "C" int abs_16s ( int* x, int* y , int size );
 extern "C" int hashRep32 ( int* x, int size );
 
 void abs_16s_C(int* a, int* b, int size);
-void compareAbs(int* A, int* B, int* C, long* D);
-bool testAbsSizes(int* sourceArray16s, int* resultArray32s, int* resultArray32s_C);
-
 int hashMimic(long* a, int size);
-int sumHash();
-void testHash();
 
 //-------------------------------------------------------------------------------------------------Abs-Hash-x86---------------------
-void abs_16s_C(int* a, int* b, int size);
+void abs_16s_C_(int* a, int* b, int size);
 int hash_C(long long* a, int size);
 
 //-------------------------------------------------------------------------------------------------data-init------------------------
