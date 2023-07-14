@@ -56,9 +56,21 @@
 			"args": [ "make","qrund"],
 		},
 		{
-			"label": "gcc run",
+			"label": "gcc build",
 			"command": "gcc",
-			"args": [ "-Wall","./x86/main.cpp","./x86/minmax.cpp","./x86/tests.cpp","./mprintx.cpp","-o","./x86/result"],
+			"args": [
+				"-I${env:MC12101}/include",
+				"-I${env:NMPP}/include",
+				"-L${env:MC12101}/lib",
+				"-L${env:NMPP}/lib",
+				"-Wall","../../pc/hash64.cpp", "../../pc/mulmm_2col.cpp", "main.cpp","-o","result",
+				"-lnmpp-x64",
+			],
+			"type": "shell"
+		},
+		{
+			"label": "gcc run",
+			"command": ".\\result.exe",
 			"type": "shell"
 		},
 	],
