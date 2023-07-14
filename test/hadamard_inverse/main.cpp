@@ -3,7 +3,7 @@
 #include "string.h"
 #include "stdlib.h"
 #include "../../include/nmtype.h"
-#include "../include/hadamard.h"
+#include "../../include/hadamard.h"
 
 void fill_array( long long * a, int size) {
 	srand((unsigned) 23);
