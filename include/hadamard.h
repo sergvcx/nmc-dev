@@ -286,10 +286,42 @@
     \return \e void
     */
     //! \{
-void nmppsAbs2_8s(long long * a, long long * b, int size);
-void nmppsAbs2_16s(long long * a, long long * b, int size);
-void nmppsAbs2_32s(long long * a, long long * b, int size);
-void nmppsAbs2_64s(long long * a, long long * b, int size);
+void nmppsAbs2_8s( nm8s *srcA, nm8s *dstB, int size);
+void nmppsAbs2_16s( nm16s *srcA, nm16s *dstB, int size);
+void nmppsAbs2_32s( nm32s *srcA, nm32s *dstB, int size);
+void nmppsAbs2_64s( nm64s *srcA, nm64s *dstB, int size);
+    //! \}
+	
+//*****************************************************************************
+	/**
+    \defgroup nmppsMinMax nmppsMinMax
+    \ingroup vArithmetics
+    \brief
+        Функция для выделения минимумов и максимумов среду пар в отдельные массивы.
+		\~
+
+    \param srcA
+        Первый входной вектор.
+		\~
+	\param srcВ
+        Второй входной вектор.
+		\~
+    \retval dstMin
+        Результирующий вектор для минимумов.
+		\~
+	\retval dstMax
+        Результирующий вектор для максимумов.
+		\~
+    \param size
+        Размер векторов в элементах.
+		\~
+    \return \e void
+    */
+    //! \{
+void nmppsMinMax_8s( nm8s *srcA, nm8s *srcB, nm8s *dstMin, nm8s *dstMax, int size);
+void nmppsMinMax_16s( nm16s *srcA, nm16s *srcB, nm16s *dstMin, nm16s *dstMax, int size);
+void nmppsMinMax_32s( nm32s *srcA, nm32s *srcB, nm32s *dstMin, nm32s *dstMax, int size);
+void nmppsMinMax_64s( nm64s *srcA, nm64s *srcB, nm64s *dstMin, nm64s *dstMax, int size);
     //! \}
 
 #ifdef __cplusplus
