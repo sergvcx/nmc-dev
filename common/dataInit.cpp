@@ -32,11 +32,6 @@ void randArray(int* a, int size)
 	}
 }
 
-void printIntegerLikeTwoShort(int a)
-{
-	printf("%d, %d\n", a >> 16, (a << 16) >> 16);
-}
-
 void initMatrices(int* initMatrix, int* nullResultMatrix, int* nullResultMatrix_C, int height, int width)
 {
 	for(int i = 0; i < width * height; i++)

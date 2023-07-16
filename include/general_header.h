@@ -13,7 +13,6 @@ int hash_C(long long* a, int size);
 void makeShortArray(int* a, int first, int last);
 void fillArray(int* a, int start, int end);
 void randArray(int* a, int size);
-void printIntegerLikeTwoShort(int a);
 void initMatrices(int* initMatrix, int* nullResultMatrix, int* nullResultMatrix_C, int height, int width);
 
 //-------------------------------------------------------------------------------------------------MinMax---------------------------
