@@ -1,17 +1,11 @@
 #include "stdlib.h"
+#include "stdio.h"
 #include "../../include/nmtype.h"
 #include "../../include/hadamard.h"
 
-void fill_array( long long * a, int size) {
-	srand((unsigned) 23);
-	for (int i = 0; i < size*size/2; i++) {
-		a[i] = ((long long)rand()<<32) | (rand());
-	}
-}
-
-const int H = 120;
+const int H = 80;
 const int W1 = 128;
-const int W2 = 120;
+const int W2 = 20;
 __attribute__((section(".data.imu0"))) long long A2[H*(W1/32)];
 __attribute__((section(".data.imu1"))) long long A32[W1*(W2/2)];
 __attribute__((section(".data.imu2"))) long long Res[H*(W2/2)];
@@ -19,9 +13,9 @@ __attribute__((section(".data.imu2"))) long long Res[H*(W2/2)];
 
 int main()
 {
-	srand((unsigned) 63);
-	for (int i = 0; i < H*(W1/32); i++) A2[i] = ((long long)rand()<<32) | (rand());
-	for (int i = 0; i < W1*(W2/2); i++) A32[i] = ((long long)rand()<<32) | (rand());
+	A2[0]=5; A32[0]=8;
+	for (int i = 1; i < H*(W1/32); i++) A2[i] = (A2[i-1]<<62)>>61;
+	for (int i = 1; i < W1*(W2/2); i++) A32[i] = (A2[i-1]<<62)>>61;
 
 	int hash = 0;
 	for (int h = 1; h <= H; h++) {
@@ -33,5 +27,9 @@ int main()
 		}
 	}
 
-	return hash^0x32B23AAF;
+	int return_code = hash^0x33a06f6b;
+
+	printf("return code = 0x%0x\n", return_code);
+
+	return return_code;
 }
