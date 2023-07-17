@@ -63,7 +63,7 @@
 				"-I${env:NMPP}/include",
 				"-L${env:MC12101}/lib",
 				"-L${env:NMPP}/lib",
-				"-Wall","../../pc/minmax.cpp", "../../pc/hash64.cpp", "main.cpp","-o","result",
+				"-Wall","../../pc/minmax_qtbb.cpp", "../../pc/hash64.cpp", "main.cpp","-o","result",
 				"-lnmpp-x64",
 			],
 			"type": "shell"
