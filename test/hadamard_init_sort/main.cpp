@@ -2,9 +2,9 @@
 #include "../../include/nmtype.h"
 #include "../../include/hadamard.h"
 
-const int size_had = 256;
-__attribute__((section(".data.imu0"))) long long H2[size_had*(size_had/32)];
-__attribute__((section(".data.imu1"))) long long H2_sort[size_had*(size_had/32)];
+const int size_had = 512;
+__attribute__((section(".data.imu2"))) long long H2[size_had*(size_had/32)];
+__attribute__((section(".data.imu3"))) long long H2_sort[size_had*(size_had/32)];
 
 int main() {
 	int hash = 0;
