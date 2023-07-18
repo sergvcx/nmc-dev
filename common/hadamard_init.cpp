@@ -1,3 +1,4 @@
+#include "stdio.h"
 #include "../include/nmtype.h"
 #include "../include/hadamard.h"
 #include "nmpp.h"
@@ -44,5 +45,7 @@ void nmppsHadamardInitSort(const nm2s* srcNaturalOrderdMtr, nm2s* dstSequencyOrd
 		int* dst_addr = ((int*)dstSequencyOrderedMtr+(i*dim/16));
 		nmppsCopy_2s((nm2s*) src_addr, (nm2s*)dst_addr, dim);
 	}
+	
 	free(final_pos);
+	printf("Memory succesfully freed");
 };
