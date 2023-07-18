@@ -16,16 +16,17 @@ int main()
 	for (int i = 1; i < size_had*(size_had/2); i++) A_had[i] = (A_had[i-1]<<61)>>60;
 
 	int hash=0;
+	int return_code;
 
 	for (int i = 32; i <= size_had; i<<=1) {
 		nmppsHadamardInit((nm2s*) H2, i);
-		// nmppsHadamardInitSort((nm2s*) H2, (nm2s*) H2_sort, i);
-		// nmppsHadamard((nm32s*) A_had, (nm32s*) A_had_result, (nm2s*) H2_sort, (nm32s*) temp_had, i);
-		nmppsHadamard((nm32s*) A_had, (nm32s*) A_had_result, (nm2s*) H2, (nm32s*) temp_had, i);
+		return_code = nmppsHadamardInitSort((nm2s*) H2, (nm2s*) H2_sort, i);
+		if (return_code!=0) return return_code;
+		nmppsHadamard((nm32s*) A_had, (nm32s*) A_had_result, (nm2s*) H2_sort, (nm32s*) temp_had, i);
 		hash ^= nmppsHash64u((long long *) A_had_result, i*i/2);
 	}
 
-	int return_code = hash;
+	return_code = hash^0xfc800307;
 
 	printf("return code = 0x%0x\n", return_code);
 
