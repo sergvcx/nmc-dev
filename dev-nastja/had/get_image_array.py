@@ -20,3 +20,7 @@ axis[0].imshow(img64, cmap='gray', vmin=0, vmax=255)
 axis[1].imshow(img128, cmap='gray', vmin=0, vmax=255)
 axis[2].imshow(img256, cmap='gray', vmin=0, vmax=255)
 plt.show()
+
+interpolated_image = numpy.loadtxt("./interpolated_image.txt", dtype=int)
+plt.imshow(interpolated_image, cmap='gray', vmin=0, vmax=255)
+plt.show()
