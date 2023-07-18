@@ -26,11 +26,12 @@ void nmppsHadamardInit(nm2s* H, int dim) {
 	}
 };
 
-void nmppsHadamardInitSort(const nm2s* srcNaturalOrderdMtr, nm2s* dstSequencyOrderedMtr, int dim) {
-	if (!isPowerOfTwo(dim)) return;
+int nmppsHadamardInitSort(const nm2s* srcNaturalOrderdMtr, nm2s* dstSequencyOrderedMtr, int dim) {
+	if (!isPowerOfTwo(dim)) return 1;
 
 	int *final_pos;
-	final_pos = (int *)malloc32(dim/16);
+	final_pos = (int *)malloc(dim*sizeof(int));
+	if (final_pos==NULL) return 2;
 
 	final_pos[0]=0;
 	for (int n = 1; n < dim; n+=n) {
@@ -47,5 +48,5 @@ void nmppsHadamardInitSort(const nm2s* srcNaturalOrderdMtr, nm2s* dstSequencyOrd
 	}
 	
 	free(final_pos);
-	printf("Memory succesfully freed");
+	return 0;
 };

@@ -50,11 +50,11 @@
 	\param dim
         Количество строк или столбцов квадратной матрицы в элементах.
 		\~
-    \return \e void
+    \return \e int код ошибки
 
     */
     //! \{
-		void nmppsHadamardInitSort(const nm2s* srcNaturalOrderdMtr, nm2s* dstSequencyOrderedMtr, int dim);
+		int nmppsHadamardInitSort(const nm2s* srcNaturalOrderdMtr, nm2s* dstSequencyOrderedMtr, int dim);
     //! \}
 
 //*****************************************************************************
