@@ -17,21 +17,27 @@
 			"type": "shell",
 			"command": "make",
 			"group": "build",
-			"args": [ "board"  ]
+			"args": [
+				"board"
+			]
 		},
 		{
 			"label": "build board debug",
 			"type": "shell",
 			"command": "make",
 			"group": "build",
-			"args": [ "testd.abs"  ]
+			"args": [
+				"testd.abs"
+			]
 		},
 		{
 			"label": "build qemu",
 			"type": "shell",
 			"command": "make",
 			"group": "build",
-			"args": [ "qemu" ]
+			"args": [
+				"qemu"
+			]
 		},
 		{
 			"label": "board run",
@@ -41,7 +47,10 @@
 		{
 			"label": "board debug run",
 			"command": "Start-Process",
-			"args": [ "make ","rund"],
+			"args": [
+				"make ",
+				"rund"
+			],
 			"type": "shell"
 		},
 		{
@@ -53,7 +62,10 @@
 			"label": "qemu debug run",
 			"type": "shell",
 			"command": "Start-Process",
-			"args": [ "make","qrund"],
+			"args": [
+				"make",
+				"qrund"
+			]
 		},
 		{
 			"label": "gcc build",
@@ -63,16 +75,24 @@
 				"-I${env:NMPP}/include",
 				"-L${env:MC12101}/lib",
 				"-L${env:NMPP}/lib",
-				"-Wall","../../pc/hash64.cpp", "../../common/hadamard_init.cpp", "main.cpp","-o","result",
-				"-lnmpp-x64",
+				"-Wall",
+				"../../pc/hash64.cpp",
+				"../../common/hadamard_init.cpp",
+				"main.cpp",
+				"-o",
+				"result",
+				"-lnmpp-x64"
 			],
 			"type": "shell"
 		},
 		{
 			"label": "gcc run",
 			"command": ".\\result.exe",
-			"type": "shell"
-		},
+			"type": "shell",
+			"problemMatcher": [
+				"$gcc"
+			]
+		}
 	],
 
 
