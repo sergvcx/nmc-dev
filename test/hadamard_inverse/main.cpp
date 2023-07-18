@@ -25,6 +25,7 @@ int main()
 
 	int hash1 = 0;
 	int hash2 = 0;
+	int return_code;
 
 	for (int i = 32; i <= size_had; i<<=1) {
 		hash1 ^= nmppsHash64u((long long *) A_had, i*i/2);
@@ -37,5 +38,9 @@ int main()
 		hash2 ^= nmppsHash64u((long long *) A_had, i*i/2);
 	}
 
-	return hash1 ^ hash2;
+	return_code = hash1^hash2;
+
+	printf("return code = 0x%0x\n", return_code);
+
+	return return_code;
 }
