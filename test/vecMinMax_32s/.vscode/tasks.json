@@ -63,6 +63,25 @@
             "label": "rpc run",
             "command": "make rpc",
             "type": "shell"
+        },
+        {
+            "label": "gcc build",
+            "command": "gcc",
+            "args": [
+                "-Wall",
+                "-I../../include/",
+                "../../common/dataInit.cpp",
+                "../../pc/vecMinMax_C.cpp",
+                "../../pc/hash_C.cpp",
+                "main.cpp",
+                "-o",
+                "result"
+            ],
+            "type": "shell"
+        },
+        {
+            "label": "gcc run",
+            "command": "result.exe"
         }
     ],
     
