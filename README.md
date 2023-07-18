@@ -33,4 +33,20 @@ test_hadamard и так лежат в папке test. Соответсвенн�
 
 Для сборки тестов не хватает .ld файлов. Положить рядом с Makefile 
 
+# Запуск тестов
 
+Для следующих функций:
+
++ abs2
++ hadamard
++ hadamard_init
++ hadamard_init_sort
++ hadamard_inverse
++ hash64
++ minmax_qtbb
++ mulmm
++ mulmm_2col
+
+1. Открыть папку определенного теста в Visual Studio Code
+2. Запустить таск сборки: Ctrl+Shift+P ->  Run Task -> build board / build qemu / gcc build
+3. Запустить тест: Ctrl+Shift+P ->  Run Task -> board run / qemu run / gcc run
