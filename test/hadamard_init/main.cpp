@@ -1,3 +1,4 @@
+#include "stdio.h"
 #include "../../include/nmtype.h"
 #include "../../include/hadamard.h"
 
@@ -12,5 +13,9 @@ int main() {
 		hash ^= nmppsHash64u((long long *) H2, i*i/32);
 	}
 
-	return hash^0xf7939d8e;
+	int return_code = hash^0xf7939d8e;
+
+	printf("return code = 0x%0x\n", return_code);
+
+	return return_code;
 } 

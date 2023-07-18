@@ -1,3 +1,4 @@
+#include "stdio.h"
 #include "../include/nmtype.h"
 #include "../include/hadamard.h"
 #include "nmpp.h"
@@ -25,11 +26,12 @@ void nmppsHadamardInit(nm2s* H, int dim) {
 	}
 };
 
-void nmppsHadamardInitSort(const nm2s* srcNaturalOrderdMtr, nm2s* dstSequencyOrderedMtr, int dim) {
-	if (!isPowerOfTwo(dim)) return;
+int nmppsHadamardInitSort(const nm2s* srcNaturalOrderdMtr, nm2s* dstSequencyOrderedMtr, int dim) {
+	if (!isPowerOfTwo(dim)) return 1;
 
 	int *final_pos;
-	final_pos = (int *)malloc32(dim/16);
+	final_pos = (int *)malloc(dim*sizeof(int));
+	if (final_pos==NULL) return 2;
 
 	final_pos[0]=0;
 	for (int n = 1; n < dim; n+=n) {
@@ -44,5 +46,7 @@ void nmppsHadamardInitSort(const nm2s* srcNaturalOrderdMtr, nm2s* dstSequencyOrd
 		int* dst_addr = ((int*)dstSequencyOrderedMtr+(i*dim/16));
 		nmppsCopy_2s((nm2s*) src_addr, (nm2s*)dst_addr, dim);
 	}
+	
 	free(final_pos);
+	return 0;
 };
