@@ -1,5 +1,4 @@
-
-int hash_C( long long* sourceArray32s, int dim)
+extern "C" int hashRep32( long long* sourceArray32s, int dim)
 {
 	long long Array[32];
 	for(int i = 0; i < 32; i++)

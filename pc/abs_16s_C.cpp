@@ -1,6 +1,4 @@
-#include "stdio.h"
-
-void abs_16s(int* sourseArray16s, int* resultArray32s, int dim)
+extern "C" void abs_16s(int* sourseArray16s, int* resultArray32s, int dim)
 {
 	int j = 0;
 	for(int i = 0; i < dim; i += 2)

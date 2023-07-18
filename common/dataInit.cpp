@@ -1,34 +1,34 @@
 #include "stdio.h"
 #include "stdlib.h"
 
-void makeShortArray(int* a, int first, int last)
+extern "C" void makeShortArray(int* arrayPointer, int first, int last)
 {
 	int j = 0;
 	for(int i = first; i < last; i += 2)
 	{
 		if(i < 0)
-			*(a + j) = ((i + 2) << 16) + i;
+			*(arrayPointer + j) = ((i + 2) << 16) + i;
 		else
-			*(a + j) = ((i + 1) << 16) + i;
+			*(arrayPointer + j) = ((i + 1) << 16) + i;
 		j++;
 	}
 }
 
-void fillArray(int* a, int start, int end)
+void fillArray(int* arrayPointer, int start, int end)
 {
 	int cnt = 0;
 	for(int i = start; i < end; i++)
 	{
-		*(a + cnt) = i;
+		*(arrayPointer + cnt) = i;
 		cnt++;
 	}
 }
 
-void randArray(int* a, int size)
+void randArray(int* arrayPointer, int size)
 {
 	for(int i = 0; i < size; i++)
 	{
-		*(a + i) = rand() ^ (rand() << 31);
+		*(arrayPointer + i) = rand() ^ (rand() << 31);
 	}
 }
 

@@ -65,7 +65,7 @@
             "type": "shell"
         },
         {
-            "label": "gcc run",
+            "label": "gcc build",
             "command": "gcc",
             "args": [
                 "-Wall",
@@ -80,7 +80,7 @@
             "type": "shell"
         },
         {
-            "label": "run result",
+            "label": "gcc run",
             "command": "result.exe"
         }
     ],
