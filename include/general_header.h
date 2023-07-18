@@ -21,10 +21,6 @@ void minMaxMas_C ( int* a, int* b, int size );
 int vecMinMaxRep32 ( int* a, int* b, int size );
 
 //-----------------------------------------------------------------------------------------------Transpose--------------------------
-int transpose_2x2_32s ( int* FirstMatrix, int* SecondMatrix );
-int transpose_3x3_32s ( int* FirstMatrix, int* SecondMatrix );
-int transpose_4x4_32s ( int* FirstMatrix, int* SecondMatrix );
-int transpose_64x64_32s ( int* FirstMatrix, int* SecondMatrix );
 int nmppsTranspose ( int* FirstMatrix, int* SecondMatrix, int Height, int Width );
 
 #ifdef __cplusplus
