@@ -11,12 +11,6 @@ __attribute__((section(".data.imu1"))) long long res_min[size];
 __attribute__((section(".data.imu3"))) long long res_max[size];
 
 int main() {
-	// srand((unsigned) 36);
-	// for (int i = 0; i < size; i++) {
-	// 	arr1[i] = ((long long)rand()<<32) | (rand());
-	// 	arr2[i] = ((long long)rand()<<32) | (rand());
-	// }
-
 	arr1[0] = 0x7483ab3b99990c0c;
 	arr2[0] = 0x9988776655443322;
 	for (int i = 1; i < size; i++) {
