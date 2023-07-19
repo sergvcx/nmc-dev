@@ -31,7 +31,8 @@ void nmppsHadamardInverse(nm32s* src, nm32s* dst, nm2s* H, nm32s* temp, int size
 	// dst = (1/n * H *((1/n * H * src)^T))^T
 
 	int nShift = 0;
-	while (size >>= 1) nShift++; 
+	nSize = size;
+	while (nSize >>= 1) nShift++; 
 
 	nmppsMulMM_2s32s(H, size, size, src, temp, size);
 	nmppsRShiftC_32s(temp, nShift, dst, size*size);
