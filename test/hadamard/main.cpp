@@ -13,7 +13,7 @@ __attribute__((section(".data.imu2"))) long long A_had_result[size_had*(size_had
 int main()
 {
 	A_had[0]=7;
-	for (int i = 1; i < size_had*(size_had/2); i++) A_had[i] = (A_had[i-1]<<61)>>60;
+	for (int i = 1; i < size_had*(size_had/2); i++) A_had[i] = ((A_had[i-1]<<61)>>60) + i%16;
 
 	int hash=0;
 	int return_code;
@@ -26,7 +26,7 @@ int main()
 		hash ^= nmppsHash64u((long long *) A_had_result, i*i/2);
 	}
 
-	return_code = hash^0xfc800307;
+	return_code = hash^0x4123af23;
 
 	printf("return code = 0x%0x\n", return_code);
 
