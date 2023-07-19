@@ -2,15 +2,50 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "gcc build",
+			"command": "gcc",
+			"args": [
+				"-I${env:MC12101}/include",
+				"-I${env:NMPP}/include",
+				"-L${env:MC12101}/lib",
+				"-L${env:NMPP}/lib",
+				"-Wall",
+				"../../common/hadamard_init.cpp",
+				"../../common/mulmm.cpp",
+				"../../pc/mulmm_2col.cpp",
+				"wht_interpolation.cpp",
+				"-o",
+				"result",
+				"-lnmpp-x64"
+			],
+			"type": "shell",
+			"problemMatcher": [
+				"$gcc"
+			]
+		},
+		{
+			"label": "gcc run",
+			"command": ".\\result.exe",
+			"type": "shell"
+		},
+		{
 			"type": "cppbuild",
 			"label": "C/C++: g++.exe build active file",
 			"command": "C:\\Users\\anastasia\\gcc\\bin\\g++.exe",
 			"args": [
+				"-I${env:MC12101}/include",
+				"-I${env:NMPP}/include",
+				"-L${env:MC12101}/lib",
+				"-L${env:NMPP}/lib",
 				"-fdiagnostics-color=always",
 				"-g",
 				"${file}",
+				"../../common/hadamard_init.cpp",
+				"../../common/mulmm.cpp",
+				"../../pc/mulmm_2col.cpp",
 				"-o",
-				"${fileDirname}\\${fileBasenameNoExtension}.exe"
+				"${fileDirname}\\${fileBasenameNoExtension}.exe",
+				"-lnmpp-x64"
 			],
 			"options": {
 				"cwd": "${fileDirname}"
