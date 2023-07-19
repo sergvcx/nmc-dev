@@ -43,6 +43,7 @@
 				"../../common/hadamard_init.cpp",
 				"../../common/mulmm.cpp",
 				"../../pc/mulmm_2col.cpp",
+				"../../pc/transpose.cpp",
 				"-o",
 				"${fileDirname}\\${fileBasenameNoExtension}.exe",
 				"-lnmpp-x64"

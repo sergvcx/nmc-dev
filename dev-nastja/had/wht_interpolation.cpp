@@ -11,6 +11,7 @@ int image64[dim*dim];
 int interpolated_image[iDim*iDim];
 int spectrum[iDim*iDim];
 int temp[iDim*iDim];
+int Y[iDim*iDim];
 
 long long H[iDim*(iDim/32)];
 
@@ -48,16 +49,30 @@ int main(int argc, char const *argv[]) {
 	memset(filter, 0, iDim*iDim*sizeof(int));
 	for (int i = 0; i < iDim; i++) {
 		for (int j = 0; j < iDim; j++) {
-			if (i<=j) filter[i*iDim+j] = 1;
+			if (i+j<iDim) filter[i*iDim+j] = 1;
 		}
 	}
+
+	// convolution Y = spectrum*filter
+	nmppmMul_mm_32s32s( spectrum, iDim, iDim, filter, Y, iDim);
+
+	// reconstructed image
+	// y = 2 * (interpolated_image)^T * Y * interpolated_image
+	nmppsTranspose(interpolated_image, spectrum, iDim, iDim);
+	nmppmMul_mm_32s32s( spectrum, iDim, iDim, Y, temp, iDim);
+	nmppmMul_mm_32s32s( Y, iDim, iDim, temp, spectrum, iDim);
+	// nmppsLShiftC_32s(spectrum, 1, interpolated_image, iDim*iDim);
 
 	// writing interpolated image data to txt
 	std::ofstream result;
 	result.open ("interpolated_image.txt");
 	for (int i = 0; i < iDim; i++) {
 		for (int j = 0; j < iDim; j++) {
-			result << interpolated_image[i*iDim+j];
+			// result << interpolated_image[i*iDim+j];
+			// result << filter[i*iDim+j];
+			result << spectrum[i*iDim+j];
+			// result << temp[i*iDim+j];
+			// result << Y[i*iDim+j];
 			if (j!=iDim-1) result << " ";
 		}
 		if (i!=iDim-1) result << "\n";
