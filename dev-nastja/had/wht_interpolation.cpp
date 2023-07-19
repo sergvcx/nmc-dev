@@ -60,7 +60,7 @@ int main(int argc, char const *argv[]) {
 	// y = 2 * (interpolated_image)^T * Y * interpolated_image
 	nmppsTranspose(interpolated_image, spectrum, iDim, iDim);
 	nmppmMul_mm_32s32s( spectrum, iDim, iDim, Y, temp, iDim);
-	nmppmMul_mm_32s32s( Y, iDim, iDim, temp, spectrum, iDim);
+	nmppmMul_mm_32s32s( temp, iDim, iDim, interpolated_image, spectrum, iDim);
 	// nmppsLShiftC_32s(spectrum, 1, interpolated_image, iDim*iDim);
 
 	// writing interpolated image data to txt
