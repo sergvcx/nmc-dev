@@ -36,8 +36,6 @@ bool isFit( triangle srcTriangle, int maxHeight, int maxWidth)
 		max(b.x, c.x) - min(b.x, c.x) <= maxHeight &&
 		max(a.x, c.x) - min(a.x, c.x) <= maxHeight
 	)
-	*/
-	//это тоже самое что модуль разности
 	if(	srcTriangle.a.x - srcTriangle.b.x <= maxWidth &&
 		srcTriangle.b.x - srcTriangle.a.x <= maxWidth &&
 		srcTriangle.b.x - srcTriangle.c.x <= maxWidth &&
@@ -50,6 +48,14 @@ bool isFit( triangle srcTriangle, int maxHeight, int maxWidth)
 		srcTriangle.c.y - srcTriangle.b.y <= maxHeight &&
 		srcTriangle.a.y - srcTriangle.c.y <= maxHeight &&
 		srcTriangle.c.y - srcTriangle.a.y <= maxHeight
+	)
+	*/
+	if(	abs( srcTriangle.a.x - srcTriangle.b.x ) <= maxWidth &&
+		abs( srcTriangle.b.x - srcTriangle.c.x ) <= maxWidth &&
+		abs( srcTriangle.c.x - srcTriangle.a.x ) <= maxWidth &&
+		abs( srcTriangle.a.y - srcTriangle.b.y ) <= maxHeight &&
+		abs( srcTriangle.b.y - srcTriangle.c.y ) <= maxHeight &&
+		abs( srcTriangle.c.y - srcTriangle.a.y ) <= maxHeight
 	)
 		return true;
 	
