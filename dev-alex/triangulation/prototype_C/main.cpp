@@ -94,7 +94,7 @@ void partition( triangle triangleToPart, TrianglePointers* newTriangles, int new
 	{
 		newVertex.x = abs(triangleToPart.a.x - triangleToPart.b.x);
 		newVertex.y = abs(triangleToPart.a.y - triangleToPart.b.y);
-		newVertex.x = abs(triangleToPart.a.z - triangleToPart.b.z);
+		newVertex.z = abs(triangleToPart.a.z - triangleToPart.b.z);
 
 		newTriangles->v0.x[newTrianglesIndex] = triangleToPart.a.x;
 		newTriangles->v0.y[newTrianglesIndex] = triangleToPart.a.y;
@@ -120,7 +120,7 @@ void partition( triangle triangleToPart, TrianglePointers* newTriangles, int new
 	{
 		newVertex.x = abs(triangleToPart.c.x - triangleToPart.b.x);
 		newVertex.y = abs(triangleToPart.c.y - triangleToPart.b.y);
-		newVertex.x = abs(triangleToPart.c.z - triangleToPart.b.z);
+		newVertex.z = abs(triangleToPart.c.z - triangleToPart.b.z);
 		
 		newTriangles->v0.x[newTrianglesIndex] = triangleToPart.a.x;
 		newTriangles->v0.y[newTrianglesIndex] = triangleToPart.a.y;
@@ -146,7 +146,7 @@ void partition( triangle triangleToPart, TrianglePointers* newTriangles, int new
 	{
 		newVertex.x = abs(triangleToPart.c.x - triangleToPart.a.x);
 		newVertex.y = abs(triangleToPart.c.y - triangleToPart.a.y);
-		newVertex.x = abs(triangleToPart.c.z - triangleToPart.a.z);
+		newVertex.z = abs(triangleToPart.c.z - triangleToPart.a.z);
 		
 		newTriangles->v0.x[newTrianglesIndex] = triangleToPart.a.x;
 		newTriangles->v0.y[newTrianglesIndex] = triangleToPart.a.y;
@@ -207,16 +207,17 @@ void triangulation_C(	TrianglePointers* srcVertex, int srcCount,
 		{
 			triangleObject.a.x = trianglesArrayToCheck->v0.x[i];
 			triangleObject.a.y = trianglesArrayToCheck->v0.y[i];
-			//triangleObject.a.z = trianglesArrayToCheck->v0.z[i];
+			triangleObject.a.z = trianglesArrayToCheck->v0.z[i];
 			triangleObject.b.x = trianglesArrayToCheck->v1.x[i];
 			triangleObject.b.y = trianglesArrayToCheck->v1.y[i];
-			//triangleObject.b.z = trianglesArrayToCheck->v1.z[i];
+			triangleObject.b.z = trianglesArrayToCheck->v1.z[i];
 			triangleObject.c.x = trianglesArrayToCheck->v2.x[i];
 			triangleObject.c.y = trianglesArrayToCheck->v2.y[i];
-			//triangleObject.c.z = trianglesArrayToCheck->v2.z[i];
+			triangleObject.c.z = trianglesArrayToCheck->v2.z[i];
 
 			if( !isFit( triangleObject, maxHeight, maxWidth ) )
 				triangulationFlags[i] = 1;
+			printf("\n\n%d\n\n", triangulationFlags[0]);
 		}
 		//isFit and partition funcs can be united into one
 		for(int i = 0; i < checkForFitCount; i++)
@@ -233,7 +234,11 @@ void triangulation_C(	TrianglePointers* srcVertex, int srcCount,
 			if( triangulationFlags[i] )
 			{
 				partition( triangleObject, trianglesArrayToCheckNew, checkForFitCountNew);
+				printf("\nsrcTreatedCount[0] = %d\n", srcTreatedCount[0]);
+				printf("\nsrcTreatedCount addr = %p\n", srcTreatedCount);
 				++srcTreatedCount;
+				printf("\nsrcTreatedCount[0] = %d\n", srcTreatedCount[0]);
+				printf("\nsrcTreatedCount addr = %p\n", srcTreatedCount);
 				checkForFitCountNew += 2;
 			}
 			else
@@ -249,9 +254,60 @@ void triangulation_C(	TrianglePointers* srcVertex, int srcCount,
 	}
 }
 
+void initTrianglesArray( TrianglePointers* triangleArray, int dim )
+{
+	for(int i = 0; i < dim; ++i)
+	{
+		triangleArray->v0.x[i] = i;
+		triangleArray->v0.y[i] = i;
+		triangleArray->v0.z[i] = i;
+		triangleArray->v1.x[i] = i + 3;
+		triangleArray->v1.y[i] = i + 1;
+		triangleArray->v1.z[i] = i + 1;
+		triangleArray->v2.x[i] = i + 2;
+		triangleArray->v2.y[i] = i + 3;
+		triangleArray->v2.z[i] = i + 2;
+	}
+}
+
+const int size = 1;
+const int maximumDestinationSize = 6;
+
 int main()
 {
+	//---------------------------------------------------------------first-test-try-----------------
+	//TrianglePointers (10 float fields and 1 int) x 3
+	TrianglePointers testTrianglesArray[size];
+	TrianglePointers testResultTrianglesArray[maximumDestinationSize];
+	int treatedCounter = 0;
+
+	testTrianglesArray[0] = TrianglePointers();
+
+	//initTrianglesArray(testTrianglesArray, size);
+	testTrianglesArray->v0.x[0] = 0;
+	testTrianglesArray->v0.y[0] = 0;
+	testTrianglesArray->v0.z[0] = 0;
+	testTrianglesArray->v1.x[0] = 3;
+	testTrianglesArray->v1.y[0] = 1;
+	testTrianglesArray->v1.z[0] = 1;
+	testTrianglesArray->v2.x[0] = 2;
+	testTrianglesArray->v2.y[0] = 3;
+	testTrianglesArray->v2.z[0] = 2;
+
+	printf("\nTriangle point a: ( %f; %f )", testTrianglesArray->v0.x[0], testTrianglesArray->v0.y[0]);
+	printf("\nTriangle point b: ( %f; %f )", testTrianglesArray->v1.x[0], testTrianglesArray->v1.y[0]);
+	printf("\nTriangle point c: ( %f; %f )\n", testTrianglesArray->v2.x[0], testTrianglesArray->v2.y[0]);
+
+	triangulation_C(testTrianglesArray, size, 2, 2, maximumDestinationSize, testResultTrianglesArray, &treatedCounter);
 	
+	for(int i = 0; i < size + treatedCounter; ++i)
+	{
+		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testResultTrianglesArray->v0.x, testResultTrianglesArray->v0.y);
+		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testResultTrianglesArray->v1.x, testResultTrianglesArray->v1.y);
+		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray->v2.x, testResultTrianglesArray->v2.y);
+	}
+	
+
 	return 0;
 }
 
