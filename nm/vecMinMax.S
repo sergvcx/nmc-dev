@@ -65,7 +65,6 @@ Condition_32:
 	gr1 = ar1;
 	gr2 = ar2;
 	
-	ar2++;												// !!! qemu will throw error because of odd addr on sizes < 64
 	goto Condition_1;
 Cycle_1:
 	rep 1 ram = [ar2];									// ram = b

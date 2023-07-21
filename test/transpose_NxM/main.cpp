@@ -1,8 +1,8 @@
 #include "stdio.h"
 #include "../../include/general_header.h"
 
-const int matrixHeight = 160;//128;
-const int matrixWidth = 160;//128;
+const int matrixHeight = 128;
+const int matrixWidth = 128;
 int givenMatrix[matrixHeight * matrixWidth] __attribute__ ((section (".data.imu0")));
 int resultMatrix[matrixHeight * matrixWidth] __attribute__ ((section (".data.imu1")));
 int resultMatrix_C[matrixHeight * matrixWidth];
