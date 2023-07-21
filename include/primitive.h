@@ -8,28 +8,16 @@
  *  \author Жиленков Иван
  */
 struct CombinePointers {
-	float x[1];
-	float y[1];
-	float z[1];
-	float w[1];
+	float * x;
+	float * y;
+	float * z;
+	float * w;
 	// TEXTURING PART
-	float s[1];
-	float t[1];
+	float * s;
+	float * t;
 	// TEXTURING PART
-	v4nm32f color[1];
+	v4nm32f * color;
 	int dummy;
-
-	CombinePointers()
-	{
-		x[0] = 0;
-		y[0] = 0;
-		z[0] = 0;
-		w[0] = 0;
-		s[0] = 0;
-		t[0] = 0;
-		color[0] = {0, 0, 0, 0};
-		dummy = 0;
-	}
 };
 
 
@@ -41,13 +29,6 @@ struct TrianglePointers {
 	CombinePointers v0;
 	CombinePointers v1;
 	CombinePointers v2;
-
-	TrianglePointers() 
-	{
-		v0 = CombinePointers();
-		v1 = CombinePointers();
-		v2 = CombinePointers();
-	}
 };
 
 /*!
