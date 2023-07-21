@@ -345,8 +345,8 @@ void initTrianglesArray( TrianglePointers* triangleArray, int dim )
 	}
 }
 
-const int size = 1;
-const int maximumDestinationSize = 6;
+const int size = 2;
+const int maximumDestinationSize = 8;
 
 int main()
 {
@@ -391,10 +391,20 @@ int main()
 	testTrianglesArray.v2.x[0] = 2;
 	testTrianglesArray.v2.y[0] = 3;
 
+	testTrianglesArray.v0.x[1] = 3;
+	testTrianglesArray.v0.y[1] = 2;
+	testTrianglesArray.v1.x[1] = 4;
+	testTrianglesArray.v1.y[1] = 6;
+	testTrianglesArray.v2.x[1] = 5;
+	testTrianglesArray.v2.y[1] = 1;
+
 	printf("\nGiven Triangle:");
-	printf("\nTriangle point a: ( %f; %f )", testTrianglesArray.v0.x[0], testTrianglesArray.v0.y[0]);
-	printf("\nTriangle point b: ( %f; %f )", testTrianglesArray.v1.x[0], testTrianglesArray.v1.y[0]);
-	printf("\nTriangle point c: ( %f; %f )\n", testTrianglesArray.v2.x[0], testTrianglesArray.v2.y[0]);
+	for(int i = 0; i < size; ++i)
+	{
+		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testTrianglesArray.v0.x[i], testTrianglesArray.v0.y[i]);
+		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testTrianglesArray.v1.x[i], testTrianglesArray.v1.y[i]);
+		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testTrianglesArray.v2.x[i], testTrianglesArray.v2.y[i]);
+	}
 
 	triangulation_C( &testTrianglesArray, size, 2, 2, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
 
