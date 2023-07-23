@@ -39,6 +39,7 @@ int main(int argc, char const *argv[]) {
 	// computing spectrum
 	// X = (1/(2^k))*H*x
 	nmppsHadamardInit(H, iDim);
+	// dyadic sort
 	nmppsMulMM_2s32s(H, iDim, iDim, interpolated_image, temp, iDim);
 	int nShift = 0;
 	int nDim = iDim;
