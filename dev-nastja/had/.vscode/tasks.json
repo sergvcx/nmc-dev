@@ -40,6 +40,7 @@
 				"-fdiagnostics-color=always",
 				"-g",
 				"${file}",
+				"../../common/hadamard.cpp",
 				"../../common/hadamard_init.cpp",
 				"../../common/mulmm.cpp",
 				"../../pc/mulmm_2col.cpp",
