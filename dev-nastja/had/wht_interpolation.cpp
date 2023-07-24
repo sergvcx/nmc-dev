@@ -14,8 +14,17 @@ int temp[iDim*iDim];
 int Y[iDim*iDim];
 
 long long H[iDim*(iDim/32)];
+long long H_seq[iDim*(iDim/32)];
 
 int filter[iDim*iDim];
+
+void getHadamardProduct_32s(nm32s *srcA, nm32s *srcB, nm32s *dst, int height, int width) {
+	for (int i = 0; i < height; i++) {
+		for (int j = 0; j < width; j++) {
+			dst[i*width+j] = srcA[i*width+j] * srcB[i*width+j];
+		}
+	}
+};
 
 int main(int argc, char const *argv[]) {
 
@@ -36,6 +45,27 @@ int main(int argc, char const *argv[]) {
 		}
 	}
 
+	// Hadamard transform
+	nmppsHadamardInit(H, iDim);
+	nmppsHadamardInitSort(H, H_seq, iDim);
+	nmppsHadamard(interpolated_image, spectrum, H_seq, temp, iDim);
+
+	// generating filter
+	memset(filter, 0, iDim*iDim*sizeof(int));
+	for (int i = 0; i < iDim; i++) {
+		for (int j = 0; j < iDim; j++) {
+			if ((i+j<iDim-1)&&(i<=dim)) filter[i*iDim+j] = 1;
+			if ((i+j<iDim)&&(i>dim)) filter[i*iDim+j] = 1;
+		}
+	}
+
+	// applying filter
+	getHadamardProduct_32s(spectrum, filter, Y, iDim, iDim);
+
+	// inverse Hadamard transform
+	nmppsHadamardInverse(Y, interpolated_image, H_seq, temp, iDim);
+
+	/*
 	// computing spectrum
 	// X = (1/(2^k))*H*x
 	nmppsHadamardInit(H, iDim);
@@ -63,15 +93,16 @@ int main(int argc, char const *argv[]) {
 	nmppmMul_mm_32s32s( spectrum, iDim, iDim, Y, temp, iDim);
 	nmppmMul_mm_32s32s( temp, iDim, iDim, interpolated_image, spectrum, iDim);
 	// nmppsLShiftC_32s(spectrum, 1, interpolated_image, iDim*iDim);
+	*/
 
 	// writing interpolated image data to txt
 	std::ofstream result;
 	result.open ("interpolated_image.txt");
 	for (int i = 0; i < iDim; i++) {
 		for (int j = 0; j < iDim; j++) {
-			// result << interpolated_image[i*iDim+j];
+			result << interpolated_image[i*iDim+j];
 			// result << filter[i*iDim+j];
-			result << spectrum[i*iDim+j];
+			// result << spectrum[i*iDim+j];
 			// result << temp[i*iDim+j];
 			// result << Y[i*iDim+j];
 			if (j!=iDim-1) result << " ";
