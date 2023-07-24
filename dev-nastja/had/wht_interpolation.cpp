@@ -56,11 +56,38 @@ int main(int argc, char const *argv[]) {
 		for (int j = 0; j < iDim; j++) {
 			if ((i+j<iDim-1)&&(i<=dim)) filter[i*iDim+j] = 1;
 			if ((i+j<iDim)&&(i>dim)) filter[i*iDim+j] = 1;
+			/* filter type 3
+			if ((i+j<iDim-1)) filter[i*iDim+j] = 1;
+			*/
+			/* filter type 4
+			if ((i+j<iDim-1)) filter[i*iDim+j] = 2;
+			if ((i+j==iDim)) filter[i*iDim+j] = 1;
+			*/
 		}
 	}
 
 	// applying filter
 	getHadamardProduct_32s(spectrum, filter, Y, iDim, iDim);
+	/* filter type 4
+	for (int i = 0; i < iDim; i++) {
+		for (int j = 0; j < iDim; j++) {
+			switch (filter[i*iDim+j]) {
+			case 0:
+				Y[i*iDim+j] = 0;
+				break;
+			case 1:
+				Y[i*iDim+j] = spectrum[i*iDim+j]>>1;
+				break;
+			case 2:
+				Y[i*iDim+j] = spectrum[i*iDim+j];
+				break;
+			
+			default:
+				break;
+			}
+		}
+	}
+	*/
 
 	// inverse Hadamard transform
 	nmppsHadamardInverse(Y, interpolated_image, H_seq, temp, iDim);
