@@ -41,7 +41,8 @@ int main(int argc, char const *argv[]) {
 	memset(interpolated_image, 0, iDim*iDim*sizeof(int));
 	for (int i = 0; i < dim; i++) {
 		for (int j = 0; j < dim; j++) {
-		interpolated_image[(i*iDim+j)*2] = image64[i*dim+j];
+			if (i%2==0) interpolated_image[i*iDim+j*2] = image64[i*dim+j];
+			else interpolated_image[i*iDim+j*2+1] = image64[i*dim+j];
 		}
 	}
 
@@ -54,9 +55,10 @@ int main(int argc, char const *argv[]) {
 	memset(filter, 0, iDim*iDim*sizeof(int));
 	for (int i = 0; i < iDim; i++) {
 		for (int j = 0; j < iDim; j++) {
+			// filter type 3
 			if ((i+j<iDim-1)&&(i<=dim)) filter[i*iDim+j] = 1;
 			if ((i+j<iDim)&&(i>dim)) filter[i*iDim+j] = 1;
-			/* filter type 3
+			/* my filter
 			if ((i+j<iDim-1)) filter[i*iDim+j] = 1;
 			*/
 			/* filter type 4
