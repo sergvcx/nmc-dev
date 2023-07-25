@@ -6,6 +6,21 @@
 #include "../../../include/nmtype.h"
 #include "nmpp.h"
 
+struct point
+{
+	float x;
+	float y;
+	float z;
+
+	point () { x = 0; y = 0; z = 0; }
+};
+struct triangle
+{
+	point a;
+	point b;
+	point c;
+};
+
 long long masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags )
 {
 	float * dXab = (float*)malloc(srcCount * sizeof(float));
@@ -87,7 +102,15 @@ long long masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, in
 		flags[i] |= oddFlags[i];
 	}
 
-	//free
+	free(dXab);
+	free(dXbc);
+	free(dXac);
+	free(dYab);
+	free(dYbc);
+	free(dYac);
+	free(constant);
+	free(oddFlags);
+	free(evenFlags);
 }
 
 void sort( 	TrianglePointers * srcTriangles, int srcCount,
@@ -143,11 +166,29 @@ void sort( 	TrianglePointers * srcTriangles, int srcCount,
 	}
 }
 
-float squareSum( float  )
-
-int maxEdge( float edge1, float edge2, float edge3 )
+float squareSum( float * edgeArray, float * dX, float * dY, int edgeCount )
 {
+	for(int i = 0; i < edgeCount; ++i)
+	{
+		edgeArray[i] = dX[i] * dX[i] + dY[i] * dY[i];
+	}
+}
 
+int maxEdge( int * maxEdgeArray, float * edge1, float * edge2, float * edge3, int edgeCount )
+{
+	for(int i = 0; i < edgeCount; ++i)
+	{
+		if( edge1[i] > edge2[i] )
+			if( edge1[i] > edge3[i] )
+				maxEdgeArray[i] = 1;
+			else
+				maxEdgeArray[i] = 3;
+		else
+			if( edge2[i] > edge3[i] )
+				maxEdgeArray[i] = 2;
+			else
+				maxEdgeArray[i] = 3;
+	}
 }
 
 void split( TrianglePointers * toSplitTriangles, int toSplitTrianglesCount,
@@ -175,11 +216,69 @@ void split( TrianglePointers * toSplitTriangles, int toSplitTrianglesCount,
 	float * edge2 = (float*)malloc(toSplitTrianglesCount * sizeof(float));
 	float * edge3 = (float*)malloc(toSplitTrianglesCount * sizeof(float));
 
+	squareSum( edge1, dXab, dYab, toSplitTrianglesCount );
+	squareSum( edge2, dXbc, dYbc, toSplitTrianglesCount );
+	squareSum( edge3, dXac, dYac, toSplitTrianglesCount );
+	maxEdge( maxEdgeArray, edge1, edge2, edge3, toSplitTrianglesCount );
+
+	point temporary = point();
+
 	for(int i = 0; i < toSplitTrianglesCount; ++i)
 	{
-		edge1[i] = squareSum( dXab, dYab );
-		maxEdgeArray[i] = maxEdge( edge1[i], edge2[i], edge3[i] );
+		if( maxEdgeArray[i] == 2 )
+		{
+			temporary.x = toSplitTriangles->v2.x[i];
+			temporary.y = toSplitTriangles->v2.y[i];
+			toSplitTriangles->v2.x[i] = toSplitTriangles->v0.x[i];
+			toSplitTriangles->v2.y[i] = toSplitTriangles->v0.y[i];
+			toSplitTriangles->v0.x[i] = toSplitTriangles->v1.x[i];
+			toSplitTriangles->v0.y[i] = toSplitTriangles->v1.y[i];
+			toSplitTriangles->v1.x[i] = temporary.x;
+			toSplitTriangles->v1.y[i] = temporary.y;
+		}
+		else if( maxEdgeArray[i] == 3 )
+		{
+			temporary.x = toSplitTriangles->v2.x[i];
+			temporary.y = toSplitTriangles->v2.y[i];
+			toSplitTriangles->v2.x[i] = toSplitTriangles->v1.x[i];
+			toSplitTriangles->v2.y[i] = toSplitTriangles->v1.y[i];
+			toSplitTriangles->v1.x[i] = temporary.x;
+			toSplitTriangles->v1.y[i] = temporary.y;
+		}
 	}
+
+	for(int i = 0; i < toSplitTrianglesCount; ++i)
+	{
+		temporary.x = (toSplitTriangles.a.x + toSplitTriangles.b.x) / 2;
+		temporary.y = (toSplitTriangles.a.y + toSplitTriangles.b.y) / 2;
+
+		splittedTriangles.v0.x[splittedTrianglesCount] = toSplitTriangles.a.x;
+		splittedTriangles.v0.y[splittedTrianglesCount] = toSplitTriangles.a.y;
+		splittedTriangles.v1.x[splittedTrianglesCount] = toSplitTriangles.c.x;
+		splittedTriangles.v1.y[splittedTrianglesCount] = toSplitTriangles.c.y;
+		splittedTriangles.v2.x[splittedTrianglesCount] = temporary.x;
+		splittedTriangles.v2.y[splittedTrianglesCount] = temporary.y;
+
+		splittedTriangles.v0.x[splittedTrianglesCount + 1] = toSplitTriangles.b.x;
+		splittedTriangles.v0.y[splittedTrianglesCount + 1] = toSplitTriangles.b.y;
+		splittedTriangles.v1.x[splittedTrianglesCount + 1] = toSplitTriangles.c.x;
+		splittedTriangles.v1.y[splittedTrianglesCount + 1] = toSplitTriangles.c.y;
+		splittedTriangles.v2.x[splittedTrianglesCount + 1] = temporary.x;
+		splittedTriangles.v2.y[splittedTrianglesCount + 1] = temporary.y;
+
+		(*splittedTrianglesCount) += 2;
+	}
+	
+	free(dXab);
+	free(dXbc);
+	free(dXac);
+	free(dYab);
+	free(dYbc);
+	free(dYac);
+	free(edge1);
+	free(edge2);
+	free(edge3);
+	free(maxEdgeArray);
 }
 
 void triangulation(	TrianglePointers* srcVertex, int srcCount,
@@ -235,17 +334,31 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 	toSplitTriangles.v2.x = cxNew;
 	toSplitTriangles.v2.y = cyNew;
 
-
 	while ( currentDstCount <= maxDstSize && checkForFitCount != 0 )
 	{
 		masks( trianglesArrayToCheck, checkForFitCount, maxWidth, maxHeight, flags );
 
 		sort( trianglesArrayToCheck, checkForFitCount, toSplitTriangles, toSplitTrianglesCount, dstVertex, currentDstCount, flags );
 
-		//if( toSplitTrianglesCount != 0 )
-		//	split(  );
+		checkForFitCount = 0;
+
+		if( toSplitTrianglesCount != 0 )
+			split( toSplitTriangles, toSplitTrianglesCount, trianglesArrayToCheck, checkForFitCount );
 	}
-	//free
+	
+	free(flags);
+	free(ax);
+	free(ay);
+	free(bx);
+	free(by);
+	free(cx);
+	free(cy);
+	free(axNew);
+	free(ayNew);
+	free(bxNew);
+	free(byNew);
+	free(cxNew);
+	free(cyNew);
 }
 
 const int size = 2;
@@ -253,8 +366,6 @@ const int maximumDestinationSize = 8;
 
 int main()
 {
-	//-------------------------------------------------------first-test-try-----------------
-	//TrianglePointers (10 float fields and 1 int) x 3
 	TrianglePointers testResultTrianglesArray;
 	int treatedCounter = 0;
 
