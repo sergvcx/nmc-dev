@@ -19,8 +19,8 @@ long long masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, in
 	constant[0] = maxWidth;
 	constant[1] = maxHeight;
 
-	int * evenFlags = (int*)malloc((srcCount / 64) * sizeof(float));
-	int * oddFlags = (int*)malloc((srcCount / 64) * sizeof(float));
+	int * evenFlags = (int*)malloc((srcCount / 64) * sizeof(int));
+	int * oddFlags = (int*)malloc((srcCount / 64) * sizeof(int));
 
 	for(int i = 0; i < srcCount; ++i)
 	{
@@ -143,9 +143,43 @@ void sort( 	TrianglePointers * srcTriangles, int srcCount,
 	}
 }
 
-void split(  )
+float squareSum( float  )
+
+int maxEdge( float edge1, float edge2, float edge3 )
 {
 
+}
+
+void split( TrianglePointers * toSplitTriangles, int toSplitTrianglesCount,
+			TrianglePointers * splittedTriangles, int * splittedTrianglesCount )
+{
+	float * dXab = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+	float * dXbc = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+	float * dXac = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+	float * dYab = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+	float * dYbc = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+	float * dYac = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+
+	for(int i = 0; i < toSplitTrianglesCount; ++i)
+	{
+		dXab[i] = toSplitTriangles->v0.x[i] - toSplitTriangles->v1.x[i];
+		dXbc[i] = toSplitTriangles->v1.x[i] - toSplitTriangles->v2.x[i];
+		dXac[i] = toSplitTriangles->v0.x[i] - toSplitTriangles->v2.x[i];
+		dYab[i] = toSplitTriangles->v0.y[i] - toSplitTriangles->v1.y[i];
+		dYbc[i] = toSplitTriangles->v1.y[i] - toSplitTriangles->v2.y[i];
+		dYac[i] = toSplitTriangles->v0.y[i] - toSplitTriangles->v2.y[i];
+	}
+
+	int * maxEdgeArray = (int*)malloc(toSplitTrianglesCount * sizeof(int));
+	float * edge1 = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+	float * edge2 = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+	float * edge3 = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+
+	for(int i = 0; i < toSplitTrianglesCount; ++i)
+	{
+		edge1[i] = squareSum( dXab, dYab );
+		maxEdgeArray[i] = maxEdge( edge1[i], edge2[i], edge3[i] );
+	}
 }
 
 void triangulation(	TrianglePointers* srcVertex, int srcCount,
@@ -157,7 +191,7 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 	int checkForFitCount = srcCount;
 	int toSplitTrianglesCount = 0;
 	
-	int * flags = (int*)malloc((maxDstSize / 32) * sizeof(float));
+	int * flags = (int*)malloc((maxDstSize / 32) * sizeof(int));
 
 	TrianglePointers trianglesArrayToCheck;
 
@@ -211,6 +245,7 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 		//if( toSplitTrianglesCount != 0 )
 		//	split(  );
 	}
+	//free
 }
 
 const int size = 2;
