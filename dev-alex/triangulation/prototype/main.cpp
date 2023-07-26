@@ -21,83 +21,93 @@ struct triangle
 	point c;
 };
 
-long long masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags )
+void masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags )
 {
-	float * dXab = (float*)malloc(srcCount * sizeof(float));
-	float * dXbc = (float*)malloc(srcCount * sizeof(float));
-	float * dXac = (float*)malloc(srcCount * sizeof(float));
-	float * dYab = (float*)malloc(srcCount * sizeof(float));
-	float * dYbc = (float*)malloc(srcCount * sizeof(float));
-	float * dYac = (float*)malloc(srcCount * sizeof(float));
+	v2nm32f * dXab = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
+	v2nm32f * dXbc = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
+	v2nm32f * dXac = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
+	v2nm32f * dYab = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
+	v2nm32f * dYbc = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
+	v2nm32f * dYac = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
 	
-	float * constant = (float*)malloc(2 * sizeof(float));
-	constant[0] = maxWidth;
-	constant[1] = maxHeight;
+	v2nm32f maxWidthConstant;
+	maxWidthConstant.v0 = maxWidth;
+	maxWidthConstant.v1 = maxWidth;
+	v2nm32f maxHeightConstant;
+	maxHeightConstant.v0 = maxHeight;
+	maxHeightConstant.v1 = maxHeight;
 
-	int * evenFlags = (int*)malloc((srcCount / 64) * sizeof(int));
-	int * oddFlags = (int*)malloc((srcCount / 64) * sizeof(int));
+	int * evenFlags = (int*)malloc((srcCount / 64 + 1) * sizeof(int));
+	int * oddFlags = (int*)malloc((srcCount / 64 + 1) * sizeof(int));
 
-	for(int i = 0; i < srcCount; ++i)
+	for(int i = 0; i < srcCount / 2; ++i)
 	{
-		dXab[i] = abs(srcTriangles->v0.x[i] - srcTriangles->v1.x[i]);
-		dXbc[i] = abs(srcTriangles->v1.x[i] - srcTriangles->v2.x[i]);
-		dXac[i] = abs(srcTriangles->v0.x[i] - srcTriangles->v2.x[i]);
-		dYab[i] = abs(srcTriangles->v0.y[i] - srcTriangles->v1.y[i]);
-		dYbc[i] = abs(srcTriangles->v1.y[i] - srcTriangles->v2.y[i]);
-		dYac[i] = abs(srcTriangles->v0.y[i] - srcTriangles->v2.y[i]);
+		dXab[i].v0 = abs(srcTriangles->v0.x[i] - srcTriangles->v1.x[i]);
+		dXab[i].v1 = abs(srcTriangles->v0.x[i + 1] = srcTriangles->v1.x[i + 1]);
+		dXbc[i].v0 = abs(srcTriangles->v1.x[i] - srcTriangles->v2.x[i]);
+		dXbc[i].v0 = abs(srcTriangles->v1.x[i + 1] - srcTriangles->v2.x[i + 1]);
+		dXac[i].v0 = abs(srcTriangles->v0.x[i] - srcTriangles->v2.x[i]);
+		dXac[i].v0 = abs(srcTriangles->v0.x[i + 1] - srcTriangles->v2.x[i + 1]);
+		dYab[i].v0 = abs(srcTriangles->v0.y[i] - srcTriangles->v1.y[i]);
+		dYab[i].v0 = abs(srcTriangles->v0.y[i + 1] - srcTriangles->v1.y[i + 1]);
+		dYbc[i].v0 = abs(srcTriangles->v1.y[i] - srcTriangles->v2.y[i]);
+		dYbc[i].v0 = abs(srcTriangles->v1.y[i + 1] - srcTriangles->v2.y[i + 1]);
+		dYac[i].v0 = abs(srcTriangles->v0.y[i] - srcTriangles->v2.y[i]);
+		dYac[i].v0 = abs(srcTriangles->v0.y[i + 1] - srcTriangles->v2.y[i + 1]);
 	}
 	//sum masks into one
-	nmppsCmpLteC_v2nm32f (dXab, constant, evenFlags, oddFlags, 1, srcCount / 2);
-	for(i = 0; i < srcCount / 64; ++i)
+	int step = 1;
+	nmppsCmpLteC_v2nm32f (dXab, &maxWidthConstant, evenFlags, oddFlags, step, srcCount / 2);
+	for(int i = 0; i < srcCount / 64; ++i)
 	{
 		flags[i] = evenFlags[i];
 	}
-	for(i = srcCount / 64; i < srcCount / 32; ++i)
+	for(int i = srcCount / 64; i < srcCount / 32; ++i)
 	{
 		flags[i] = oddFlags[i];
 	}
-	nmppsCmpLteC_v2nm32f (dXbc, constant, evenFlags, oddFlags, 1, srcCount / 2);
-	for(i = 0; i < srcCount / 64; ++i)
+	nmppsCmpLteC_v2nm32f (dXbc, &maxWidthConstant, evenFlags, oddFlags, step, srcCount / 2);
+	for(int i = 0; i < srcCount / 64; ++i)
 	{
 		flags[i] |= evenFlags[i];
 	}
-	for(i = srcCount / 64; i < srcCount / 32; ++i)
+	for(int i = srcCount / 64; i < srcCount / 32; ++i)
 	{
 		flags[i] |= oddFlags[i];
 	}
-	nmppsCmpLteC_v2nm32f (dXac, constant, evenFlags, oddFlags, 1, srcCount / 2);
-	for(i = 0; i < srcCount / 64; ++i)
+	nmppsCmpLteC_v2nm32f (dXac, &maxWidthConstant, evenFlags, oddFlags, step, srcCount / 2);
+	for(int i = 0; i < srcCount / 64; ++i)
 	{
 		flags[i] |= evenFlags[i];
 	}
-	for(i = srcCount / 64; i < srcCount / 32; ++i)
+	for(int i = srcCount / 64; i < srcCount / 32; ++i)
 	{
 		flags[i] |= oddFlags[i];
 	}
-	nmppsCmpLteC_v2nm32f (dYab, constant, evenFlags, oddFlags, 1, srcCount / 2);
-	for(i = 0; i < srcCount / 64; ++i)
+	nmppsCmpLteC_v2nm32f (dYab, &maxHeightConstant, evenFlags, oddFlags, step, srcCount / 2);
+	for(int i = 0; i < srcCount / 64; ++i)
 	{
 		flags[i] |= evenFlags[i];
 	}
-	for(i = srcCount / 64; i < srcCount / 32; ++i)
+	for(int i = srcCount / 64; i < srcCount / 32; ++i)
 	{
 		flags[i] |= oddFlags[i];
 	}
-	nmppsCmpLteC_v2nm32f (dYab, constant, evenFlags, oddFlags, 1, srcCount / 2);
-	for(i = 0; i < srcCount / 64; ++i)
+	nmppsCmpLteC_v2nm32f (dYab, &maxHeightConstant, evenFlags, oddFlags, step, srcCount / 2);
+	for(int i = 0; i < srcCount / 64; ++i)
 	{
 		flags[i] |= evenFlags[i];
 	}
-	for(i = srcCount / 64; i < srcCount / 32; ++i)
+	for(int i = srcCount / 64; i < srcCount / 32; ++i)
 	{
 		flags[i] |= oddFlags[i];
 	}
-	nmppsCmpLteC_v2nm32f (dYab, constant, evenFlags, oddFlags, 1, srcCount / 2);
-	for(i = 0; i < srcCount / 64; ++i)
+	nmppsCmpLteC_v2nm32f (dYab, &maxHeightConstant, evenFlags, oddFlags, step, srcCount / 2);
+	for(int i = 0; i < srcCount / 64; ++i)
 	{
 		flags[i] |= evenFlags[i];
 	}
-	for(i = srcCount / 64; i < srcCount / 32; ++i)
+	for(int i = srcCount / 64; i < srcCount / 32; ++i)
 	{
 		flags[i] |= oddFlags[i];
 	}
@@ -108,7 +118,6 @@ long long masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, in
 	free(dYab);
 	free(dYbc);
 	free(dYac);
-	free(constant);
 	free(oddFlags);
 	free(evenFlags);
 }
@@ -166,7 +175,7 @@ void sort( 	TrianglePointers * srcTriangles, int srcCount,
 	}
 }
 
-float squareSum( float * edgeArray, float * dX, float * dY, int edgeCount )
+void squareSum( float * edgeArray, float * dX, float * dY, int edgeCount )
 {
 	for(int i = 0; i < edgeCount; ++i)
 	{
@@ -174,7 +183,7 @@ float squareSum( float * edgeArray, float * dX, float * dY, int edgeCount )
 	}
 }
 
-int maxEdge( int * maxEdgeArray, float * edge1, float * edge2, float * edge3, int edgeCount )
+void maxEdge( int * maxEdgeArray, float * edge1, float * edge2, float * edge3, int edgeCount )
 {
 	for(int i = 0; i < edgeCount; ++i)
 	{
@@ -249,22 +258,22 @@ void split( TrianglePointers * toSplitTriangles, int toSplitTrianglesCount,
 
 	for(int i = 0; i < toSplitTrianglesCount; ++i)
 	{
-		temporary.x = (toSplitTriangles.a.x + toSplitTriangles.b.x) / 2;
-		temporary.y = (toSplitTriangles.a.y + toSplitTriangles.b.y) / 2;
+		temporary.x = (toSplitTriangles->v0.x[i] + toSplitTriangles->v1.x[i]) / 2;
+		temporary.y = (toSplitTriangles->v0.y[i] + toSplitTriangles->v1.y[i]) / 2;
 
-		splittedTriangles.v0.x[splittedTrianglesCount] = toSplitTriangles.a.x;
-		splittedTriangles.v0.y[splittedTrianglesCount] = toSplitTriangles.a.y;
-		splittedTriangles.v1.x[splittedTrianglesCount] = toSplitTriangles.c.x;
-		splittedTriangles.v1.y[splittedTrianglesCount] = toSplitTriangles.c.y;
-		splittedTriangles.v2.x[splittedTrianglesCount] = temporary.x;
-		splittedTriangles.v2.y[splittedTrianglesCount] = temporary.y;
+		splittedTriangles->v0.x[(*splittedTrianglesCount)] = toSplitTriangles->v0.x[i];
+		splittedTriangles->v0.y[(*splittedTrianglesCount)] = toSplitTriangles->v0.y[i];
+		splittedTriangles->v1.x[(*splittedTrianglesCount)] = toSplitTriangles->v2.x[i];
+		splittedTriangles->v1.y[(*splittedTrianglesCount)] = toSplitTriangles->v2.y[i];
+		splittedTriangles->v2.x[(*splittedTrianglesCount)] = temporary.x;
+		splittedTriangles->v2.y[(*splittedTrianglesCount)] = temporary.y;
 
-		splittedTriangles.v0.x[splittedTrianglesCount + 1] = toSplitTriangles.b.x;
-		splittedTriangles.v0.y[splittedTrianglesCount + 1] = toSplitTriangles.b.y;
-		splittedTriangles.v1.x[splittedTrianglesCount + 1] = toSplitTriangles.c.x;
-		splittedTriangles.v1.y[splittedTrianglesCount + 1] = toSplitTriangles.c.y;
-		splittedTriangles.v2.x[splittedTrianglesCount + 1] = temporary.x;
-		splittedTriangles.v2.y[splittedTrianglesCount + 1] = temporary.y;
+		splittedTriangles->v0.x[(*splittedTrianglesCount) + 1] = toSplitTriangles->v1.x[i];
+		splittedTriangles->v0.y[(*splittedTrianglesCount) + 1] = toSplitTriangles->v1.y[i];
+		splittedTriangles->v1.x[(*splittedTrianglesCount) + 1] = toSplitTriangles->v2.x[i];
+		splittedTriangles->v1.y[(*splittedTrianglesCount) + 1] = toSplitTriangles->v2.y[i];
+		splittedTriangles->v2.x[(*splittedTrianglesCount) + 1] = temporary.x;
+		splittedTriangles->v2.y[(*splittedTrianglesCount) + 1] = temporary.y;
 
 		(*splittedTrianglesCount) += 2;
 	}
@@ -290,7 +299,7 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 	int checkForFitCount = srcCount;
 	int toSplitTrianglesCount = 0;
 	
-	int * flags = (int*)malloc((maxDstSize / 32) * sizeof(int));
+	int * flags = (int*)malloc((maxDstSize / 32 + 1) * sizeof(int));
 
 	TrianglePointers trianglesArrayToCheck;
 
@@ -336,14 +345,19 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 
 	while ( currentDstCount <= maxDstSize && checkForFitCount != 0 )
 	{
-		masks( trianglesArrayToCheck, checkForFitCount, maxWidth, maxHeight, flags );
+		masks( &trianglesArrayToCheck, checkForFitCount, maxWidth, maxHeight, flags );
 
-		sort( trianglesArrayToCheck, checkForFitCount, toSplitTriangles, toSplitTrianglesCount, dstVertex, currentDstCount, flags );
+		printf("Flags:\n");
+		printf("Triangle %d flag = %d\n", 1, flags[0] % 2);
+		printf("Triangle %d flag = %d\n", 2, (flags[0] / 2) % 2);
+		printf("\n");
+
+		sort( &trianglesArrayToCheck, checkForFitCount, &toSplitTriangles, &toSplitTrianglesCount, dstVertex, &currentDstCount, flags );
 
 		checkForFitCount = 0;
 
 		if( toSplitTrianglesCount != 0 )
-			split( toSplitTriangles, toSplitTrianglesCount, trianglesArrayToCheck, checkForFitCount );
+			split( &toSplitTriangles, toSplitTrianglesCount, &trianglesArrayToCheck, &checkForFitCount );
 	}
 	
 	free(flags);
@@ -366,6 +380,7 @@ const int maximumDestinationSize = 8;
 
 int main()
 {
+	
 	TrianglePointers testResultTrianglesArray;
 	int treatedCounter = 0;
 
@@ -421,8 +436,8 @@ int main()
 	}
 
 	triangulation( &testTrianglesArray, size, 2, 2, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
-
-	printf("\n\nResult Triangles:");
+	
+	printf("\n\n%d Result Triangles:", size + treatedCounter);
 	for(int i = 0; i < size + treatedCounter; ++i)
 	{
 		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i]);
@@ -430,7 +445,45 @@ int main()
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
 	}
 	
+	/*
+	v2nm32f dXab[16];
+	
+	v2nm32f constant[1];
+	constant[0].v0 = 16;
+	constant[0].v1 = 16;
 
+	int evenFlags = 0;
+	int oddFlags = 0;
+
+	for(int i = 0; i < 16; ++i)
+	{
+		dXab[i].v0 = i * 2;
+		dXab[i].v1 = i * 2 + 1;
+	}
+
+	dXab[3].v1 = 30;
+
+	for(int i = 0; i < 16; ++i)
+	{
+		printf("%f, %f\n", dXab[i].v0, dXab[i].v1);
+	}
+
+	int step = 1;
+
+	nmppsCmpLteC_v2nm32f (dXab, constant, &evenFlags, &oddFlags, step, 16);
+	
+	while(oddFlags != 0)
+	{
+		printf("%d", oddFlags % 2);
+		oddFlags /= 2;
+	}
+	printf("\n");
+	while(evenFlags != 0)
+	{
+		printf("%d", evenFlags % 2);
+		evenFlags /= 2;
+	}
+	*/
 	return 0;
 }
 

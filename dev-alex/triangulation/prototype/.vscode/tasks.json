@@ -70,8 +70,10 @@
             "args": [
                 "-Wall",
                 "-I../../../include/",
-                "-L${env:NMPP}/lib",
+                "-I${env:NMPP}/include",
                 "main.cpp",
+                "-L${env:NMPP}/lib",
+                "-lnmpp-x64",
                 "-o",
                 "result"
             ],
