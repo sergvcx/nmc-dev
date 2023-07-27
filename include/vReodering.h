@@ -293,7 +293,7 @@ void nmppsSplit_(v4nm16s* pSrcVec, nm16s** pDst4Vec, int nSize);
 	 */
 	 //! \{
 	//void nmppsMerge4_8s (const nm8s*  src0, const nm8s*  src1, nm8s*  dst, int sizeSrc);
-	void nmppsMerge4_16s(co	nst nm16s* src0, const nm16s* src1, nm16s* dst, int sizeSrc);
+	void nmppsMerge4_16s(const nm16s* src0, const nm16s* src1, nm16s* dst, int sizeSrc);
 	//void nmppsMerge4_32s(const nm32s* src0, const nm32s* src1, nm32s* dst, int sizeSrc);
 	 //! \}
 	
