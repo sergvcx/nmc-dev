@@ -15,14 +15,13 @@ SECTIONS
   .text : ALIGN(0x8)
   {
     *(.text.AAA);
-    *(.text.MyCode);
+    *(.text);
 	*libnm6407int.a:*(.text.*)
-  } > C1_IMU3
+  } > C1_IMU1
  
   .stub : ALIGN(0x8)
   {
-    *libmc12101_stub_nmc4_fixed.a:*(.text)
-	*libmc12101_stub_nmc4_fixed.a:*(.data)
+    *(.gdb*)
 	*(.stub.*)
 	*(.stub_text)
   } > EMI
@@ -33,13 +32,6 @@ SECTIONS
     *libnm6407load_nmc.a:*(.text*)
 	*(.text.*)
   } > EMI
-  
-  /*
-  .data : ALIGN(0x8)
-  {
-    *(.data.*);
-  } > EMI
-  */
   
   .data : ALIGN(0x8)
   {
