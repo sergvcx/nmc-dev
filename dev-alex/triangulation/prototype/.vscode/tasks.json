@@ -77,7 +77,8 @@
                 "-o",
                 "result"
             ],
-            "type": "shell"
+            "type": "shell",
+            "problemMatcher": []
         },
         {
             "label": "gcc run",
