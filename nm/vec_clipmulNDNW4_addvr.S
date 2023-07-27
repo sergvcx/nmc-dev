@@ -1,6 +1,5 @@
 //------------------------------------------------------------------------
 //
-//  $Workfile:: FilterCoreRow02.asm             $
 //
 //  <Название библиотеки>
 //
@@ -41,28 +40,6 @@
 		rep \N [ar6++gr6]=afifo;		// Output result
 .endm tail_rep;
 
-/////////////////////////////////////////////////////////////////////////////////////////
-// Core Weight summation of several vectors
-/////////////////////////////////////////////////////////////////////////////////////////
-//		ar0			First Input Buffer		
-//		gr0			Input Buffer Stride for ar0		
-//		ar1			Array of displacements from First Input Buffer
-//		gr1			Number input buffers (must 3 or grater)
-//		ar4			WeightBuffer				
-//		gr4			nb1							
-//		gr5			Input buffer size in longs
-//		ar6			Ouput Buffer
-//		gr6			Output Buffer Stride	
-//		nb1	
-//		sb
-//		vr
-//		f1cr
-/////////////////////////////////////////////////////////////////////////////////////////
-
-//#define AR_1 ar5
-//#define AR_2 gr5
-//#define AR_4 ar3
-//#define GR_1 gr3
     //------------------------------------------------------------------------
     //! \fn void core_ClipMulNDNW4_AddVr(nmreg nb1, nmreg sb, nmreg f1cr, nmreg vr, nmreg ar0, nmreg gr0, nmreg ar1, nmreg gr1, nmreg ar4, nmreg gr4, nmreg gr5, nmreg ar6, nmreg gr6);
     //!			 
