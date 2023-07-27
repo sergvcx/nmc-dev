@@ -1,5 +1,4 @@
 .global _abs_16s
-#include "printx.hs"
 
 //--------------------------------------------------------------MOD---------
 .p2align 3	
@@ -47,8 +46,7 @@ _abs_16s:
 	sb = sir;
 	sir = 80008000h;
 	f1cr = sir;
-	//PRINTF1("counter rep 32 =%d\n",gr0)
-	//PRINTF1("counter rep 1 =%d\n",gr1)
+
 	gr0--;
 	goto Condition;
 Loop:

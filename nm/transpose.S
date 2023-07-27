@@ -1,5 +1,4 @@
-.global _nmppsTranspose
-#include "printx.hs"
+.global _nmppmTranspose_32s
 
 .p2align 3	
 .data	//IMU_2
@@ -37,7 +36,7 @@
 
 .section .text.MyCode
 //-------------------------------------------------GENERAL---------------------1.264-per-elem
-_nmppsTranspose:
+_nmppmTranspose_32s:
     ar5 = ar7 - 2;
 	push ar0, gr0; 	//array addr			step
 	push ar1, gr1;	//result addr			step
@@ -186,7 +185,14 @@ Common_recovery:
 		gr7 = gr7 + gr4;
 		ar3 = gr7;
 
-	goto End;
+	pop ar6, gr6;
+	pop ar5, gr5;
+	pop ar4, gr4;
+	pop ar3, gr3;
+    pop ar2, gr2;
+	pop ar1, gr1;
+    pop ar0, gr0;
+	return;
 
 Transpose_rep_mark:
     Transpose_rep 1
@@ -220,13 +226,3 @@ Transpose_rep_mark:
 	Transpose_rep 29
 	Transpose_rep 30
 	Transpose_rep 31
-
-End:
-	pop ar6, gr6;
-	pop ar5, gr5;
-	pop ar4, gr4;
-	pop ar3, gr3;
-    pop ar2, gr2;
-	pop ar1, gr1;
-    pop ar0, gr0;
-	return;

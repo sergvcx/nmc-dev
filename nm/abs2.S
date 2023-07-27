@@ -1,4 +1,3 @@
-#include "printx.hs"
 .global _nmppsAbs2_8s
 .global _nmppsAbs2_16s
 .global _nmppsAbs2_32s
