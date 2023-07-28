@@ -22,9 +22,9 @@ size=128, time=28445.145386 slow*/
 void nmppsHadamard(nm32s* src, nm32s* dst, nm2s* H, nm32s* temp, int size) {
 	// dst = H * (H * src^T)^T
 
-	nmppsTranspose_32s(src, temp, size, size);
+	nmppmTranspose_32s(src, temp, size, size);
 	nmppsMulMM_2s32s(H, size, size, temp, dst, size);
-	nmppsTranspose_32s(dst, temp, size, size);
+	nmppmTranspose_32s(dst, temp, size, size);
 	nmppsMulMM_2s32s(H, size, size, temp, dst, size);
 }
 
@@ -37,8 +37,8 @@ void nmppsHadamardInverse(nm32s* src, nm32s* dst, nm2s* H, nm32s* temp, int size
 
 	nmppsMulMM_2s32s(H, size, size, src, temp, size);
 	nmppsRShiftC_32s(temp, nShift, dst, size*size);
-	nmppsTranspose_32s(dst, temp, size, size);
+	nmppmTranspose_32s(dst, temp, size, size);
 	nmppsMulMM_2s32s(H, size, size, temp, dst, size);
 	nmppsRShiftC_32s(dst, nShift, temp, size*size);
-	nmppsTranspose_32s(temp, dst, size, size);
+	nmppmTranspose_32s(temp, dst, size, size);
 }

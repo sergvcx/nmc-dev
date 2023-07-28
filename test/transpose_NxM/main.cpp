@@ -28,7 +28,7 @@ bool testTransposeCorrect(int* givenMatrix, int* resultMatrix, int* resultMatrix
 		resultMatrix_C[i] = 0;
 	}
 
-	nmppsTranspose_32s(givenMatrix, resultMatrix, height, width);
+	nmppmTranspose_32s(givenMatrix, resultMatrix, height, width);
 
 	transpose_C(givenMatrix, resultMatrix_C, height, width);
 	
