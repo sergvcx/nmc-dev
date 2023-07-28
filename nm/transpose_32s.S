@@ -1,4 +1,5 @@
 .global _nmppmTranspose_32s
+#include "nmc.hs"
 
 .p2align 3	
 .data	//IMU_2
@@ -57,10 +58,8 @@ _nmppmTranspose_32s:
 	gr5 = [--ar5];	//height
 	gr4 = [--ar5];	//width
 
-	sir = 80000000h;
-	nb1 = sir;
-	sir = 2h;
-	sb = sir;
+	SET nb1 80000000h
+	SET sb 00020002h
 	ar2 = Matrix_2X2;
     rep 2 wfifo = [ar2++],ftw, wtw;
 	ar5 = Masks;

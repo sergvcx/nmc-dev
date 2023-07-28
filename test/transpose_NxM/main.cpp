@@ -1,5 +1,6 @@
 #include "stdio.h"
 #include "../../include/general_header.h"
+#include "../../include/mTranspose.h"
 
 const int matrixHeight = 128;
 const int matrixWidth = 128;
@@ -27,7 +28,7 @@ bool testTransposeCorrect(int* givenMatrix, int* resultMatrix, int* resultMatrix
 		resultMatrix_C[i] = 0;
 	}
 
-	nmppsTranspose(givenMatrix, resultMatrix, height, width);
+	nmppsTranspose_32s(givenMatrix, resultMatrix, height, width);
 
 	transpose_C(givenMatrix, resultMatrix_C, height, width);
 	
