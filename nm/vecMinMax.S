@@ -1,5 +1,4 @@
 .global _vecMinMaxRep32
-#include "printx.hs"
 
 .section .bss.MyData1
     .align 8
