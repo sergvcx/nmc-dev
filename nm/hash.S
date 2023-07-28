@@ -91,4 +91,4 @@ Mark:
 	pop ar0, gr0;
 	pop ar1, gr1;
 	pop ar2, gr2;
-	return gr7;
+	return with gr7;

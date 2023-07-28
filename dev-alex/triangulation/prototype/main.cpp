@@ -437,7 +437,7 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 }
 
 const int size = 2;
-const int maximumDestinationSize = 8;
+const int maximumDestinationSize = 100;
 static const int WIDTH = 512;
 static const int HEIGHT = 512;
 
@@ -498,7 +498,7 @@ int main()
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testTrianglesArray.v2.x[i], testTrianglesArray.v2.y[i]);
 	}
 	
-	triangulation( &testTrianglesArray, size, 100, 100, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
+	triangulation( &testTrianglesArray, size, 40, 40, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
 
 	printf("\n\n%d Result Triangles:", size + treatedCounter);
 	for(int i = 0; i < size + treatedCounter; ++i)
