@@ -1,20 +1,14 @@
 //------------------------------------------------------------------------
 //
-//  $Workfile:: vTransform. $
 //
-//  Векторно-матричная библиотека
+//  Neuro Matrix Performance Primitives
 //
-//  Copyright (c) RC Module Inc.
+//  Copyright (c) RC Module
 //
-//  $Revision: 1.1 $      $Date: 2004/11/22 13:50:02 $
-//
-//! \if file_doc
 //!
-//! \file   vReodering.h
-//! \author Сергей Мушкаев
+//! \author S.Mushkaev
 //! \brief  функции переупорядочивания данных 
 //!
-//! \endif
 //!
 //------------------------------------------------------------------------
 #ifndef _VTRANSFORM_H_INCLUDED_
@@ -292,9 +286,9 @@ void nmppsSplit_(v4nm16s* pSrcVec, nm16s** pDst4Vec, int nSize);
 	 *  \details Details
 	 */
 	 //! \{
-	//void nmppsMerge4_8s (const nm8s*  src0, const nm8s*  src1, nm8s*  dst, int sizeSrc);
-	void nmppsMerge4_16s(const nm16s* src0, const nm16s* src1, nm16s* dst, int sizeSrc);
-	//void nmppsMerge4_32s(const nm32s* src0, const nm32s* src1, nm32s* dst, int sizeSrc);
+	//void nmppsMerge4_8s (const nm8s*  src0, const nm8s*  src1,const nm8s*  src2, const nm8s*  src3, nm8s*  dst, int sizeSrc);
+	void nmppsMerge4_16s(const nm16s* src0, const nm16s* src1, const nm16s* src2, const nm16s* src3, nm16s* dst, int sizeSrc);
+	//void nmppsMerge4_32s(const nm32s* src0, const nm32s* src1,const nm32s* src2, const nm32s* src3, nm32s* dst, int sizeSrc);
 	 //! \}
 	
 	
