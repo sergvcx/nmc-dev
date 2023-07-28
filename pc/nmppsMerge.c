@@ -2,16 +2,16 @@
 //
 //  $Workfile:: pcConvert.cp $
 //
-//  Векторно-матричная библиотека
+//  Neuro Matrix Performance Primitives
 //
-//  Copyright (c) RC Module Inc.
+//  Copyright (c) RC Module
 //
 //  $Revision: 1.1 $      $Date: 2004/11/22 13:50:15 $
 //
 //! \if file_doc
 //!
 //! \file   pcConvert.cpp
-//! \author Сергей Мушкаев
+//! \author S.Mushkaev
 //! \brief  Функции для преобразования запакованных данных.
 //!
 //! \endif
@@ -48,7 +48,7 @@ void nmppsMerge_32s(const nm32s* src0, const nm32s* src1, nm32s* dst, int sizeSr
 }
 
 
-void nmppsMerge4to1_8s(const nm8s* src0, const nm8s* src1,const nm8s* src2, const nm8s* src3, nm8s* dst, int sizeSrc)
+void nmppsMerge4_8s(const nm8s* src0, const nm8s* src1,const nm8s* src2, const nm8s* src3, nm8s* dst, int sizeSrc)
 {
 	int i;
 	for (i=0;i<sizeSrc;i++){
@@ -58,7 +58,7 @@ void nmppsMerge4to1_8s(const nm8s* src0, const nm8s* src1,const nm8s* src2, cons
 		dst[4*i+3]=src3[i];
 	}
 }
-void nmppsMerge4to1_16s(const nm16s* src0, const nm16s* src1,const nm16s* src2, const nm16s* src3, nm16s* dst, int sizeSrc)
+void nmppsMerge4_16s(const nm16s* src0, const nm16s* src1,const nm16s* src2, const nm16s* src3, nm16s* dst, int sizeSrc)
 {
 	int i;
 	for (i=0;i<sizeSrc;i++){
