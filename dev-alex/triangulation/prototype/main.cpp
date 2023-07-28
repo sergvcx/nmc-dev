@@ -5,6 +5,7 @@
 #include "../../../include/primitive.h"
 #include "../../../include/nmtype.h"
 #include "nmpp.h"
+#include "VShell.h"
 
 struct point
 {
@@ -437,6 +438,8 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 
 const int size = 2;
 const int maximumDestinationSize = 8;
+static const int WIDTH = 512;
+static const int HEIGHT = 512;
 
 int main()
 {
@@ -475,17 +478,17 @@ int main()
 	testTrianglesArray.v2.y = cy;
 	testTrianglesArray.v0.x[0] = 0;
 	testTrianglesArray.v0.y[0] = 0;
-	testTrianglesArray.v1.x[0] = 3;
-	testTrianglesArray.v1.y[0] = 1;
-	testTrianglesArray.v2.x[0] = 2;
-	testTrianglesArray.v2.y[0] = 3;
+	testTrianglesArray.v1.x[0] = 150;
+	testTrianglesArray.v1.y[0] = 50;
+	testTrianglesArray.v2.x[0] = 100;
+	testTrianglesArray.v2.y[0] = 150;
 
-	testTrianglesArray.v0.x[1] = 3;
-	testTrianglesArray.v0.y[1] = 2;
-	testTrianglesArray.v1.x[1] = 4;
-	testTrianglesArray.v1.y[1] = 6;
-	testTrianglesArray.v2.x[1] = 5;
-	testTrianglesArray.v2.y[1] = 1;
+	testTrianglesArray.v0.x[1] = 150;
+	testTrianglesArray.v0.y[1] = 100;
+	testTrianglesArray.v1.x[1] = 200;
+	testTrianglesArray.v1.y[1] = 300;
+	testTrianglesArray.v2.x[1] = 250;
+	testTrianglesArray.v2.y[1] = 50;
 	
 	printf("\nGiven Triangles:");
 	for(int i = 0; i < size; ++i)
@@ -495,8 +498,8 @@ int main()
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testTrianglesArray.v2.x[i], testTrianglesArray.v2.y[i]);
 	}
 	
-	triangulation( &testTrianglesArray, size, 2, 2, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
-	
+	triangulation( &testTrianglesArray, size, 100, 100, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
+
 	printf("\n\n%d Result Triangles:", size + treatedCounter);
 	for(int i = 0; i < size + treatedCounter; ++i)
 	{
@@ -505,6 +508,28 @@ int main()
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
 	}
 	
+	if(!VS_Init())
+    	return 0;
+	VS_CreateImage("Given Triangles", 0, WIDTH, HEIGHT, VS_RGB8, NULL);
+	VS_CreateImage("Result Triangles", 1, WIDTH, HEIGHT, VS_RGB8, NULL);
+	while(VS_Run())
+	{
+		for(int i = 0; i < size; ++i)
+		{
+			VS_Line(0, testTrianglesArray.v0.x[i], testTrianglesArray.v0.y[i], testTrianglesArray.v1.x[i], testTrianglesArray.v1.y[i], RGB(255, 255, 255));
+			VS_Line(0, testTrianglesArray.v0.x[i], testTrianglesArray.v0.y[i], testTrianglesArray.v2.x[i], testTrianglesArray.v2.y[i], RGB(255, 255, 255));
+			VS_Line(0, testTrianglesArray.v2.x[i], testTrianglesArray.v2.y[i], testTrianglesArray.v1.x[i], testTrianglesArray.v1.y[i], RGB(255, 255, 255));
+		}
+
+		for(int i = 0; i < size + treatedCounter; ++i)
+		{
+			VS_Line(1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i], testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i], RGB(255, 255, 255));
+			VS_Line(1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i], testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i], RGB(255, 255, 255));
+			VS_Line(1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i], testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i], RGB(255, 255, 255));
+		}
+		VS_Draw(VS_DRAW_ALL);
+	}
+
 	//---------------------------------------nmpp-test-------------
 	/*
 	v2nm32f * dXab = (v2nm32f*)malloc(16 * sizeof(v2nm32f));

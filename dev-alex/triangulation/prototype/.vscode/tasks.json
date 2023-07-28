@@ -71,9 +71,12 @@
                 "-Wall",
                 "-I../../../include/",
                 "-I${env:NMPP}/include",
+                "-I${env:VSHELL}/include",
                 "main.cpp",
                 "-L${env:NMPP}/lib",
                 "-lnmpp-x64",
+                "-L${env:VSHELL}/lib",
+                "-lvshell",
                 "-o",
                 "result"
             ],
