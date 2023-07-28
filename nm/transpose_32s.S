@@ -59,7 +59,7 @@ _nmppmTranspose_32s:
 	gr4 = [--ar5];	//width
 
 	SET nb1 80000000h
-	SET sb 00020002h
+	SET sb 00000002h
 	ar2 = Matrix_2X2;
     rep 2 wfifo = [ar2++],ftw, wtw;
 	ar5 = Masks;
