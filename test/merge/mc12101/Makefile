@@ -16,7 +16,7 @@ LDFLAGS  = -Wl,-Map=test.map  -Wl,-Tmc12101-nmpu1.lds
 LDFLAGSD = -Wl,-Map=testd.map -Wl,-Tmc12101-nmpu1.lds 
 INC_DIRS = -I"$(MC12101)/include" -I../../../include -I.. -I$(NMPP)/include
 LIB_DIRS = -L"$(MC12101)/lib" -L$(NMPP)/lib
-SOURCES  = ../../../nm/hash64.S ../../../nm/abs2.S ../main.cpp
+SOURCES  = ../../../nm/hash64.S ../../../nm/nmppsMerge.S  ../../../pc/dumpx.cpp ../main.cpp
 
 
 .DEFAULT_GOAL := all

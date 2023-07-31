@@ -1,22 +1,26 @@
-.global _nmppsAbs2_8s
+.global _nmppsMerge4_16s
 
 .section .data.imu1
 	.align 3
-	Matr8: .quad	0x00000000000000ff, \
-					0x000000000000ff00, \
-					0x0000000000ff0000, \
-					0x00000000ff000000, \
-					0x000000ff00000000, \
-					0x0000ff0000000000, \
-					0x00ff000000000000, \
-					0xff00000000000000
-	Matr16: .quad	0x000000000000ffff, \
-					0x00000000ffff0000, \
-					0x0000ffff00000000, \
-					0xffff000000000000
-	Matr32: .quad	0x00000000ffffffff, \
-					0xffffffff00000000
-	Matr64: .quad	0xffffffffffffffff
+	weights: .quad       0x0000000000000001,0,0,0, \
+						 0x0000000000010000,0,0,0, \
+						 0x0000000100000000,0,0,0, \
+						 0x0001000000000000,0,0,0, \
+						  \
+						 0,0x0000000000000001,0,0, \
+						 0,0x0000000000010000,0,0, \
+						 0,0x0000000100000000,0,0, \
+						 0,0x0001000000000000,0,0, \
+						  \
+						 0,0,0x0000000000000001,0, \
+						 0,0,0x0000000000010000,0, \
+						 0,0,0x0000000100000000,0, \
+						 0,0,0x0001000000000000,0, \
+						  \
+						 0,0,0,0x0000000000000001, \
+						 0,0,0,0x0000000000010000, \
+						 0,0,0,0x0000000100000000, \
+						 0,0,0,0x0001000000000000
 
 .macro SET reg,val
 #if __NM4__== 0
@@ -28,25 +32,98 @@
 .endm
 
 .text
-_nmppsAbs2_8s:
+_nmppsMerge4_16s:
 	ar5 = ar7 - 2;
 	push ar0, gr0;
 	push ar1, gr1;
+	push ar2, gr2;
+	push ar3, gr3;
+	push ar4, gr4;
+	push ar5, gr5;
+	push ar6, gr6;
 	
-	ar0 = [--ar5];				// * a
-	ar1 = [--ar5];				// * b
-	gr7 = [--ar5] with gr7>>=3;	// size/8
+	ar0 = [--ar5] with gr0 = false;	// * src0
+	ar1 = [--ar5] with gr1 = false;	// * src1
+	ar2 = [--ar5] with gr2 = false;	// * src2
+	ar3 = [--ar5] with gr3 = false;	// * src3
+	ar6 = [--ar5];					// dst
+	gr5 = [--ar5];					// sizeSrc
 
-	SET nb1, 0x80808080
-	SET sb, 0x2020202
-	SET f1cr, 0x80808080
-	SET f2cr, 0x80808080
+	SET vr, gr0
+	SET nb1, 0x80008000
+	SET sb, 0x00020002
+	SET f1cr, 0x80008000
+	wtw;
+	# with gr5>>=2; 
+	# ar4 = weights with gr1 = gr0;
+	# ar1 = ar0 + gr0 	with gr2 = gr1;
+	# ar2 = ar1 + gr1 	with gr3 = gr2<<2;	
+	# delayed call core_ClipMul4D4W4_AddVr	with gr0<<=2;
+	# 	ar3 = ar2 + gr2 with gr1<<=2;
+	# 	ar4 += gr4		with gr2<<=2;
 
-	ar5 = Matr8;
-	rep 8 wfifo = [ar5++], ftw, wtw;
+	ar4 = weights;
+	gr6 = 8;
+	gr0 = 2;
+	gr1 = 2;
+	gr2 = 2;
+	gr3 = 2;
 
-	call Abs2;
+	gr4 = 32;
+	ar5 = ar6;
+	
+	push ar0, gr0;
+	push ar1, gr1;
+	push ar2, gr2;
+	push ar3, gr3;
+	call core_ClipMul4D4W4_AddVr;
+	pop ar3, gr3;
+	pop ar2, gr2;
+	pop ar1, gr1;
+	pop ar0, gr0;
+	ar6 = ar5;
+	ar6++;
+	ar6++;
+	ar4 += gr4;
+	push ar0, gr0;
+	push ar1, gr1;
+	push ar2, gr2;
+	push ar3, gr3;
+	call core_ClipMul4D4W4_AddVr;
+	pop ar3, gr3;
+	pop ar2, gr2;
+	pop ar1, gr1;
+	pop ar0, gr0;
+	ar6 = ar5;
+	ar6++;
+	ar6++;
+	ar6++;
+	ar6++;
+	ar4 += gr4;
+	push ar0, gr0;
+	push ar1, gr1;
+	push ar2, gr2;
+	push ar3, gr3;
+	call core_ClipMul4D4W4_AddVr;
+	pop ar3, gr3;
+	pop ar2, gr2;
+	pop ar1, gr1;
+	pop ar0, gr0;
+	ar6 = ar5;
+	ar6++;
+	ar6++;
+	ar6++;
+	ar6++;
+	ar6++;
+	ar6++;
+	ar4 += gr4;
+	call core_ClipMul4D4W4_AddVr;
 
+	pop ar6, gr6;
+	pop ar5, gr5;
+	pop ar4, gr4;
+	pop ar3, gr3;
+	pop ar2, gr2;
 	pop ar1, gr1;
 	pop ar0, gr0;
 	return;

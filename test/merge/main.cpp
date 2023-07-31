@@ -1,42 +1,44 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include "../../include/nmtype.h"
+#include "../../include/dumpx.h"
+#include "../../include/vReodering.h"
 #include "../../include/hadamard.h"
 
-const int size = 1024;
-__attribute__((section(".data.imu0"))) long long array[size];
-__attribute__((section(".data.imu1"))) long long result[size];
+const int srcSize = 32;
+__attribute__((section(".data.imu0"))) long long array0[srcSize/4];
+__attribute__((section(".data.imu0"))) long long array1[srcSize/4];
+__attribute__((section(".data.imu0"))) long long array2[srcSize/4];
+__attribute__((section(".data.imu0"))) long long array3[srcSize/4];
+__attribute__((section(".data.imu1"))) long long result[srcSize];
 
 int main() {
-	array[0] = 0x8000000000000000;
-	for (int i = 1; i < size; i++)
-	{
-		array[i] = (array[i-1]<<4) + i;
-	}
+	array0[0] = 0x0004000300020001;
+	array1[0] = 0x0080007000600050;
+	array2[0] = 0x0b0003000a000900;
+	array3[0] = 0xf000e000d000c000;
+	for(int i = 1; i < srcSize/4; i++) {
+		array0[i] = array0[i-1]+0x0001000100010001;
+		array1[i] = array1[i-1]+0x0001000100010001;
+		array2[i] = array2[i-1]+0x0001000100010001;
+		array3[i] = array3[i-1]+0x0001000100010001;
+	};
 
+	
 	int hash = 0;
 
-	for (int i = 8; i <= size*8; i+=8) {
-		nmppsAbs2_8s((nm8s*) array, (nm8s*) result, i);
-		hash ^= nmppsHash64u((long long *) result, i/8);
+	for (int i = 4; i < srcSize; i+=4) {
+		nmppsMerge4_16s((nm16s*) array0, (nm16s*) array1, (nm16s*) array2, (nm16s*) array3, (nm16s*) result, i);
+		hash ^= nmppsHash64u(result, i);
 	}
-
-	for (int i = 4; i <= size*4; i+=4) {
-		nmppsAbs2_16s((nm16s*) array, (nm16s*) result, i);
-		hash ^= nmppsHash64u((long long *) result, i/4);
-	}
-
-	for (int i = 2; i <= size*2; i+=2) {
-		nmppsAbs2_32s((nm32s*) array, (nm32s*) result, i);
-		hash ^= nmppsHash64u((long long *) result, i/2);
-	}
-
-	for (int i = 1; i <= size; i++) {
-		nmppsAbs2_64s((nm64s*) array, (nm64s*) result, i);
-		hash ^= nmppsHash64u((long long *) result, i);
-	}
-
-	int return_code = hash^0xd4b7b27f;
+	
+	dump_64s("%llx ", array0, srcSize/4, 1, 1, 2);
+	dump_64s("%llx ", array1, srcSize/4, 1, 1, 2);
+	dump_64s("%llx ", array2, srcSize/4, 1, 1, 2);
+	dump_64s("%llx ", array3, srcSize/4, 1, 1, 2);
+	dump_64s("%llx ", result, srcSize/4, 4, 4, 2);
+	
+	int return_code = hash;
 
 	printf("return code = 0x%0x\n", return_code);
 
