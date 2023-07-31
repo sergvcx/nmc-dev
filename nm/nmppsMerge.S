@@ -54,13 +54,6 @@ _nmppsMerge4_16s:
 	SET sb, 0x00020002
 	SET f1cr, 0x80008000
 	wtw;
-	# with gr5>>=2; 
-	# ar4 = weights with gr1 = gr0;
-	# ar1 = ar0 + gr0 	with gr2 = gr1;
-	# ar2 = ar1 + gr1 	with gr3 = gr2<<2;	
-	# delayed call core_ClipMul4D4W4_AddVr	with gr0<<=2;
-	# 	ar3 = ar2 + gr2 with gr1<<=2;
-	# 	ar4 += gr4		with gr2<<=2;
 
 	ar4 = weights;
 	gr6 = 8;

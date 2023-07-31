@@ -5,7 +5,7 @@
 #include "../../include/vReodering.h"
 #include "../../include/hadamard.h"
 
-const int srcSize = 32;
+const int srcSize = 128;
 __attribute__((section(".data.imu0"))) long long array0[srcSize/4];
 __attribute__((section(".data.imu0"))) long long array1[srcSize/4];
 __attribute__((section(".data.imu0"))) long long array2[srcSize/4];
