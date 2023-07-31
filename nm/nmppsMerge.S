@@ -48,6 +48,7 @@ _nmppsMerge4_16s:
 	ar3 = [--ar5] with gr3 = false;	// * src3
 	ar6 = [--ar5];					// dst
 	gr5 = [--ar5];					// sizeSrc
+	gr5 >>= 2;
 
 	SET vr, gr0
 	SET nb1, 0x80008000
@@ -74,6 +75,7 @@ _nmppsMerge4_16s:
 	pop ar2, gr2;
 	pop ar1, gr1;
 	pop ar0, gr0;
+
 	ar6 = ar5;
 	ar6++;
 	ar6++;
@@ -87,6 +89,7 @@ _nmppsMerge4_16s:
 	pop ar2, gr2;
 	pop ar1, gr1;
 	pop ar0, gr0;
+
 	ar6 = ar5;
 	ar6++;
 	ar6++;
@@ -102,6 +105,7 @@ _nmppsMerge4_16s:
 	pop ar2, gr2;
 	pop ar1, gr1;
 	pop ar0, gr0;
+	
 	ar6 = ar5;
 	ar6++;
 	ar6++;
