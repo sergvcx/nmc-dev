@@ -183,11 +183,13 @@ void masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int max
 void sort( 	TrianglePointers * srcTriangles, int srcCount,
 			TrianglePointers * toSplitTriangles, int * toSplitTrianglesCount,
 			TrianglePointers * resultTriangles, int * resultCount,
-			nm1 * flags )
+			int maxDstSize, nm1 * flags )
 {
 	(*toSplitTrianglesCount) = 0;
 	for(int i = 0; i < srcCount / 2; ++i)
 	{
+		if( (*resultCount) == maxDstSize )
+			break;
 		if( flags[i] == 0 )
 		{
 			resultTriangles->v0.x[(*resultCount)] = srcTriangles->v0.x[i * 2];
@@ -211,6 +213,8 @@ void sort( 	TrianglePointers * srcTriangles, int srcCount,
 	}
 	for(int i = 0; i < srcCount / 2; ++i)
 	{
+		if( (*resultCount) == maxDstSize )
+			break;
 		if( flags[i + (srcCount / 2)] == 0 )
 		{
 			resultTriangles->v0.x[(*resultCount)] = srcTriangles->v0.x[i * 2 + 1];
@@ -404,7 +408,7 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 	toSplitTriangles.v2.x = cxNew;
 	toSplitTriangles.v2.y = cyNew;
 
-	while ( currentDstCount <= maxDstSize && checkForFitCount != 0 )
+	while ( currentDstCount < maxDstSize && checkForFitCount != 0 )
 	{
 		for(int i = 0; i < maxDstSize; ++i)
 		{
@@ -413,12 +417,13 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 
 		masks( &trianglesArrayToCheck, checkForFitCount, maxWidth, maxHeight, flags );
 
-		sort( &trianglesArrayToCheck, checkForFitCount, &toSplitTriangles, &toSplitTrianglesCount, dstVertex, &currentDstCount, flags );
+		sort( &trianglesArrayToCheck, checkForFitCount, &toSplitTriangles, &toSplitTrianglesCount, dstVertex, &currentDstCount, maxDstSize, flags );
 
-		checkForFitCount = 0;
-
-		if( toSplitTrianglesCount != 0 )
+		if( currentDstCount < maxDstSize )
+		{
+			checkForFitCount = 0;
 			split( &toSplitTriangles, toSplitTrianglesCount, &trianglesArrayToCheck, &checkForFitCount, srcTreatedCount );
+		}
 	}
 	
 	free(flags);
@@ -437,8 +442,10 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 }
 
 const int size = 2;
-const int maximumDestinationSize = 100;
-static const int WIDTH = 512;
+const int maximumDestinationSize = 800;
+const int maximumHeight = 40;
+const int maximumWidth  = 40;
+static const int WIDTH  = 512;
 static const int HEIGHT = 512;
 
 int main()
@@ -498,16 +505,25 @@ int main()
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testTrianglesArray.v2.x[i], testTrianglesArray.v2.y[i]);
 	}
 	
-	triangulation( &testTrianglesArray, size, 40, 40, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
 
-	printf("\n\n%d Result Triangles:", size + treatedCounter);
-	for(int i = 0; i < size + treatedCounter; ++i)
+	triangulation( &testTrianglesArray, size, maximumWidth, maximumHeight, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
+
+
+	int resultCount = 0;
+	if( size + treatedCounter > maximumDestinationSize )
+		resultCount = maximumDestinationSize;
+	else
+		resultCount = size + treatedCounter;
+	printf("\n\n%d Result Triangles:", resultCount);
+	/*
+	for(int i = 0; i < resultCount; ++i)
 	{
 		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i]);
 		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i]);
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
 	}
-	
+	*/
+
 	if(!VS_Init())
     	return 0;
 	VS_CreateImage("Given Triangles", 0, WIDTH, HEIGHT, VS_RGB8, NULL);
@@ -521,12 +537,15 @@ int main()
 			VS_Line(0, testTrianglesArray.v2.x[i], testTrianglesArray.v2.y[i], testTrianglesArray.v1.x[i], testTrianglesArray.v1.y[i], RGB(255, 255, 255));
 		}
 
-		for(int i = 0; i < size + treatedCounter; ++i)
+		for(int i = 0; i < resultCount; ++i)
 		{
 			VS_Line(1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i], testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i], RGB(255, 255, 255));
 			VS_Line(1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i], testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i], RGB(255, 255, 255));
 			VS_Line(1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i], testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i], RGB(255, 255, 255));
 		}
+
+		VS_Rectangle(0, 10, 300, 10 + maximumWidth, 300 + maximumHeight, RGB(255, 255, 255), RGB(0, 0, 0));
+
 		VS_Draw(VS_DRAW_ALL);
 	}
 
