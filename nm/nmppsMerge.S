@@ -50,7 +50,7 @@ _nmppsMerge4_16s:
 	gr5 = [--ar5];					// sizeSrc
 	gr5 >>= 2;
 
-	SET vr, gr0
+	SET vr, 0
 	SET nb1, 0x80008000
 	SET sb, 0x00020002
 	SET f1cr, 0x80008000
