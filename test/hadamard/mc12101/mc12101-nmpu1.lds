@@ -21,9 +21,7 @@ SECTIONS
  
   .stub : ALIGN(0x8)
   {
-    *libmc12101_stub_nmc4_fixed.a:*(.text)
-	*libmc12101_stub_nmc4_fixed.a:*(.data)
-	*libmc12101_stub_nmc4_fixed.a:*(.bss)
+    *(.gdb*)
 	*(.stub.*)
 	*(.stub_text)
   } > EMI
@@ -35,16 +33,10 @@ SECTIONS
 	*(.text.*)
   } > EMI
   
-  
- /* .data : ALIGN(0x8)
-  {
-    *(.data.*);
-  } > EMI
-  */
   .data : ALIGN(0x8)
   {
     *(.data);
-  } > EMI
+  } > C1_IMU2
 
   .bss : ALIGN(0x8)
   {
