@@ -1,6 +1,6 @@
 .global _nmppsMerge4_16s
 
-.section .data.imu1
+.section .data.nmpp
 	.align 3
 	weights: .quad       0x0000000000000001,0,0,0, \
 						 0x0000000000010000,0,0,0, \
