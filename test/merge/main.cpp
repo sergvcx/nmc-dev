@@ -29,12 +29,12 @@ int main() {
 
 	for (int i = 4; i <= srcSize; i+=4) {
 		nmppsMerge4_16s((nm16s*) array0, (nm16s*) array1, (nm16s*) array2, (nm16s*) array3, (nm16s*) result, i);
-		hash ^= nmppsHash64u(result, i*16);
-	dump_64s("%llx ", array0, srcSize/4, 1, 1, 2);
-	dump_64s("%llx ", array1, srcSize/4, 1, 1, 2);
-	dump_64s("%llx ", array2, srcSize/4, 1, 1, 2);
-	dump_64s("%llx ", array3, srcSize/4, 1, 1, 2);
-	dump_64s("%llx ", result, dstSize/16, 4, 4, 2);
+		hash ^= nmppsHash64u(result, i);
+	// dump_64s("%llx ", array0, srcSize/4, 1, 1, 2);
+	// dump_64s("%llx ", array1, srcSize/4, 1, 1, 2);
+	// dump_64s("%llx ", array2, srcSize/4, 1, 1, 2);
+	// dump_64s("%llx ", array3, srcSize/4, 1, 1, 2);
+	// dump_64s("%llx ", result, dstSize/16, 4, 4, 2);
 	}
 	
 	int return_code = hash;
