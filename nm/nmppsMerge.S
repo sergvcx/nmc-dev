@@ -42,10 +42,10 @@ _nmppsMerge4_16s:
 	push ar5, gr5;
 	push ar6, gr6;
 	
-	ar0 = [--ar5] with gr0 = false;	// * src0
-	ar1 = [--ar5] with gr1 = false;	// * src1
-	ar2 = [--ar5] with gr2 = false;	// * src2
-	ar3 = [--ar5] with gr3 = false;	// * src3
+	ar0 = [--ar5];					// * src0
+	ar1 = [--ar5];					// * src1
+	ar2 = [--ar5];					// * src2
+	ar3 = [--ar5];					// * src3
 	ar6 = [--ar5];					// dst
 	gr5 = [--ar5];					// sizeSrc
 	gr5 >>= 2;
