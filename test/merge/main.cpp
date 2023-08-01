@@ -5,7 +5,7 @@
 #include "../../include/vReodering.h"
 #include "../../include/hadamard.h"
 
-const int srcSize = 128;
+const int srcSize = 2000;
 const int dstSize = srcSize*4;
 __attribute__((section(".data.imu0"))) long long array0[srcSize/4];
 __attribute__((section(".data.imu0"))) long long array1[srcSize/4];
@@ -30,14 +30,9 @@ int main() {
 	for (int i = 4; i <= srcSize; i+=4) {
 		nmppsMerge4_16s((nm16s*) array0, (nm16s*) array1, (nm16s*) array2, (nm16s*) array3, (nm16s*) result, i);
 		hash ^= nmppsHash64u(result, i);
-	// dump_64s("%llx ", array0, srcSize/4, 1, 1, 2);
-	// dump_64s("%llx ", array1, srcSize/4, 1, 1, 2);
-	// dump_64s("%llx ", array2, srcSize/4, 1, 1, 2);
-	// dump_64s("%llx ", array3, srcSize/4, 1, 1, 2);
-	// dump_64s("%llx ", result, dstSize/16, 4, 4, 2);
 	}
 	
-	int return_code = hash;
+	int return_code = hash^0x9fe18a6a;
 
 	printf("return code = 0x%0x\n", return_code);
 	
