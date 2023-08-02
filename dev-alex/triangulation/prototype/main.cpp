@@ -1,7 +1,7 @@
 #include "math.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "memory.h"
+//#include "memory.h"
 #include "../../../include/primitive.h"
 #include "../../../include/nmtype.h"
 #include "nmpp.h"
@@ -14,12 +14,6 @@ struct point
 	float z;
 
 	point () { x = 0; y = 0; z = 0; }
-};
-struct triangle
-{
-	point a;
-	point b;
-	point c;
 };
 
 void masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, nm1 * flags )
