@@ -5,7 +5,7 @@
 #include "../../../include/primitive.h"
 #include "../../../include/nmtype.h"
 #include "nmpp.h"
-#include "VShell.h"
+//#include "VShell.h"
 
 struct point
 {
@@ -16,7 +16,7 @@ struct point
 	point () { x = 0; y = 0; z = 0; }
 };
 
-void masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, nm1 * flags )
+void masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags )
 {
 	v2nm32f * dXab = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
 	v2nm32f * dXbc = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
@@ -155,7 +155,7 @@ void masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int max
 void sort( 	TrianglePointers * srcTriangles, int srcCount,
 			TrianglePointers * toSplitTriangles, int * toSplitTrianglesCount,
 			TrianglePointers * resultTriangles, int * resultCount,
-			int maxDstSize, nm1 * flags )
+			int maxDstSize, int * flags )
 {
 	(*toSplitTrianglesCount) = 0;
 	for(int i = 0; i < srcCount / 2; ++i)
@@ -336,7 +336,7 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 	int checkForFitCount = srcCount;
 	int toSplitTrianglesCount = 0;
 
-	nm1 * flags = (nm1*)malloc((maxDstSize) * 8);
+	int * flags = (int*)malloc((maxDstSize) * 8);
 
 	TrianglePointers trianglesArrayToCheck;
 
@@ -384,7 +384,7 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 	{
 		for(int i = 0; i < maxDstSize; ++i)
 		{
-			flags[i] = (nm1)0;
+			flags[i] = 0;
 		}
 
 		masks( &trianglesArrayToCheck, checkForFitCount, maxWidth, maxHeight, flags );
@@ -500,15 +500,15 @@ int main()
 	else
 		resultCount = size + treatedCounter;
 	printf("\n\n%d Result Triangles:", resultCount);
-	/*
+	
 	for(int i = 0; i < resultCount; ++i)
 	{
 		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i]);
 		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i]);
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
 	}
-	*/
-
+	
+	/*
 	if(!VS_Init())
     	return 0;
 	VS_CreateImage("Given Triangles", 0, WIDTH, HEIGHT, VS_RGB8, NULL);
@@ -534,7 +534,7 @@ int main()
 
 		VS_Draw(VS_DRAW_ALL);
 	}
-
+	*/
 	//-----------------------------------------------------------------------------------nmpp-test-------------
 	/*
 	int testsize = 128;
@@ -566,8 +566,8 @@ int main()
 	int * evenFlagsInt = (int*)malloc((testsize / 128 + 2) * sizeof(int));
 	int * oddFlagsInt  = (int*)malloc((testsize / 128 + 2) * sizeof(int));
 
-	nm1 * evenFlags = (nm1*)malloc(sizeof(int) * testsize / 2);
-	nm1 * oddFlags  = (nm1*)malloc(sizeof(int) * testsize / 2);
+	int * evenFlags = (int*)malloc(sizeof(int) * testsize / 2);
+	int * oddFlags  = (int*)malloc(sizeof(int) * testsize / 2);
 
 	int step = 1;
 	nmppsCmpGtC_v2nm32f (dXab, constant, evenFlagsInt, oddFlagsInt, step, testsize / 2);

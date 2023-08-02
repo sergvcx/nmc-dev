@@ -100,11 +100,7 @@ struct nmreg { int nVal; };
 		\~
 	\~	\f$[-1,0]\f$
 	*/
-	#ifdef __NM__
 typedef void nm1;
-#else
-	typedef int nm1;
-#endif
 //-----------------------------------------------------------------------------
     /**
 	\ingroup nmvectype

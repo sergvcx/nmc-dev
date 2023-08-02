@@ -10,12 +10,12 @@ TARGETD  = testd.abs
 CC       = nmc-gcc
 AS       = nmc-gcc
 CXXFLAGS =  -O2 -Wall -mnmc4-fixed -g
-LIBS     =  -lnm6407int -Wl,--whole-archive -lnm6407_io_nmc -lmc12101load_nm -Wl,--no-whole-archive
-LIBSD    =  -lnm6407int -Wl,--whole-archive -lnm6407_io_nmc -lmc12101_stub_nmc4_fixed -Wl,--no-whole-archive 
+LIBS     =  -lnm6407int -Wl,--whole-archive -lnm6407_io_nmc -lmc12101load_nm -Wl,--no-whole-archive -lnmpp-nm6407f
+LIBSD    =  -lnm6407int -Wl,--whole-archive -lnm6407_io_nmc -lmc12101_stub_nmc4_fixed -Wl,--no-whole-archive -lnmpp-nm6407f
 LDFLAGS  = -Wl,-Map=test.map  -Wl,-Tmc12101-nmpu1.lds
 LDFLAGSD = -Wl,-Map=testd.map -Wl,-Tmc12101-nmpu1.lds
-INC_DIRS = -I"$(MC12101)/include" -I../../../../include -I.. -I$(NMPP)/include -I$(VSHELL)/include
-LIB_DIRS = -L"$(MC12101)/lib" -L$(NMPP)/lib -L$(VSHELL)/lib
+INC_DIRS = -I"$(MC12101)/include" -I../../../../include -I.. -I$(NMPP)/include
+LIB_DIRS = -L"$(MC12101)/lib" -L$(NMPP)/lib
 SOURCES  = ../main.cpp
 
 .DEFAULT_GOAL := all
