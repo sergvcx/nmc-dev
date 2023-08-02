@@ -11,8 +11,8 @@ CC       = nmc-gcc
 AS       = nmc-gcc
 CXXFLAGS =  -O2 -Wall -mnmc4 -g
 CXXFLAGSD=  -O0 -Wall -mnmc4 -g
-LIBS     =  -lc
-LIBSD    =  -lc 
+LIBS     =  -lc -lnmpp-nm6407f -lvshell
+LIBSD    =  -lc -lnmpp-nm6407f -lvshell
 LDFLAGS  = -Wl,-Map=test.map  -Wl,-Tmc12101-nmpu1.lds
 LDFLAGSD = -Wl,-Map=testd.map -Wl,-Tmc12101-nmpu1.lds 
 INC_DIRS = -I"$(MC12101)/include" -I../../../../include -I.. -I$(NMPP)/include -I$(VSHELL)/include
