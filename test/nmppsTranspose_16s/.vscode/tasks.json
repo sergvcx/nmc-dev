@@ -67,7 +67,7 @@
 				"-L${env:NMPP}/lib",
 				"-Wall",
 				"../../pc/hash64.cpp",
-				"../../pc/nmppsMerge.c",
+				"../../pc/transpose.cpp",
 				"../../pc/dumpx.cpp",
 				"main.cpp",
 				"-o",
