@@ -12,10 +12,10 @@ __attribute__((section(".data.imu1"))) long long result[width * height / 4];
 
 int main()
 {
-	array[0] = 0xc000090000500001;
+	array[0] = 0x0004000300020001;
 	for (int i = 1; i < width * height / 4; i++)
 	{
-		array[i] = array[i - 1] + 0x0001000100010001;
+		array[i] = array[i - 1] + 0x0004000400040004;
 	};
 
 	int hash = 0;
@@ -32,7 +32,7 @@ int main()
 
 	dump_16u("%04x ", array, height, width, width * 2, 2);
 	printf("\n");
-	dump_16u("%04x ", result, width*2, height, height * 2, 2);
+	dump_16u("%04x ", result, width, height, height * 2, 2);
 
 	// dump_64s("%0llx ", array, height, width / 4, width / 4, 2);
 	// printf("\n");

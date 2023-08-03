@@ -32,6 +32,75 @@
 .endm
 
 .text
+transpose4Lines:
+	gr6 = gr4<<1;
+
+	ar1 = ar0;
+	gr1 = gr5<<1;
+	ar1 += gr1;
+	gr1 = 2;
+	ar2 = ar1;
+	gr2 = gr5<<1;
+	ar2 += gr2;
+	gr2 = 2;
+	ar3 = ar2;
+	gr3 = gr5<<1;
+	ar3 += gr3;
+	gr3 = 2;
+
+	gr4 = 32;
+	ar5 = ar6;
+	
+	push ar0, gr0;
+	push ar1, gr1;
+	push ar2, gr2;
+	push ar3, gr3;
+	call core_ClipMul4D4W4_AddVr;
+	pop ar3, gr3;
+	pop ar2, gr2;
+	pop ar1, gr1;
+	pop ar0, gr0;
+
+	ar6 = ar5;
+	gr6 >>= 2;
+	ar6 += gr6;
+	gr6 <<= 2;
+	ar5 = ar6;
+	ar4 += gr4;
+	push ar0, gr0;
+	push ar1, gr1;
+	push ar2, gr2;
+	push ar3, gr3;
+	call core_ClipMul4D4W4_AddVr;
+	pop ar3, gr3;
+	pop ar2, gr2;
+	pop ar1, gr1;
+	pop ar0, gr0;
+
+	ar6 = ar5;
+	gr6 >>= 2;
+	ar6 += gr6;
+	gr6 <<= 2;
+	ar5 = ar6;
+	ar4 += gr4;
+	push ar0, gr0;
+	push ar1, gr1;
+	push ar2, gr2;
+	push ar3, gr3;
+	call core_ClipMul4D4W4_AddVr;
+	pop ar3, gr3;
+	pop ar2, gr2;
+	pop ar1, gr1;
+	pop ar0, gr0;
+	
+	ar6 = ar5;
+	gr6 >>= 2;
+	ar6 += gr6;
+	gr6 <<= 2;
+	ar4 += gr4;
+	call core_ClipMul4D4W4_AddVr;
+	return;
+
 _nmppmTranspose_16s:
 	ar5 = ar7 - 2;
 	push ar0, gr0;
@@ -47,29 +116,29 @@ _nmppmTranspose_16s:
 	gr4 = [--ar5];					// * height
 	gr5 = [--ar5];					// * width
 
-	gr0 = 2;
+	SET vr, 0
+	SET nb1, 0x80008000
+	SET sb, 0x00020002
+	SET f1cr, 0x80008000
+	wtw;
 
 	gr5 >>= 2;
-	ar1 = ar0;
-	gr1 = gr5;
-	ar1 += gr1;
-	gr1 = 2;
-
-	ar2 = ar1;
-	gr2 = gr5;
-	ar2 += gr2;
-	gr2 = 2;
-
-	ar3 = ar2;
-	gr3 = gr5;
-	ar3 += gr3;
-	gr3 = 2;
-
-	gr6 = gr5<<1;
-
+	gr0 = 2;
 	ar4 = weights;
 
-	call core_ClipMul4D4W4_AddVr;
+	gr7 = gr4>>2;
+	loop:
+	if <= goto endLoop;
+		push ar4, gr4;
+		push ar6, gr6;
+		call transpose4Lines;
+		pop ar6, gr6;
+		pop ar4, gr4;
+		ar0=ar3;
+		gr6 = 2;
+		ar6 += gr6;
+	goto loop with gr7--;
+	endLoop:
 
 	pop ar6, gr6;
 	pop ar5, gr5;
