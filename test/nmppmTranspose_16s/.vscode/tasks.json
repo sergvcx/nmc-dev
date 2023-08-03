@@ -1,0 +1,85 @@
+{
+	// See https://go.microsoft.com/fwlink/?LinkId=733558
+	// for the documentation about the tasks.json format
+	"version": "2.0.0",
+	"inputs": [
+		{
+			"id": "nmQemuPath",
+			"type": "promptString",
+			"default": "nmc-qemu",
+			"description": "path to nmc-qemu"
+		}
+	],
+	"tasks": [
+		{
+			"label": "build board",
+			"type": "shell",
+			"command": "make",
+			"group": "build",
+			"args": [
+				"board"
+			]
+		},
+		{
+			"label": "build qemu",
+			"type": "shell",
+			"command": "make",
+			"group": "build",
+			"args": [
+				"qemu"
+			]
+		},
+		{
+			"label": "board run",
+			"command": "make run",
+			"type": "shell"
+		},
+		{
+			"label": "board debug run",
+			"command": "Start-Process",
+			"args": [
+				"make ",
+				"rund"
+			],
+			"type": "shell"
+		},
+		{
+			"label": "qemu run",
+			"command": "make qrun",
+			"type": "shell"
+		},
+		{
+			"label": "qemu debug run",
+			"type": "shell",
+			"command": "Start-Process",
+			"args": [
+				"make",
+				"qrund"
+			],
+		},
+		{
+			"label": "gcc build",
+			"command": "gcc",
+			"args": [
+				"-I${env:MC12101}/include",
+				"-I${env:NMPP}/include",
+				"-L${env:MC12101}/lib",
+				"-L${env:NMPP}/lib",
+				"-Wall",
+				"../../pc/hash64.cpp",
+				"../../pc/transpose.cpp",
+				"../../pc/dumpx.cpp",
+				"main.cpp",
+				"-o",
+				"result",
+				"-lnmpp-x64",
+			],
+			"type": "shell"
+		},
+		{
+			"label": "gcc run",
+			"command": ".\\result.exe",
+			"type": "shell"
+		},
+	],
+}

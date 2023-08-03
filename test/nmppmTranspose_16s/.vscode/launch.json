@@ -1,0 +1,35 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "nmc-qemu:10000",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "./qemu/testd.abs",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "nmc-gdb",
+            "miDebuggerServerAddress": ":10000",
+            "preLaunchTask": "qemu debug run"
+        },
+        {
+            "name": "board:5555",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "./mc12101/testd.abs",
+            "args": [],
+            "stopAtEntry": true,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": true,
+            "MIMode": "gdb",
+            "miDebuggerPath": "nmc-gdb",
+            "miDebuggerServerAddress": ":5555",
+            "preLaunchTask": "board debug run"
+        }
+    ]
+}
