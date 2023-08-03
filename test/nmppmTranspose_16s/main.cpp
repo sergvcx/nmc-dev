@@ -6,7 +6,7 @@
 #include "../../include/hadamard.h"
 
 const int width = 32;
-const int height = 4;
+const int height = 8;
 __attribute__((section(".data.imu0"))) long long array[width * height / 4];
 __attribute__((section(".data.imu1"))) long long result[width * height / 4];
 
@@ -32,7 +32,11 @@ int main()
 
 	dump_16u("%04x ", array, height, width, width * 2, 2);
 	printf("\n");
-	dump_16u("%04x ", result, width, height, height * 2, 2);
+	dump_16u("%04x ", result, width*2, height, height * 2, 2);
+
+	// dump_64s("%0llx ", array, height, width / 4, width / 4, 2);
+	// printf("\n");
+	// dump_64s("%0llx ", result, width, height / 4, height / 4, 2);
 
 	int return_code = hash;
 

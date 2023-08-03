@@ -2,9 +2,6 @@
 
 .section .data.nmpp
 	.align 3
-	mulWH:   .quad		0x0000000000000000, \
-						0x0000000000000000
-	width:   .quad		0x0000000000000000
 	weights: .quad		 0x0000000000000001,0,0,0, \
 						 0x0000000000010000,0,0,0, \
 						 0x0000000100000000,0,0,0, \
@@ -50,37 +47,36 @@ _nmppmTranspose_16s:
 	gr4 = [--ar5];					// * height
 	gr5 = [--ar5];					// * width
 
-	SET nb1, 0x80000000
-	SET sb , 0x2
-	ar4 = mulWH;
-	gr4 >>= 2;
-	[ar4] = gr4;
-	rep 2 wfifo = [ar4++], ftw;
-	wtw;
-	ar4 = width;
-	[ar4] = gr5;
-	rep 1 data = [ar4] with vsum , data, 0;
-	rep 1 [ar4] = afifo;
-	gr5 = [ar4];
+	gr0 = 2;
 
-	[ar6] = gr5;
+	gr5 >>= 2;
+	ar1 = ar0;
+	gr1 = gr5;
+	ar1 += gr1;
+	gr1 = 2;
 
-	//SET vr, 0
-	//SET nb1, 0x80008000
-	//SET sb, 0x00020002
-	//SET f1cr, 0x80008000
-	//wtw;
-//
-	//ar4 = weights;
-	//gr6 = 8;
-	//gr0 = 2;
-	//ar1 = ar0;
-	//gr1 = 2;
-	//ar2 = ar0;
-	//gr2 = 2;
-	//ar3 = ar0;
-	//gr3 = 2;
-//
-	//call core_ClipMul4D4W4_AddVr;
+	ar2 = ar1;
+	gr2 = gr5;
+	ar2 += gr2;
+	gr2 = 2;
+
+	ar3 = ar2;
+	gr3 = gr5;
+	ar3 += gr3;
+	gr3 = 2;
+
+	gr6 = gr5<<1;
+
+	ar4 = weights;
+
+	call core_ClipMul4D4W4_AddVr;
+
+	pop ar6, gr6;
+	pop ar5, gr5;
+	pop ar4, gr4;
+	pop ar3, gr3;
+	pop ar2, gr2;
+	pop ar1, gr1;
+	pop ar0, gr0;
 
 	return;
