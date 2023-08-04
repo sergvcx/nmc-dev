@@ -35,7 +35,7 @@ $(TARGETD): $(SOURCES) Makefile qemu.lds
 
 
 run:  $(TARGET)
-	nmc-qemu $(TARGET) 
+	nmc-qemu -floating $(TARGET) 
 
 rund: $(TARGETD)
 	nmc-qemu -g 10000 $(TARGETD) 

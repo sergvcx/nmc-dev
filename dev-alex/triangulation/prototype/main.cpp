@@ -508,6 +508,7 @@ int main()
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
 	}
 	*/
+	printf("\n\n");
 	/*
 	if(!VS_Init())
     	return 0;
