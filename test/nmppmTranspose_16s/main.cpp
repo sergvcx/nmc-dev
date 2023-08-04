@@ -27,9 +27,9 @@ int main()
 			nmppmTranspose_16s((nm16s *)array, (nm16s *)result, i, j);
 			hash ^= nmppsHash64u(result, i * j / 4);
 
-			dump_16u("%04x ", array, i, j, j * 2, 1);
+			dump_16u("%04x ", array, i, j, j * 2, 2);
 			printf("\n");
-			dump_16u("%04x ", result, j, i, i * 2, 1);
+			dump_16u("%04x ", result, j, i, i * 2, 2);
 			printf("-----------------------------------\n");
 		}
 	}
