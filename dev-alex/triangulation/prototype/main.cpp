@@ -7,6 +7,13 @@
 #include "nmpp.h"
 //#include "VShell.h"
 
+const int size = 4;
+const int maximumDestinationSize = 128;
+const int maximumHeight = 40;
+const int maximumWidth  = 40;
+static const int WIDTH  = 512;
+static const int HEIGHT = 512;
+
 struct point
 {
 	float x;
@@ -346,7 +353,7 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 	float * by = (float*)malloc(maxDstSize * sizeof(float));
 	float * cx = (float*)malloc(maxDstSize * sizeof(float));
 	float * cy = (float*)malloc(maxDstSize * sizeof(float));
-
+	
 	trianglesArrayToCheck.v0.x = ax;
 	trianglesArrayToCheck.v0.y = ay;
 	trianglesArrayToCheck.v1.x = bx;
@@ -412,13 +419,6 @@ void triangulation(	TrianglePointers* srcVertex, int srcCount,
 	free(cxNew);
 	free(cyNew);
 }
-
-const int size = 4;
-const int maximumDestinationSize = 800;
-const int maximumHeight = 20;
-const int maximumWidth  = 20;
-static const int WIDTH  = 512;
-static const int HEIGHT = 512;
 
 int main()
 {
@@ -500,14 +500,14 @@ int main()
 	else
 		resultCount = size + treatedCounter;
 	printf("\n\n%d Result Triangles:", resultCount);
-	
+	/*
 	for(int i = 0; i < resultCount; ++i)
 	{
 		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i]);
 		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i]);
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
 	}
-	
+	*/
 	/*
 	if(!VS_Init())
     	return 0;
@@ -544,10 +544,10 @@ int main()
 		dXab[i].v0 = i * 2;
 		dXab[i].v1 = i * 2 + 1;
 	}
-	dXab[3].v1 = 50.25;
-	dXab[1].v0 = 45.98;
-	dXab[35].v0 = 2.03;
-	dXab[34].v1 = 29.76;
+//	dXab[3].v1 = 50.25;
+//	dXab[1].v0 = 45.98;
+//	dXab[35].v0 = 2.03;
+//	dXab[34].v1 = 29.76;
 	printf("\n");
 	for(int i = 0; i < testsize / 2; ++i)
 	{
@@ -557,8 +557,8 @@ int main()
 	}
 	
 	v2nm32f constant[1];
-	constant[0].v0 = 36;
-	constant[0].v1 = 36;
+	constant[0].v0 = 0;
+	constant[0].v1 = 0;
 	printf("Constant:\n");
 	printf("%f, %f\n", constant[0].v0, constant[0].v1);
 
@@ -601,7 +601,7 @@ int main()
 		else
 			printf("1");
 	}
-	
+
 	nmppsCmpLteC_v2nm32f (dXab, constant, evenFlagsInt, oddFlagsInt, step, testsize / 2);
 
 	printf("\nLteC Even:\n");
@@ -633,6 +633,7 @@ int main()
 		else
 			printf("1");
 	}
+	printf("\n\n");
 
 	free(dXab);
 	free(evenFlagsInt);
