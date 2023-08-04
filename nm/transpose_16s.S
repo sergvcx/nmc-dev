@@ -102,23 +102,23 @@ transpose4Lines:
 	return;
 
 transpose4Columns:
-	gr4 = 32;
-
 	gr6 = 2;
 
 	ar1 = ar0;
-	gr1 = gr5>>1;
+	gr1 = gr4>>1;
 	ar1 += gr1;
 	gr1 = gr0;
 	ar2 = ar1;
-	gr2 = gr5>>1;
+	gr2 = gr4>>1;
 	ar2 += gr2;
 	gr2 = gr0;
 	ar3 = ar2;
-	gr3 = gr5>>1;
+	gr3 = gr4>>1;
 	ar3 += gr3;
 	gr3 = gr0;
 	
+	gr4 = 32;
+
 	push ar0, gr0;
 	push ar1, gr1;
 	push ar2, gr2;
@@ -181,7 +181,7 @@ _nmppmTranspose_16s_Lines:
 	gr0 = 2;
 	ar4 = weights;
 
-	gr1 = gr4>>2;	// gr7?
+	gr1 = gr4>>2;
 	loop:
 	if <= goto endLoop;
 		push ar1, gr1;
@@ -231,9 +231,10 @@ _nmppmTranspose_16s:
 
 	gr0 = gr5<<1;
 	gr5 = gr4>>2;
+	gr4 = gr0>>1;
 	ar4 = weights;
 
-	gr1 = gr5>>2;
+	gr1 = gr4>>2;
 	loopCol:
 	if <= goto endLoopCol;
 		push ar0, gr0;
@@ -243,9 +244,11 @@ _nmppmTranspose_16s:
 		pop ar4, gr4;
 		pop ar1, gr1;
 		pop ar0, gr0;
-		gr0 = 2;
-		ar0 += gr0;
-		gr0 = gr5<<1;
+		//gr0 = 2;
+		//ar0 += gr0;
+		//gr0 = gr4<<1;
+		ar0++;
+		ar0++;
 	goto loopCol with gr1--;
 	endLoopCol:
 
