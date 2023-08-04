@@ -126,18 +126,21 @@ _nmppmTranspose_16s:
 	gr0 = 2;
 	ar4 = weights;
 
-	gr7 = gr4>>2;
+	gr1 = gr4>>2;	// gr7?
 	loop:
 	if <= goto endLoop;
+		push ar1, gr1;
 		push ar4, gr4;
 		push ar6, gr6;
 		call transpose4Lines;
 		pop ar6, gr6;
 		pop ar4, gr4;
-		ar0=ar3;
+		pop ar1, gr1;
+		ar0 = ar3;
+		[ar6] = gr1;
 		gr6 = 2;
 		ar6 += gr6;
-	goto loop with gr7--;
+	goto loop with gr1--;
 	endLoop:
 
 	pop ar6, gr6;

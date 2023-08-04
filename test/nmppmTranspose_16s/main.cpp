@@ -20,19 +20,19 @@ int main()
 
 	int hash = 0;
 
-	// for (int i = 4; i <= height; i += 4)
-	// {
-	// 	for (int j = 4; j <= width; j += 4)
-	// 	{
-	// 		nmppmTranspose_16s((nm16s *)array, (nm16s *)result, i, j);
-	// 		hash ^= nmppsHash64u(result, i * j / 4);
-	// 	}
-	// }
-	nmppmTranspose_16s((nm16s *)array, (nm16s *)result, height, width);
+	for (int i = 4; i <= height; i += 4)
+	{
+		for (int j = 4; j <= width; j += 4)
+		{
+			nmppmTranspose_16s((nm16s *)array, (nm16s *)result, i, j);
+			hash ^= nmppsHash64u(result, i * j / 4);
 
-	dump_16u("%04x ", array, height, width, width * 2, 2);
-	printf("\n");
-	dump_16u("%04x ", result, width, height, height * 2, 2);
+			dump_16u("%04x ", array, i, j, j * 2, 2);
+			printf("\n");
+			dump_16u("%04x ", result, j, i, i * 2, 2);
+			printf("-----------------------------------\n");
+		}
+	}
 
 	// dump_64s("%0llx ", array, height, width / 4, width / 4, 2);
 	// printf("\n");
