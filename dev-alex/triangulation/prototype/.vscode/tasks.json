@@ -73,6 +73,7 @@
                 "-I${env:NMPP}/include",
                 "-I${env:VSHELL}/include",
                 "main.cpp",
+                "../../../common/triangulation.cpp",
                 "-L${env:NMPP}/lib",
                 "-lnmpp-x64",
                 "-L${env:VSHELL}/lib",

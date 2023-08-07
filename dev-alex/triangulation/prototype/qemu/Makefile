@@ -9,15 +9,15 @@ TARGETD  = testd.abs
 
 CC       = nmc-gcc
 AS       = nmc-gcc
-CXXFLAGS =  -O2 -Wall -mnmc4 -g -std=c99
-CXXFLAGSD=  -O0 -Wall -mnmc4 -g -std=c99
+CXXFLAGS =  -O2 -Wall -mnmc4 -g
+CXXFLAGSD=  -O0 -Wall -mnmc4 -g
 LIBS     =  -lc -lnmpp-nm6407f
 LIBSD    =  -lc -lnmpp-nm6407f
 LDFLAGS  = -Wl,-Map=test.map  -Wl,-Tqemu.lds
 LDFLAGSD = -Wl,-Map=testd.map -Wl,-Tqemu.lds 
 INC_DIRS = -I"$(MC12101)/include" -I../../../../include -I.. -I$(NMPP)/include
 LIB_DIRS = -L"$(MC12101)/lib" -L$(NMPP)/lib
-SOURCES  = ../main.cpp
+SOURCES  = ../main.cpp ../../../../common/triangulation.cpp
 
 .DEFAULT_GOAL := all
 
