@@ -5,8 +5,8 @@
 #include "../../include/mTranspose.h"
 #include "../../include/hadamard.h"
 
-const int width = 8;
-const int height = 32;
+const int width = 128;
+const int height = 128;
 __attribute__((section(".data.imu0"))) long long array[width * height / 4];
 __attribute__((section(".data.imu1"))) long long result[width * height / 4];
 
@@ -27,10 +27,10 @@ int main()
 			nmppmTranspose_16s((nm16s *)array, (nm16s *)result, i, j);
 			hash ^= nmppsHash64u(result, i * j / 4);
 
-			dump_16u("%04x ", array, i, j, j * 2, 2);
-			printf("\n");
-			dump_16u("%04x ", result, j, i, i * 2, 2);
-			printf("-----------------------------------\n");
+			// dump_16u("%04x ", array, i, j, j * 2, 2);
+			// printf("\n");
+			// dump_16u("%04x ", result, j, i, i * 2, 2);
+			// printf("-----------------------------------\n");
 		}
 	}
 
@@ -44,7 +44,7 @@ int main()
 	// printf("\n");
 	// dump_64s("%0llx ", result, width, height / 4, height / 4, 2);
 
-	int return_code = hash;
+	int return_code = hash^0x779121de; // lines or columns 128, 128
 
 	printf("return code = 0x%0x\n", return_code);
 

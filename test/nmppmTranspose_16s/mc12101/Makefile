@@ -37,7 +37,7 @@ rpc: $(TARGET)
 
 
 run: $(TARGET)
-	mc12101run -p -R -a1 -v $(TARGET)
+	mc12101run -p -a1 -v $(TARGET)
 
 rund: $(TARGETD) 
 	mc12101run -p -R -a1 -v $(TARGETD)
