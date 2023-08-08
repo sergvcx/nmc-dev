@@ -5,7 +5,9 @@
 		extern "C" {
 #endif
 
-    void masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags );;
+    void nmppsAverage( float* srcVec1, float* srcVec2, float* dstArray, int srcCount );
+
+    void masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags );
 
     void sort( 	TrianglePointers * srcTriangles, int srcCount,
 			    TrianglePointers * toSplitTriangles, int * toSplitTrianglesCount,
