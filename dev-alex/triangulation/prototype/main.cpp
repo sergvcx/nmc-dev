@@ -94,14 +94,14 @@ int main()
 	else
 		resultCount = size + treatedCounter;
 	printf("\n\n%d Result Triangles:", resultCount);
-	/*
+	
 	for(int i = 0; i < resultCount; ++i)
 	{
 		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i]);
 		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i]);
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
 	}
-	*/
+	
 	printf("\n\n");
 	/*
 	if(!VS_Init())
