@@ -1,6 +1,7 @@
 .global _nmppmTranspose_16s
+.global _nmppmTranspose_16s_Lines
 
-.section .data.nmpp
+.section .data.imu0
 	.align 3
 	weights: .quad		 0x0000000000000001,0,0,0, \
 						 0x0000000000010000,0,0,0, \
