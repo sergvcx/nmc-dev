@@ -19,7 +19,6 @@
     //! \{
 	void nmppmTranspose_32s(const nm32s* srcMatrix ,nm32s* dstMatrix, int height, int width);
 	void nmppmTranspose_16s(const nm16s* srcMatrix, nm16s* dstMatrix, int height, int width);
-	void nmppmTranspose_16s_Lines(const nm16s* srcMatrix, nm16s* dstMatrix, int height, int width);
 	//! \}
 
 #ifdef __cplusplus

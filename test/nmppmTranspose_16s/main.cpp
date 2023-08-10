@@ -19,61 +19,42 @@ int main()
 		array[i] = array[i - 1] + 0x0004000400040004;
 	};
 
-	int hash_columns = 0;
-	int hash_lines = 0;
+	int hash = 0;
 
-	// for (int i = 4; i <= height; i += 4)
-	// {
-	// 	for (int j = 4; j <= width; j += 4)
-	// 	{
-	// 		long long t0c = static_cast<long long>(clock());
-	// 		nmppmTranspose_16s((nm16s *)array, (nm16s *)result, i, j);
-	// 		long long t1c = static_cast<long long>(clock());
-	// 		hash_columns ^= nmppsHash64u(result, i * j / 4);
+	for (int i = 4; i <= height; i += 4)
+	{
+		for (int j = 4; j <= width; j += 4)
+		{
+			// long long t0 = static_cast<long long>(clock());
+			nmppmTranspose_16s((nm16s *)array, (nm16s *)result, i, j);
+			// long long t1 = static_cast<long long>(clock());
+			hash ^= nmppsHash64u(result, i * j / 4);
 
-	// 		long long t0l = static_cast<long long>(clock());
-	// 		nmppmTranspose_16s_Lines((nm16s *)array, (nm16s *)result, i, j);
-	// 		long long t1l = static_cast<long long>(clock());
-	// 		hash_lines ^= nmppsHash64u(result, i * j / 4);
+			// long long time = t1 - t0;
+			// double speed = (double) time / (i*j);
+			// printf("speed=%f\n", speed);
 
-	// 		long long time_lines =t1l - t0l;
-	// 		long long time_cols =t1c - t0c;
+			// dump_16u("%04x ", array, i, j, j * 2, 2);
+			// printf("\n");
+			// dump_16u("%04x ", result, j, i, i * 2, 2);
+			// printf("-----------------------------------\n");
+		}
+			printf("\n");
+	}
 
-	// 		if (time_cols>time_lines) printf("%d ", 0);
-	// 		else if (time_lines>time_cols) printf("%d ", 1);
-	// 		else printf("%d ", 2);
-
-	// 		// dump_16u("%04x ", array, i, j, j * 2, 2);
-	// 		// printf("\n");
-	// 		// dump_16u("%04x ", result, j, i, i * 2, 2);
-	// 		// printf("-----------------------------------\n");
-	// 	}
-	// 		printf("\n");
-	// }
-
-	long long t0c = static_cast<long long>(clock());
-		nmppmTranspose_16s((nm16s *)array, (nm16s *)result, height, width);
-		long long t1c = static_cast<long long>(clock());
-
-		long long t0l = static_cast<long long>(clock());
-		nmppmTranspose_16s_Lines((nm16s *)array, (nm16s *)result, height, width);
-		long long t1l = static_cast<long long>(clock());
-
-		printf("col speed = %f\n", ((double)t1c-(double)t0c)/(height*width));
-		printf("lines speed = %f\n", ((double)t1l-(double)t0l)/(height*width));
-
+	// single call test
 	// nmppmTranspose_16s((nm16s *)array, (nm16s *)result, height, width);
 	// dump_16u("%04x ", array, height, width, width * 2, 2);
 	// printf("\n");
 	// dump_16u("%04x ", result, width, height, height * 2, 2);
 	// printf("-----------------------------------\n");
 
+	// different print format
 	// dump_64s("%0llx ", array, height, width / 4, width / 4, 2);
 	// printf("\n");
 	// dump_64s("%0llx ", result, width, height / 4, height / 4, 2);
 
-	// int return_code = hash^0x779121de; // lines or columns 128, 128
-	int return_code = hash_columns^hash_lines; // lines or columns 128, 128
+	int return_code = hash^0x779121de; // lines or columns 128, 128
 
 	printf("return code = 0x%0x\n", return_code);
 
