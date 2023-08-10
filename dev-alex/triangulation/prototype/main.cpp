@@ -94,14 +94,14 @@ int main()
 	else
 		resultCount = size + treatedCounter;
 	printf("\n\n%d Result Triangles:", resultCount);
-	
+	/*
 	for(int i = 0; i < resultCount; ++i)
 	{
 		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i]);
 		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i]);
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
 	}
-	
+	*/
 	printf("\n\n");
 	/*
 	if(!VS_Init())
@@ -130,7 +130,29 @@ int main()
 		VS_Draw(VS_DRAW_ALL);
 	}
 	*/
-	
+	/*
+	float * a = (float*)malloc(100 * sizeof(float));
+	float * b = (float*)malloc(100 * sizeof(float));
+	float * c = (float*)malloc(100 * sizeof(float));
+	for(int i = 0; i < 100; ++i)
+	{
+		a[i] = 100;
+		b[i] = i;
+	}
+	//float constanta[2] = {0.5, 0.5};
+	float * constanta = (float*)malloc(2 * sizeof(float));
+	constanta[0] = 0.5;
+	constanta[1] = 0.5;
+	nmppsAverage(a, b, c, constanta, 100);
+	for(int i = 0; i < 100; ++i)
+		printf("\n%f", c[i]);
+	printf("\n\n\n");
+
+	printf("\n");
+	for(int i = 0; i < 100; ++i)
+		printf("\nA[%d]: %f; B[%d]: %f; NewP: %f\n", i, a[i], i, b[i], c[i]);
+	printf("\n");	
+	*/
 	return 0;
 }
 

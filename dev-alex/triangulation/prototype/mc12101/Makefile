@@ -33,13 +33,13 @@ $(TARGETD): $(SOURCES) Makefile mc12101-nmpu0.lds
 	nmc-objdump -D $(TARGETD) > dasmd.txt
 	
 run: $(TARGET)
-	mc12101run -p -a0 -v $(TARGET)
+	mc12101run -p -R -a0 -v $(TARGET)
 
 rund: $(TARGETD) 
-	mc12101run -p -a0 -v $(TARGETD)
+	mc12101run -p -R -a0 -v $(TARGETD)
 
 rpc:
-	hal-run --server_ip=213.141.142.228 --server_port=5557   -p -a0 $(TARGET)
+	hal-run --server_ip=213.141.142.228 --server_port=5557 -R -p -a0 $(TARGET)
 
 
 # set path to MinGW/bin    For example:  SET PATH=%PATH%;d:\SDK\msys64\mingw64\bin\
