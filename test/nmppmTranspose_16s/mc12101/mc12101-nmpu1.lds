@@ -131,8 +131,7 @@ SECTIONS
     . = ORIGIN(C1_IMU3) + LENGTH(C1_IMU3);
     __HEAP_3_END = .;
   } > C1_IMU3
-  
-  
+
 /************rpc . important ALIGN(0x8) in both *****/
   .rpc_services.bss : ALIGN(0x8)
   {
