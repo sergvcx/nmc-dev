@@ -16,7 +16,7 @@ LDFLAGS  = -Wl,-Map=test.map  -Wl,-Tqemu-nm6407i.lds
 LDFLAGSD = -Wl,-Map=testd.map -Wl,-Tqemu-nm6407i.lds 
 INC_DIRS = -I"$(MC12101)/include" -I../../../include -I.. -I$(NMPP)/include
 LIB_DIRS = -L"$(MC12101)/lib" -L$(NMPP)/lib
-SOURCES  = ../../../nm/hash64.S ../../../nm/transpose_16s.S ../../../common/hadamard_init.cpp ../../../common/hadamard_16s.cpp ../../../pc/dumpx.cpp ../main.cpp
+SOURCES  = ../../../nm/hash64.S ../../../nm/transpose_16s.S ../../../common/hadamard_init.cpp ../../../common/hadamard_16s.cpp ../../../pc/dumpx.cpp ../../../common/mulmm.cpp ../../../nm/mulmm_2col.S ../main.cpp
 
 .DEFAULT_GOAL := all
 

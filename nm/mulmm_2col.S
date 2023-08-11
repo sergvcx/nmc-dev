@@ -1,4 +1,5 @@
 .global _nmppsMulMM_2s32s_2col
+.global _nmppsMulMM_2s16s_4col
 
 .macro SET reg,val
 #if __NM4__== 0
@@ -142,6 +143,126 @@ _nmppsMulMM_2s32s_2col:
 	MULMM_REP 31
 
 	End:
+	pop ar5, gr5;
+	pop ar4, gr4;
+	pop ar3, gr3;
+	pop ar2, gr2;
+	pop ar1, gr1;
+	pop ar0, gr0;
+	return;
+
+//************************************************
+_nmppsMulMM_2s16s_4col:
+	ar5 = ar7 - 2;
+	push ar0, gr0;
+	push ar1, gr1;
+	push ar2, gr2;
+	push ar3, gr3;
+	push ar4, gr4;
+	push ar5, gr5;
+	
+	ar0 = [--ar5]; // * A
+	gr5 = [--ar5]; // H
+	gr1 = [--ar5]; // W1
+	ar1 = [--ar5]; // * B
+	ar2 = [--ar5]; // * C
+	gr2 = [--ar5]; // W2
+	gr2 A>>= 1;
+
+	SET nb1, 0x80008000
+	SET sb, 0xaaaaaaaa
+	
+	gr0 = gr1 >> 4; // W/16 смещение
+
+	gr3 = gr1 >> 5; // W/32
+
+	gr1 = gr2;
+
+	ar3 = ar0 with gr3--;
+	gr4 = gr3;
+	gr7 = gr5 >> 5; // H/32
+	ar5 = ar1;
+
+	LoopH_f_16:
+		if =0 goto EndLoopH_f_16;
+		ar0 = ar3;
+		rep 32 wfifo=[ar1++gr1], ftw, wtw;
+		rep 32 data=[ar0++gr0] with vsum, data, 0;
+		with gr3;
+		ar3 += 2;
+		LoopW_f_16:
+			if =0  goto EndLoopW_f_16;
+			ar0 = ar3;
+			rep 32 wfifo=[ar1++gr1], ftw, wtw;
+			rep 32 data=[ar0++gr0] with vsum, data, afifo;
+			delayed goto LoopW_f_16 with gr3--;
+				ar3 += 2;
+		EndLoopW_f_16:
+
+		rep 32 [ar2++gr2] = afifo;
+
+		ar1 = ar5;
+		gr3 = gr4;
+
+		gr0 = -gr0;
+		ar3 = ar0+gr0;
+		gr0 = -gr0;
+
+		delayed goto LoopH_f_16 with gr7--;
+			ar3 += 2;
+	EndLoopH_f_16:
+
+	ar4 = MulMM_rep1_16; // адрес перехода
+
+	gr5 <<= 27;
+	gr4 = gr5 >> 27; // H%32
+	if =0 goto End;
+	
+	gr4--;
+	gr4 <<= 4;
+	ar4 += gr4;
+
+
+	ar0 = ar3;
+	ar3 += 2;
+
+	ar5 = ar3;
+
+	goto ar4;
+	MulMM_rep1_16:
+	MULMM_REP 1
+	MULMM_REP 2
+	MULMM_REP 3
+	MULMM_REP 4
+	MULMM_REP 5
+	MULMM_REP 6
+	MULMM_REP 7
+	MULMM_REP 8
+	MULMM_REP 9
+	MULMM_REP 10
+	MULMM_REP 11
+	MULMM_REP 12
+	MULMM_REP 13
+	MULMM_REP 14
+	MULMM_REP 15
+	MULMM_REP 16
+	MULMM_REP 17
+	MULMM_REP 18
+	MULMM_REP 19
+	MULMM_REP 20
+	MULMM_REP 21
+	MULMM_REP 22
+	MULMM_REP 23
+	MULMM_REP 24
+	MULMM_REP 25
+	MULMM_REP 26
+	MULMM_REP 27
+	MULMM_REP 28
+	MULMM_REP 29
+	MULMM_REP 30
+	MULMM_REP 31
+
+	//End:
 	pop ar5, gr5;
 	pop ar4, gr4;
 	pop ar3, gr3;
