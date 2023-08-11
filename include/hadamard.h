@@ -98,6 +98,7 @@
     */
     //! \{
 		void nmppsMulMM_2s32s(nm2s* A, int H, int W1, nm32s* B, nm32s* C, int W2);
+		void nmppsMulMM_2s16s(nm2s* A, int H, int W1, nm16s* B, nm16s* C, int W2);
     //! \}
 
 //*****************************************************************************
@@ -134,6 +135,7 @@
     */
     //! \{
 		void nmppsMulMM_2s32s_2col(nm2s* A, int H, int W1, nm32s* B, nm32s* C, int W2);
+		void nmppsMulMM_2s16s_4col(nm2s* A, int H, int W1, nm16s* B, nm16s* C, int W2);
     //! \}
 
 //*****************************************************************************
@@ -191,6 +193,7 @@
     */
     //! \{
 		void nmppsHadamard(nm32s* src, nm32s* dst, nm2s* H, nm32s* temp, int size);
+		void nmppsHadamard_16s(nm16s* src, nm16s* dst, nm2s* H, nm16s* temp, int size);
     //! \}
 
 //*****************************************************************************
@@ -228,6 +231,7 @@
     */
     //! \{
 		void nmppsHadamardInverse(nm32s* src, nm32s* dst, nm2s* H, nm32s* temp, int size);
+		void nmppsHadamardInverse_16s(nm16s* src, nm16s* dst, nm2s* H, nm16s* temp, int size);
     //! \}
 
 //*****************************************************************************
