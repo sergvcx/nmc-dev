@@ -74,7 +74,7 @@
                 "-I${env:VSHELL}/include",
                 "main.cpp",
                 "../../../common/triangulation.cpp",
-                "../../../pc/nmppsAverage.cpp",
+                "../../../pc/nmppsAdd_MulC_32f.cpp",
                 "-L${env:NMPP}/lib",
                 "-lnmpp-x64",
                 "-L${env:VSHELL}/lib",

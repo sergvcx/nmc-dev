@@ -262,8 +262,8 @@ extern "C" void split( TrianglePointers * toSplitTriangles, int toSplitTriangles
 	float constValue[2] = {0.5, 0.5};
 	float * newVertexX = (float*)malloc(toSplitTrianglesCount * sizeof(float));
 	float * newVertexY = (float*)malloc(toSplitTrianglesCount * sizeof(float));	
-	nmppsAverage   ( toSplitTriangles->v0.x, toSplitTriangles->v1.x, newVertexX, constValue,  toSplitTrianglesCount );
-	nmppsAverage   ( toSplitTriangles->v0.y, toSplitTriangles->v1.y, newVertexY, constValue,  toSplitTrianglesCount );
+	nmppsAdd_MulC_32f   ( toSplitTriangles->v0.x, toSplitTriangles->v1.x, newVertexX, constValue,  toSplitTrianglesCount );
+	nmppsAdd_MulC_32f   ( toSplitTriangles->v0.y, toSplitTriangles->v1.y, newVertexY, constValue,  toSplitTrianglesCount );
 	
 	printf("\n");
 	for(int i = 0; i < toSplitTrianglesCount; ++i)
@@ -344,10 +344,7 @@ extern "C" void triangulation(	TrianglePointers* srcVertex, int srcCount,
 		sort( &trianglesArrayToCheck, checkForFitCount, &toSplitTriangles, &toSplitTrianglesCount, dstVertex, &currentDstCount, maxDstSize, flags );
 
 		if( currentDstCount < maxDstSize )
-		{
-			checkForFitCount = 0;
 			split( &toSplitTriangles, toSplitTrianglesCount, &trianglesArrayToCheck, &checkForFitCount, srcTreatedCount );
-		}
 	}
 	
 	free(flags);

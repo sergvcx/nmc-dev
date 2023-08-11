@@ -16,7 +16,7 @@ LDFLAGS  = -Wl,-Map=test.map  -Wl,-Tmc12101-nmpu0.lds
 LDFLAGSD = -Wl,-Map=testd.map -Wl,-Tmc12101-nmpu0.lds
 INC_DIRS = -I"$(MC12101)/include" -I../../../../include -I.. -I$(NMPP)/include
 LIB_DIRS = -L"$(MC12101)/lib" -L$(NMPP)/lib
-SOURCES  = ../main.cpp ../../../../common/triangulation.cpp ../../../../nm/nmppsAverage.S
+SOURCES  = ../main.cpp ../../../../common/triangulation.cpp ../../../../nm/nmppsAdd_MulC_32f.S
 
 .DEFAULT_GOAL := all
 

@@ -143,7 +143,7 @@ int main()
 	float * constanta = (float*)malloc(2 * sizeof(float));
 	constanta[0] = 0.5;
 	constanta[1] = 0.5;
-	nmppsAverage(a, b, c, constanta, 100);
+	nmppsAdd_MulC_32f(a, b, c, constanta, 100);
 	for(int i = 0; i < 100; ++i)
 		printf("\n%f", c[i]);
 	printf("\n\n\n");
