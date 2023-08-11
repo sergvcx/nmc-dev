@@ -14,7 +14,7 @@ __attribute__((section(".data.imu2"))) long long A_had_result[size_had*(size_had
 
 int main()
 {
-	A_had[0]=7;
+	A_had[0]=0x000000ff000000ff;
 	for (int i = 1; i < size_had*(size_had/2); i++) A_had[i] = ((A_had[i-1]<<61)>>60) + i%16;
 
 	int hash1 = 0;
