@@ -76,13 +76,15 @@ int main()
 	testTrianglesArray.v2.x[3] = 210;
 	testTrianglesArray.v2.y[3] = 120;
 
-	printf("\nGiven Triangles:");
+	printf("\n%d Given Triangles:", size);
+	/*
 	for(int i = 0; i < size; ++i)
 	{
 		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testTrianglesArray.v0.x[i], testTrianglesArray.v0.y[i]);
 		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testTrianglesArray.v1.x[i], testTrianglesArray.v1.y[i]);
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testTrianglesArray.v2.x[i], testTrianglesArray.v2.y[i]);
 	}
+	*/
 	
 
 	triangulation( &testTrianglesArray, size, maximumWidth, maximumHeight, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
@@ -94,14 +96,14 @@ int main()
 	else
 		resultCount = size + treatedCounter;
 	printf("\n\n%d Result Triangles:", resultCount);
-	
+	/*
 	for(int i = 0; i < resultCount; ++i)
 	{
 		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i]);
 		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i]);
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
 	}
-	
+	*/
 	printf("\n\n");
 	/*
 	if(!VS_Init())
@@ -130,7 +132,6 @@ int main()
 		VS_Draw(VS_DRAW_ALL);
 	}
 	*/
-	
 	return 0;
 }
 

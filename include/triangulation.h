@@ -5,7 +5,7 @@
 		extern "C" {
 #endif
 
-    void nmppsAverage( float* srcVec1, float* srcVec2, float* dstArray, int srcCount );
+    void nmppsAdd_MulC_32f( float* srcVec1, float* srcVec2, float* dstVec, float* nVal, int srcCount );
 
     void masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags );
 
