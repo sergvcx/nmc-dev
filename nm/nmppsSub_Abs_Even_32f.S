@@ -51,15 +51,15 @@ _nmppsSub_Abs_Even_32f:
     goto condition;
 loopRep32:
     fpu 0 rep 32 vreg0 = [ar0++gr0];
-    fpu 0 .float vreg1 = vreg0 * .retrive(vreg4, vreg5);
+    fpu 0 .matrix vreg1 = vreg0 * .retrive(vreg4, vreg5);
     fpu 0 rep 32 vreg2 = [ar3++gr3];
-    fpu 0 .float vreg3 = vreg2 * .retrive(vreg6, vreg7);
+    fpu 0 .matrix vreg3 = vreg2 * .retrive(vreg6, vreg7);
     fpu 0 .float vreg3 = vreg1 + vreg3;
     
     fpu 1 rep 32 vreg0 = [ar1++gr1];
-    fpu 1 .float vreg1 = vreg0 * .retrive(vreg4, vreg5);
+    fpu 1 .matrix vreg1 = vreg0 * .retrive(vreg4, vreg5);
     fpu 1 rep 32 vreg2 = [ar4++gr4];
-    fpu 1 .float vreg3 = vreg2 * .retrive(vreg6, vreg7);
+    fpu 1 .matrix vreg3 = vreg2 * .retrive(vreg6, vreg7);
     fpu 1 .float vreg3 = vreg1 + vreg3;
 
     fpu 0 vreg1 = fpu 1 vreg3;
@@ -74,15 +74,15 @@ condition:
     gr2 = gr2 >> 26;    //кратно 4 
     vlen = gr2;
     fpu 0 vlen vreg0 = [ar0++gr0];
-    fpu 0 .float vreg1 = vreg0 * .retrive(vreg4, vreg5);
+    fpu 0 .matrix vreg1 = vreg0 * .retrive(vreg4, vreg5);
     fpu 0 vlen vreg2 = [ar3++gr3];
-    fpu 0 .float vreg3 = vreg2 * .retrive(vreg6, vreg7);
+    fpu 0 .matrix vreg3 = vreg2 * .retrive(vreg6, vreg7);
     fpu 0 .float vreg3 = vreg1 + vreg3;
     
     fpu 1 vlen vreg0 = [ar1++gr1];
-    fpu 1 .float vreg1 = vreg0 * .retrive(vreg4, vreg5);
+    fpu 1 .matrix vreg1 = vreg0 * .retrive(vreg4, vreg5);
     fpu 1 vlen vreg2 = [ar4++gr4];
-    fpu 1 .float vreg3 = vreg2 * .retrive(vreg6, vreg7);
+    fpu 1 .matrix vreg3 = vreg2 * .retrive(vreg6, vreg7);
     fpu 1 .float vreg3 = vreg1 + vreg3;
 
     fpu 0 vreg1 = fpu 1 vreg3;

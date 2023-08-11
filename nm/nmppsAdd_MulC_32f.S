@@ -16,6 +16,7 @@ _nmppsAdd_MulC_32f:
 	push ar1, gr1;	// srcVec2
 	push ar2, gr2;	// dstVec
 	push ar3, gr3;	// nVal
+    push ar4, gr4;  //
 
     ar0 = [--ar5];
     ar1 = [--ar5];
@@ -55,23 +56,24 @@ condition:
     gr1 = gr1 and gr3;
     if =0 goto endMark; 
     ar3 = Matrix_1;
-    gr3 = Matrix_2;    
-    fpu 0 rep 1 vreg6 = [ar6++];
-    fpu 0 rep 1 vreg7 = [ar6];
-    fpu 0 rep 1 vreg4 = [gr6++];
-    fpu 0 rep 1 vreg5 = [gr6];
+    ar4 = Matrix_2;
+    fpu 0 rep 1 vreg6 = [ar3++];
+    fpu 0 rep 1 vreg7 = [ar3];
+    fpu 0 rep 1 vreg4 = [ar4++];
+    fpu 0 rep 1 vreg5 = [ar4];
 
     fpu 0 rep 1 vreg0 = [ar0];
     fpu 0 rep 1 vreg1 = [ar1];
     fpu 0 .float vreg2 = vreg0 + vreg1;
     fpu 0 .float vreg2 = vreg2 * .retrive(vreg3);
-    fpu 0 .float vreg2 = vreg2 * .retrive(vreg6, vreg7);
+    fpu 0 .matrix vreg2 = vreg2 * .retrive(vreg6, vreg7);
 
     fpu 0 rep 1 vreg3 = [ar2];
-    fpu 0 .float vreg3 = vreg3 * .retrive(vreg4, vreg5);
+    fpu 0 .matrix vreg3 = vreg3 * .retrive(vreg4, vreg5);
     fpu 0 .float vreg2 = vreg2 + vreg3;
     fpu 0 rep 1 [ar2] = vreg2;
 endMark:
+    pop ar4, gr4;
 	pop ar3, gr3;
     pop ar2, gr2;
 	pop ar1, gr1;
