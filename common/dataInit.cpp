@@ -21,3 +21,13 @@ extern "C" void randArray(int* arrayPointer, int size)
 		*(arrayPointer + i) = rand() ^ (rand() << 31);
 	}
 }
+
+extern "C" void randFloatArray(float* arrayPointer, int size)
+{
+	float nVal = 8192.0;
+	for(int i = 0; i < size; i++)
+	{
+		*(arrayPointer + i) = ((float)rand()/(float)(RAND_MAX)) * nVal;
+	}
+}
+

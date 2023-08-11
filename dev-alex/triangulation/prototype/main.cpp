@@ -76,13 +76,15 @@ int main()
 	testTrianglesArray.v2.x[3] = 210;
 	testTrianglesArray.v2.y[3] = 120;
 
-	printf("\nGiven Triangles:");
+	printf("\n%d Given Triangles:", size);
+	/*
 	for(int i = 0; i < size; ++i)
 	{
 		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testTrianglesArray.v0.x[i], testTrianglesArray.v0.y[i]);
 		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testTrianglesArray.v1.x[i], testTrianglesArray.v1.y[i]);
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testTrianglesArray.v2.x[i], testTrianglesArray.v2.y[i]);
 	}
+	*/
 	
 
 	triangulation( &testTrianglesArray, size, maximumWidth, maximumHeight, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
@@ -129,29 +131,6 @@ int main()
 
 		VS_Draw(VS_DRAW_ALL);
 	}
-	*/
-	/*
-	float * a = (float*)malloc(100 * sizeof(float));
-	float * b = (float*)malloc(100 * sizeof(float));
-	float * c = (float*)malloc(100 * sizeof(float));
-	for(int i = 0; i < 100; ++i)
-	{
-		a[i] = 100;
-		b[i] = i;
-	}
-	//float constanta[2] = {0.5, 0.5};
-	float * constanta = (float*)malloc(2 * sizeof(float));
-	constanta[0] = 0.5;
-	constanta[1] = 0.5;
-	nmppsAdd_MulC_32f(a, b, c, constanta, 100);
-	for(int i = 0; i < 100; ++i)
-		printf("\n%f", c[i]);
-	printf("\n\n\n");
-
-	printf("\n");
-	for(int i = 0; i < 100; ++i)
-		printf("\nA[%d]: %f; B[%d]: %f; NewP: %f\n", i, a[i], i, b[i], c[i]);
-	printf("\n");	
 	*/
 	return 0;
 }
