@@ -263,12 +263,7 @@ extern "C" void split( TrianglePointers * toSplitTriangles, int toSplitTriangles
 	float * newVertexX = (float*)malloc((toSplitTrianglesCount + 1) * sizeof(float));
 	float * newVertexY = (float*)malloc((toSplitTrianglesCount + 1) * sizeof(float));	
 	nmppsAdd_MulC_32f   ( toSplitTriangles->v0.x, toSplitTriangles->v1.x, newVertexX, constValue,  toSplitTrianglesCount + 1 );
-	nmppsAdd_MulC_32f   ( toSplitTriangles->v0.y, toSplitTriangles->v1.y, newVertexY, constValue,  toSplitTrianglesCount + 1);
-	
-	printf("\n");
-	for(int i = 0; i < toSplitTrianglesCount; ++i)
-		printf("\nA[%d]: %f; B[%d]: %f; NewP: %f\n", i, toSplitTriangles->v0.x[i], i, toSplitTriangles->v1.x[i], newVertexX[i]);
-	printf("\n");
+	nmppsAdd_MulC_32f   ( toSplitTriangles->v0.y, toSplitTriangles->v1.y, newVertexY, constValue,  toSplitTrianglesCount + 1 );
 
 	nmppsMerge_32f ( toSplitTriangles->v0.x, toSplitTriangles->v1.x, splittedTriangles->v0.x, toSplitTrianglesCount );
 	nmppsMerge_32f ( toSplitTriangles->v0.y, toSplitTriangles->v1.y, splittedTriangles->v0.y, toSplitTrianglesCount );
