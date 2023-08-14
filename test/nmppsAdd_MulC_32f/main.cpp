@@ -1,4 +1,6 @@
 #include "stdio.h"
+#include "time.h"
+#include <maxtimer.h>
 #include "../../include/general_header.h"
 #include "../../include/triangulation.h"
 
@@ -27,6 +29,11 @@ bool vecCompare( float* srcVec1, float* srcVec2, int srcCount )
 
 int main()
 {
+//	DISABLE_SYS_TIMER();
+//	clock_t t1 = clock();
+//	clock_t t2 = clock();
+//	clock_t dt = t2 - t1;
+	
 	float nVal[2] = {0.5, 0.5};
 
 	for(int i = 2; i < dim; i += 2)
@@ -34,8 +41,13 @@ int main()
 		randFloatArray( srcVec1, i );
 		randFloatArray( srcVec2, i );
 		
+//		t1 = clock();
 		nmppsAdd_MulC_32f(srcVec1, srcVec2, dstVec, nVal, i);
+//		t2 = clock();
+		
 		verifivationFunc(srcVec1, srcVec2, dstStandardVec, nVal, i);
+		
+//		printf("Time for ASM func %lf\n\n", (float)(t2 - t1 - dt) / i);
 		
 		if( !vecCompare(dstVec, dstStandardVec, i) )
 		{
