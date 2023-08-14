@@ -1,4 +1,5 @@
 .global _nmppsMulMM_2s32s_2col
+.global _nmppsMulMM_2s16s_4col
 
 .macro SET reg,val
 #if __NM4__== 0
@@ -31,24 +32,7 @@
 		nul;
 .endm
 
-//************************************************
-_nmppsMulMM_2s32s_2col:
-	ar5 = ar7 - 2;
-	push ar0, gr0;
-	push ar1, gr1;
-	push ar2, gr2;
-	push ar3, gr3;
-	push ar4, gr4;
-	push ar5, gr5;
-	
-	ar0 = [--ar5]; // * A
-	gr5 = [--ar5]; // H
-	gr1 = [--ar5]; // W1
-	ar1 = [--ar5]; // * B
-	ar2 = [--ar5]; // * C
-	gr2 = [--ar5]; // W2
-
-	SET nb1, 0x80000000
+MulMM_Common:
 	SET sb, 0xaaaaaaaa
 	
 	gr0 = gr1 >> 4; // W/16 смещение
@@ -149,3 +133,44 @@ _nmppsMulMM_2s32s_2col:
 	pop ar1, gr1;
 	pop ar0, gr0;
 	return;
+
+//************************************************
+_nmppsMulMM_2s32s_2col:
+	ar5 = ar7 - 2;
+	push ar0, gr0;
+	push ar1, gr1;
+	push ar2, gr2;
+	push ar3, gr3;
+	push ar4, gr4;
+	push ar5, gr5;
+	
+	ar0 = [--ar5]; // * A
+	gr5 = [--ar5]; // H
+	gr1 = [--ar5]; // W1
+	ar1 = [--ar5]; // * B
+	ar2 = [--ar5]; // * C
+	gr2 = [--ar5]; // W2
+
+	SET nb1, 0x80000000
+	goto MulMM_Common;
+
+//************************************************
+_nmppsMulMM_2s16s_4col:
+	ar5 = ar7 - 2;
+	push ar0, gr0;
+	push ar1, gr1;
+	push ar2, gr2;
+	push ar3, gr3;
+	push ar4, gr4;
+	push ar5, gr5;
+	
+	ar0 = [--ar5]; // * A
+	gr5 = [--ar5]; // H
+	gr1 = [--ar5]; // W1
+	ar1 = [--ar5]; // * B
+	ar2 = [--ar5]; // * C
+	gr2 = [--ar5]; // W2
+	gr2 A>>= 1;
+
+	SET nb1, 0x80008000
+	goto MulMM_Common;
