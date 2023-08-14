@@ -260,10 +260,10 @@ extern "C" void split( TrianglePointers * toSplitTriangles, int toSplitTriangles
 	free(maxEdgeArray);
 
 	float constValue[2] = {0.5, 0.5};
-	float * newVertexX = (float*)malloc(toSplitTrianglesCount * sizeof(float));
-	float * newVertexY = (float*)malloc(toSplitTrianglesCount * sizeof(float));	
-	nmppsAdd_MulC_32f   ( toSplitTriangles->v0.x, toSplitTriangles->v1.x, newVertexX, constValue,  toSplitTrianglesCount );
-	nmppsAdd_MulC_32f   ( toSplitTriangles->v0.y, toSplitTriangles->v1.y, newVertexY, constValue,  toSplitTrianglesCount );
+	float * newVertexX = (float*)malloc((toSplitTrianglesCount + 1) * sizeof(float));
+	float * newVertexY = (float*)malloc((toSplitTrianglesCount + 1) * sizeof(float));	
+	nmppsAdd_MulC_32f   ( toSplitTriangles->v0.x, toSplitTriangles->v1.x, newVertexX, constValue,  toSplitTrianglesCount + 1 );
+	nmppsAdd_MulC_32f   ( toSplitTriangles->v0.y, toSplitTriangles->v1.y, newVertexY, constValue,  toSplitTrianglesCount + 1);
 	
 	printf("\n");
 	for(int i = 0; i < toSplitTrianglesCount; ++i)
