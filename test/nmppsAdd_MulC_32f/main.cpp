@@ -37,10 +37,6 @@ int main()
 		nmppsAdd_MulC_32f(srcVec1, srcVec2, dstVec, nVal, i);
 		verifivationFunc(srcVec1, srcVec2, dstStandardVec, nVal, i);
 		
-		if(i == 2)
-			for(int j = 0; j < i; ++j)
-				printf("\n%f; %f", dstVec[j], dstStandardVec[j]);
-
 		if( !vecCompare(dstVec, dstStandardVec, i) )
 		{
 			printf("\n*****************************************************************************************************");
