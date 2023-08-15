@@ -5,12 +5,12 @@
 #include "../../../include/primitive.h"
 #include "../../../include/nmtype.h"
 #include "nmpp.h"
-//#include "VShell.h"
+#include "VShell.h"
 
 const int size = 4;
 const int maximumDestinationSize = 128;
-const int maximumHeight = 40;
-const int maximumWidth  = 40;
+const int maximumHeight = 30;
+const int maximumWidth  = 30;
 static const int WIDTH  = 512;
 static const int HEIGHT = 512;
 
@@ -105,7 +105,7 @@ int main()
 	}
 	*/
 	printf("\n\n");
-	/*
+	
 	if(!VS_Init())
     	return 0;
 	VS_CreateImage("Given Triangles", 0, WIDTH, HEIGHT, VS_RGB8, NULL);
@@ -131,7 +131,7 @@ int main()
 
 		VS_Draw(VS_DRAW_ALL);
 	}
-	*/
+	
 	return 0;
 }
 
