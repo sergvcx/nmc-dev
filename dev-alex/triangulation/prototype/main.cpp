@@ -5,10 +5,12 @@
 #include "../../../include/primitive.h"
 #include "../../../include/nmtype.h"
 #include "nmpp.h"
-#include "VShell.h"
+#undef NDEBUG
+#include "nmassert.h"
+//#include "VShell.h"
 
 const int size = 4;
-const int maximumDestinationSize = 128;
+const int maximumDestinationSize = 256;
 const int maximumHeight = 30;
 const int maximumWidth  = 30;
 static const int WIDTH  = 512;
@@ -87,25 +89,37 @@ int main()
 	*/
 	
 
-	triangulation( &testTrianglesArray, size, maximumWidth, maximumHeight, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
-
-
+	triangulation( &testTrianglesArray, 2, maximumWidth, maximumHeight, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
+	
+	for(int i = 0; i < 2 + treatedCounter; ++i)
+	{
+		printf("\ni %d\n", i);
+		NMASSERT(abs(testResultTrianglesArray.v0.x[i] - testResultTrianglesArray.v1.x[i]) <= maximumWidth);
+		NMASSERT(abs(testResultTrianglesArray.v2.x[i] - testResultTrianglesArray.v1.x[i]) <= maximumWidth);
+		NMASSERT(abs(testResultTrianglesArray.v0.x[i] - testResultTrianglesArray.v2.x[i]) <= maximumWidth);
+		NMASSERT(abs(testResultTrianglesArray.v0.y[i] - testResultTrianglesArray.v1.y[i]) <= maximumHeight);
+		NMASSERT(abs(testResultTrianglesArray.v2.y[i] - testResultTrianglesArray.v1.y[i]) <= maximumHeight);
+		NMASSERT(abs(testResultTrianglesArray.v0.y[i] - testResultTrianglesArray.v2.y[i]) <= maximumHeight);	
+	}
+	
 	int resultCount = 0;
-	if( size + treatedCounter > maximumDestinationSize )
+	if( 2 + treatedCounter > maximumDestinationSize )
 		resultCount = maximumDestinationSize;
 	else
-		resultCount = size + treatedCounter;
+		resultCount = 2 + treatedCounter;
 	printf("\n\n%d Result Triangles:", resultCount);
-	/*
+
+	
 	for(int i = 0; i < resultCount; ++i)
 	{
 		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i]);
 		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i]);
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
 	}
-	*/
-	printf("\n\n");
 	
+	printf("\n\n");
+//#ifdef __NM__
+	/*
 	if(!VS_Init())
     	return 0;
 	VS_CreateImage("Given Triangles", 0, WIDTH, HEIGHT, VS_RGB8, NULL);
@@ -131,7 +145,7 @@ int main()
 
 		VS_Draw(VS_DRAW_ALL);
 	}
-	
+	*/
 	return 0;
 }
 

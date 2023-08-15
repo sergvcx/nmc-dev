@@ -36,16 +36,16 @@ int main()
 	
 	float nVal[2] = {0.5, 0.5};
 
-	for(int i = 2; i < dim; i += 2)
+	for(int i = 2; i < dim - 1; i += 1)
 	{
 		randFloatArray( srcVec1, i );
 		randFloatArray( srcVec2, i );
 		
 //		t1 = clock();
-		nmppsAdd_MulC_32f(srcVec1, srcVec2, dstVec, nVal, i);
+		nmppsAdd_MulC_32f(srcVec1, srcVec2, dstVec, nVal, i + 1);
 //		t2 = clock();
 		
-		verifivationFunc(srcVec1, srcVec2, dstStandardVec, nVal, i);
+		verifivationFunc(srcVec1, srcVec2, dstStandardVec, nVal, i + 1);
 		
 //		printf("Time for ASM func %lf\n\n", (float)(t2 - t1 - dt) / i);
 		
