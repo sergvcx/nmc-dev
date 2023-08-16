@@ -28,16 +28,53 @@
     /**
     \defgroup 
     \ingroup 
+    \brief  Выделяет память под временные массивы для функции triangulate
+    \return \e void
+    */
+    //! \{
+    void triangulationInit(  );
+	//! \}
+
+//*****************************************************************************
+    /**
+    \defgroup 
+    \ingroup 
+    \brief  Освобождает память под временные массивы для функции triangulate
+    \return \e void
+    */
+    //! \{
+    void triangulationFree(  );
+	//! \}
+
+//*****************************************************************************
+    /**
+    \defgroup 
+    \ingroup 
+    \brief  Объединяет два массива флагов в один
+    \param flags        [out] Указатель на результирующий массив флагов 
+    \param evenFlags    [in]  Указатель на входной массив флагов
+    \param oddFlags     [in]  Указатель на входной массив флагов
+	\param srcCount     [in]  Размер результирующего массива в элементах
+    \return \e void
+    */
+    //! \{
+    void sumFlags( int * flags, int * evenFlags, int * oddFlags, int srcCount );
+	//! \}
+
+//*****************************************************************************
+    /**
+    \defgroup 
+    \ingroup 
     \brief  Формирование флагов вместимости для треугольников
     \param srcTriangles [in]  Указатель на входную структуру треугольников
-    \param srcCount     [in]  Количество треугольников
+    \param srcCount     [in]  Количество треугольников. Четное число
     \param maxWidth     [in]  Ограничение по ширине
 	\param maxHeight    [in]  Ограничение по высоте
 	\param flags        [out] Массив флагов. Каждый элемент принимает значение 0 или 1
     \return \e void
     */
     //! \{
-    void masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags );
+    void generateMasks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags );
 	//! \}
 
 //*****************************************************************************
@@ -46,7 +83,7 @@
     \ingroup 
     \brief  Сортировка треугольников в соответствии с флагами вместимости
     \param srcTriangles             [in]  Указатель на входную структуру треугольников
-    \param srcCount                 [in]  Количество треугольников на вход
+    \param srcCount                 [in]  Количество треугольников на вход. Четное число
     \param toSplitTriangles         [out] Указатель на структуру треугольников для разбития
 	\param toSplitTrianglesCount    [out] Указатель на количество треугольников для разбития
 	\param resultTriangles          [out] Указатель на структуру выходных треугольников
@@ -121,7 +158,7 @@
     \ingroup 
     \brief  Триангуляция массива треугольников 
     \param srcVertex        [in]  Указатель на входную структуру треугольников
-    \param srcCount         [in]  Количество входных треугольников
+    \param srcCount         [in]  Количество входных треугольников. Четное число
     \param maxWidth         [in]  Ограничение по ширине
 	\param maxHeight        [in]  Ограничение по высоте
 	\param maxDstSize       [in]  Ограничение по выходному количеству треугольников
@@ -130,7 +167,7 @@
     \return \e void
     */
     //! \{
-    void triangulation(	TrianglePointers* srcVertex, int srcCount,
+    void triangulate(	TrianglePointers* srcVertex, int srcCount,
 						int maxWidth, int maxHeight,
 						int maxDstSize, TrianglePointers* dstVertex,
 						int* srcTreatedCount );

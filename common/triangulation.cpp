@@ -1,29 +1,137 @@
 #include "math.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "../include/triangulation.h"
-#include "../include/primitive.h"
-#include "../include/nmtype.h"
+#include "triangulation.h"
+#include "primitive.h"
+#include "nmtype.h"
 #include "nmpp.h"
 #include "nmassert.h"
 
-struct point
-{
-	float x;
-	float y;
-	float z;
+int maxTrianglesCount = 256;
+//triangulate
+int * bufNi0;
+float * bufNf0;
+float * bufNf1;
+float * bufNf2;
+float * bufNf3;
+float * bufNf4;
+float * bufNf5;
+float * bufNf6;
+float * bufNf7;
+float * bufNf8;
+float * bufNf9;
+float * bufNf10;
+float * bufNf11;
+//generateMasks
+v2nm32f * bufNf12;
+v2nm32f * bufNf13;
+v2nm32f * bufNf14;
+v2nm32f * bufNf15;
+v2nm32f * bufNf16;
+v2nm32f * bufNf17;
+int * bufFlagsEven;
+int * bufFlagsOdd;
+//split
+float * bufDeltaNf0;
+float * bufDeltaNf1;
+float * bufEdgeNf0;
+float * bufEdgeNf1;
+float * bufEdgeNf2;
+int * bufMaxEdgeNi;
+float * bufNf18;
+float * bufNf19;
 
-	point () { x = 0; y = 0; z = 0; }
-};
 
-extern "C" void masks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags )
+
+extern "C" void triangulationInit()
 {
-	v2nm32f * dXab = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
-	v2nm32f * dXbc = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
-	v2nm32f * dXac = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
-	v2nm32f * dYab = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
-	v2nm32f * dYbc = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
-	v2nm32f * dYac = (v2nm32f*)malloc((srcCount / 2) * sizeof(v2nm32f));
+	//triangulate
+	bufNi0 = (int*)malloc(maxTrianglesCount * sizeof(int));
+	bufNf0 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufNf1 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufNf2 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufNf3 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufNf4 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufNf5 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufNf6 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufNf7 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufNf8 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufNf9 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufNf10 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufNf11 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	//generateMasks
+	bufNf12 = (v2nm32f*)malloc((maxTrianglesCount / 2) * sizeof(v2nm32f));
+	bufNf13 = (v2nm32f*)malloc((maxTrianglesCount / 2) * sizeof(v2nm32f));
+	bufNf14 = (v2nm32f*)malloc((maxTrianglesCount / 2) * sizeof(v2nm32f));
+	bufNf15 = (v2nm32f*)malloc((maxTrianglesCount / 2) * sizeof(v2nm32f));
+	bufNf16 = (v2nm32f*)malloc((maxTrianglesCount / 2) * sizeof(v2nm32f));
+	bufNf17 = (v2nm32f*)malloc((maxTrianglesCount / 2) * sizeof(v2nm32f));
+	bufFlagsEven = (int*)malloc((maxTrianglesCount / 64 + 2) * sizeof(int));
+	bufFlagsOdd = (int*)malloc((maxTrianglesCount / 64 + 2) * sizeof(int));
+	//split
+	bufDeltaNf0 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufDeltaNf1 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufEdgeNf0 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufEdgeNf1 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufEdgeNf2 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufMaxEdgeNi = (int*)malloc(maxTrianglesCount * sizeof(int));
+	bufNf18 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufNf19 = (float*)malloc(maxTrianglesCount * sizeof(float));	
+}
+
+extern "C" void triangulationFree()
+{
+	//triangulate
+	free(bufNi0);
+	free(bufNf0);
+	free(bufNf1);
+	free(bufNf2);
+	free(bufNf3);
+	free(bufNf4);
+	free(bufNf5);
+	free(bufNf6);
+	free(bufNf7);
+	free(bufNf8);
+	free(bufNf9);
+	free(bufNf10);
+	free(bufNf11);
+	//generateMasks
+	free(bufNf12);
+	free(bufNf13);
+	free(bufNf14);
+	free(bufNf15);
+	free(bufNf16);
+	free(bufNf17);
+	free(bufFlagsEven);
+	free(bufFlagsOdd);
+	//split
+	free(bufDeltaNf0);
+	free(bufDeltaNf1);
+	free(bufEdgeNf0);
+	free(bufEdgeNf1);
+	free(bufEdgeNf2);
+	free(bufMaxEdgeNi);
+	free(bufNf18);
+	free(bufNf19);
+}
+
+extern "C" void sumFlags( int * flags, int * evenFlags, int * oddFlags, int srcCount )
+{
+	for(int i = 0; i < srcCount / 2; ++i)
+	{
+		flags[i] 				|= ((evenFlags[i / 32]) << (31 - i)) >> 31;
+		flags[i + srcCount / 2] |= (( oddFlags[i / 32]) << (31 - i)) >> 31;
+	}
+}
+
+extern "C" void generateMasks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags )
+{
+	v2nm32f * dXab = bufNf12;
+	v2nm32f * dXbc = bufNf13;
+	v2nm32f * dXac = bufNf14;
+	v2nm32f * dYab = bufNf15;
+	v2nm32f * dYbc = bufNf16;
+	v2nm32f * dYac = bufNf17;
 
 	v2nm32f maxWidthConstant;
 	maxWidthConstant.v0 = maxWidth;
@@ -32,8 +140,8 @@ extern "C" void masks( TrianglePointers * srcTriangles, int srcCount, int maxWid
 	maxHeightConstant.v0 = maxHeight;
 	maxHeightConstant.v1 = maxHeight;
 
-	int * evenFlagsInt = (int*)malloc((srcCount / 128 + 2) * sizeof(int));
-	int * oddFlagsInt  = (int*)malloc((srcCount / 128 + 2) * sizeof(int));
+	int * evenFlagsInt = bufFlagsEven;
+	int * oddFlagsInt  = bufFlagsOdd;
 
 	for(int i = 0; i < srcCount / 2; ++i)
 	{
@@ -50,65 +158,32 @@ extern "C" void masks( TrianglePointers * srcTriangles, int srcCount, int maxWid
 		dYac[i].v0 = abs(srcTriangles->v0.y[i * 2] - srcTriangles->v2.y[i * 2]);
 		dYac[i].v1 = abs(srcTriangles->v0.y[i * 2 + 1] - srcTriangles->v2.y[i * 2 + 1]);
 	}
-	//sum masks into one
+
 	int step = 1;
 
 	nmppsCmpGtC_v2nm32f (dXab, &maxWidthConstant, evenFlagsInt, oddFlagsInt, step, srcCount / 2);
 
-	for(int i = 0; i < srcCount / 2; ++i)
-	{
-		flags[i] = ((evenFlagsInt[i / 32]) << (31 - i)) >> 31;
-		flags[i + srcCount / 2] = ((oddFlagsInt[i / 32]) << (31 - i)) >> 31;
-	}
+	sumFlags( flags, evenFlagsInt, oddFlagsInt, srcCount );
 
 	nmppsCmpGtC_v2nm32f (dXbc, &maxWidthConstant, evenFlagsInt, oddFlagsInt, step, srcCount / 2);
 
-	for(int i = 0; i < srcCount / 2; ++i)
-	{
-		flags[i] |= ((evenFlagsInt[i / 32]) << (31 - i)) >> 31;
-		flags[i + srcCount / 2] |= ((oddFlagsInt[i / 32]) << (31 - i)) >> 31;
-	}
+	sumFlags( flags, evenFlagsInt, oddFlagsInt, srcCount );
 
 	nmppsCmpGtC_v2nm32f (dXac, &maxWidthConstant, evenFlagsInt, oddFlagsInt, step, srcCount / 2);
 
-	for(int i = 0; i < srcCount / 2; ++i)
-	{
-		flags[i] |= ((evenFlagsInt[i / 32]) << (31 - i)) >> 31;
-		flags[i + srcCount / 2] |= ((oddFlagsInt[i / 32]) << (31 - i)) >> 31;
-	}
+	sumFlags( flags, evenFlagsInt, oddFlagsInt, srcCount );
 
 	nmppsCmpGtC_v2nm32f (dYab, &maxHeightConstant, evenFlagsInt, oddFlagsInt, step, srcCount / 2);
 
-	for(int i = 0; i < srcCount / 2; ++i)
-	{
-		flags[i] |= ((evenFlagsInt[i / 32]) << (31 - i)) >> 31;
-		flags[i + srcCount / 2] |= ((oddFlagsInt[i / 32]) << (31 - i)) >> 31;
-	}
+	sumFlags( flags, evenFlagsInt, oddFlagsInt, srcCount );
 
 	nmppsCmpGtC_v2nm32f (dYbc, &maxHeightConstant, evenFlagsInt, oddFlagsInt, step, srcCount / 2);
 
-	for(int i = 0; i < srcCount / 2; ++i)
-	{
-		flags[i] |= ((evenFlagsInt[i / 32]) << (31 - i)) >> 31;
-		flags[i + srcCount / 2] |= ((oddFlagsInt[i / 32]) << (31 - i)) >> 31;
-	}
+	sumFlags( flags, evenFlagsInt, oddFlagsInt, srcCount );
 
 	nmppsCmpGtC_v2nm32f (dYac, &maxHeightConstant, evenFlagsInt, oddFlagsInt, step, srcCount / 2);
 
-	for(int i = 0; i < srcCount / 2; ++i)
-	{
-		flags[i] |= ((evenFlagsInt[i / 32]) << (31 - i)) >> 31;
-		flags[i + srcCount / 2] |= ((oddFlagsInt[i / 32]) << (31 - i)) >> 31;
-	}
-
-	free(dXab);
-	free(dXbc);
-	free(dXac);
-	free(dYab);
-	free(dYbc);
-	free(dYac);
-	free(evenFlagsInt);
-	free(oddFlagsInt);
+	sumFlags( flags, evenFlagsInt, oddFlagsInt, srcCount );
 }
 
 extern "C" void sort( 	TrianglePointers * srcTriangles, int srcCount,
@@ -202,71 +277,62 @@ extern "C" void split( TrianglePointers * toSplitTriangles, int toSplitTriangles
 			TrianglePointers * splittedTriangles, int * splittedTrianglesCount,
 			int * srcTreatedCount )
 {
-	float * dXab = (float*)malloc(toSplitTrianglesCount * sizeof(float));
-	float * dYab = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+	float * dXab = bufDeltaNf0;
+	float * dYab = bufDeltaNf1;
 	nmppsSub_32f ( toSplitTriangles->v0.x, toSplitTriangles->v1.x, dXab, toSplitTrianglesCount + 1 );
 	nmppsSub_32f ( toSplitTriangles->v0.y, toSplitTriangles->v1.y, dYab, toSplitTrianglesCount + 1 );
-	float * edge1 = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+	float * edge1 = bufEdgeNf0;
 	squareSum( edge1, dXab, dYab, toSplitTrianglesCount );
 //	nmppsMul_Mul_Add_32f( dXab, dXab, dYab, dYab, edge1, toSplitTrianglesCount );
-	free(dXab);
-	free(dYab);
 
-	float * dXbc = (float*)malloc(toSplitTrianglesCount * sizeof(float));
-	float * dYbc = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+	float * dXbc = dXab;
+	float * dYbc = dYab;
 	nmppsSub_32f ( toSplitTriangles->v1.x, toSplitTriangles->v2.x, dXbc, toSplitTrianglesCount + 1 );
 	nmppsSub_32f ( toSplitTriangles->v1.y, toSplitTriangles->v2.y, dYbc, toSplitTrianglesCount + 1 );
-	float * edge2 = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+	float * edge2 = bufEdgeNf1;
 	squareSum( edge2, dXbc, dYbc, toSplitTrianglesCount );
 //	nmppsMul_Mul_Add_32f( dXbc, dXbc, dYbc, dYbc, edge2, toSplitTrianglesCount );
-	free(dXbc);
-	free(dYbc);
 
-	float * dXac = (float*)malloc(toSplitTrianglesCount * sizeof(float));
-	float * dYac = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+	float * dXac = dXab;
+	float * dYac = dYab;
 	nmppsSub_32f ( toSplitTriangles->v0.x, toSplitTriangles->v2.x, dXac, toSplitTrianglesCount + 1 );
 	nmppsSub_32f ( toSplitTriangles->v0.y, toSplitTriangles->v2.y, dYac, toSplitTrianglesCount + 1 );	
-	float * edge3 = (float*)malloc(toSplitTrianglesCount * sizeof(float));
+	float * edge3 = bufEdgeNf2;
 	squareSum( edge3, dXac, dYac, toSplitTrianglesCount );
 //	nmppsMul_Mul_Add_32f( dXac, dXac, dYac, dYac, edge3, toSplitTrianglesCount );
-	free(dXac);
-	free(dYac);
 
-	int * maxEdgeArray = (int*)malloc(toSplitTrianglesCount * sizeof(int));
+	int * maxEdgeArray = bufMaxEdgeNi;
 	maxEdge( maxEdgeArray, edge1, edge2, edge3, toSplitTrianglesCount );
-	free(edge1);
-	free(edge2);
-	free(edge3);
 
-	point temporary = point();
+	float tempX;
+	float tempY;
 	for(int i = 0; i < toSplitTrianglesCount; ++i)
 	{
 		if( maxEdgeArray[i] == 2 )
 		{
-			temporary.x = toSplitTriangles->v2.x[i];
-			temporary.y = toSplitTriangles->v2.y[i];
+			tempX = toSplitTriangles->v2.x[i];
+			tempY = toSplitTriangles->v2.y[i];
 			toSplitTriangles->v2.x[i] = toSplitTriangles->v0.x[i];
 			toSplitTriangles->v2.y[i] = toSplitTriangles->v0.y[i];
 			toSplitTriangles->v0.x[i] = toSplitTriangles->v1.x[i];
 			toSplitTriangles->v0.y[i] = toSplitTriangles->v1.y[i];
-			toSplitTriangles->v1.x[i] = temporary.x;
-			toSplitTriangles->v1.y[i] = temporary.y;
+			toSplitTriangles->v1.x[i] = tempX;
+			toSplitTriangles->v1.y[i] = tempY;
 		}
 		else if( maxEdgeArray[i] == 3 )
 		{
-			temporary.x = toSplitTriangles->v2.x[i];
-			temporary.y = toSplitTriangles->v2.y[i];
+			tempX = toSplitTriangles->v2.x[i];
+			tempY = toSplitTriangles->v2.y[i];
 			toSplitTriangles->v2.x[i] = toSplitTriangles->v1.x[i];
 			toSplitTriangles->v2.y[i] = toSplitTriangles->v1.y[i];
-			toSplitTriangles->v1.x[i] = temporary.x;
-			toSplitTriangles->v1.y[i] = temporary.y;
+			toSplitTriangles->v1.x[i] = tempX;
+			toSplitTriangles->v1.y[i] = tempY;
 		}
 	}
-	free(maxEdgeArray);
 
 	float constValue[2] = {0.5, 0.5};
-	float * newVertexX = (float*)malloc((toSplitTrianglesCount + 1) * sizeof(float));
-	float * newVertexY = (float*)malloc((toSplitTrianglesCount + 1) * sizeof(float));	
+	float * newVertexX = bufNf18;
+	float * newVertexY = bufNf19;
 	nmppsAdd_MulC_32f   ( toSplitTriangles->v0.x, toSplitTriangles->v1.x, newVertexX, constValue,  toSplitTrianglesCount + 1 );
 	nmppsAdd_MulC_32f   ( toSplitTriangles->v0.y, toSplitTriangles->v1.y, newVertexY, constValue,  toSplitTrianglesCount + 1 );
 
@@ -278,11 +344,9 @@ extern "C" void split( TrianglePointers * toSplitTriangles, int toSplitTriangles
 	nmppsMerge_32f ( newVertexY,			 newVertexY,			 splittedTriangles->v2.y, toSplitTrianglesCount + 1 );
 	(*splittedTrianglesCount) = 2 * toSplitTrianglesCount;
 	(*srcTreatedCount) += toSplitTrianglesCount;
-	free(newVertexX);
-	free(newVertexY);
 }
 
-extern "C" void triangulation(	TrianglePointers* srcVertex, int srcCount,
+extern "C" void triangulate(	TrianglePointers* srcVertex, int srcCount,
 						int maxWidth, int maxHeight,
 						int maxDstSize, TrianglePointers* dstVertex,
 						int* srcTreatedCount)
@@ -291,16 +355,16 @@ extern "C" void triangulation(	TrianglePointers* srcVertex, int srcCount,
 	int checkForFitCount = srcCount;
 	int toSplitTrianglesCount = 0;
 
-	int * flags = (int*)malloc((maxDstSize) * 8);
+	int * flags = bufNi0;
 
 	TrianglePointers trianglesArrayToCheck;
 
-	float * ax = (float*)malloc(maxDstSize * sizeof(float));
-	float * ay = (float*)malloc(maxDstSize * sizeof(float));
-	float * bx = (float*)malloc(maxDstSize * sizeof(float));
-	float * by = (float*)malloc(maxDstSize * sizeof(float));
-	float * cx = (float*)malloc(maxDstSize * sizeof(float));
-	float * cy = (float*)malloc(maxDstSize * sizeof(float));
+	float * ax = bufNf0;
+	float * ay = bufNf1;
+	float * bx = bufNf2;
+	float * by = bufNf3;
+	float * cx = bufNf4;
+	float * cy = bufNf5;
 	
 	trianglesArrayToCheck.v0.x = ax;
 	trianglesArrayToCheck.v0.y = ay;
@@ -318,12 +382,12 @@ extern "C" void triangulation(	TrianglePointers* srcVertex, int srcCount,
 
 	TrianglePointers toSplitTriangles;
 
-	float * axNew = (float*)malloc(maxDstSize * sizeof(float));
-	float * ayNew = (float*)malloc(maxDstSize * sizeof(float));
-	float * bxNew = (float*)malloc(maxDstSize * sizeof(float));
-	float * byNew = (float*)malloc(maxDstSize * sizeof(float));
-	float * cxNew = (float*)malloc(maxDstSize * sizeof(float));
-	float * cyNew = (float*)malloc(maxDstSize * sizeof(float));
+	float * axNew = bufNf6;
+	float * ayNew = bufNf7;
+	float * bxNew = bufNf8;
+	float * byNew = bufNf9;
+	float * cxNew = bufNf10;
+	float * cyNew = bufNf11;
 
 	toSplitTriangles.v0.x = axNew;
 	toSplitTriangles.v0.y = ayNew;
@@ -340,25 +404,11 @@ extern "C" void triangulation(	TrianglePointers* srcVertex, int srcCount,
 			flags[i] = 0;
 		}
 
-		masks( &trianglesArrayToCheck, checkForFitCount, maxWidth, maxHeight, flags );
+		generateMasks( &trianglesArrayToCheck, checkForFitCount, maxWidth, maxHeight, flags );
 
 		sort( &trianglesArrayToCheck, checkForFitCount, &toSplitTriangles, &toSplitTrianglesCount, dstVertex, &currentDstCount, maxDstSize, flags );
 
 		if( currentDstCount < maxDstSize )
 			split( &toSplitTriangles, toSplitTrianglesCount, &trianglesArrayToCheck, &checkForFitCount, srcTreatedCount );
 	}
-	
-	free(flags);
-	free(ax);
-	free(ay);
-	free(bx);
-	free(by);
-	free(cx);
-	free(cy);
-	free(axNew);
-	free(ayNew);
-	free(bxNew);
-	free(byNew);
-	free(cxNew);
-	free(cyNew);
 }

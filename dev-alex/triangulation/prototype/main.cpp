@@ -1,13 +1,16 @@
 #include "math.h"
 #include "stdio.h"
 #include "stdlib.h"
-#include "../../../include/triangulation.h"
-#include "../../../include/primitive.h"
-#include "../../../include/nmtype.h"
+#include "triangulation.h"
+#include "primitive.h"
+#include "nmtype.h"
 #include "nmpp.h"
 #undef NDEBUG
 #include "nmassert.h"
-//#include "VShell.h"
+#ifdef __NM__
+#else	
+#include "VShell.h"
+#endif
 
 const int size = 4;
 const int maximumDestinationSize = 256;
@@ -88,20 +91,12 @@ int main()
 	}
 	*/
 	
+	triangulationInit();
 
-	triangulation( &testTrianglesArray, 2, maximumWidth, maximumHeight, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
+	triangulate( &testTrianglesArray, 2, maximumWidth, maximumHeight, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
 	
-	for(int i = 0; i < 2 + treatedCounter; ++i)
-	{
-		printf("\ni %d\n", i);
-		NMASSERT(abs(testResultTrianglesArray.v0.x[i] - testResultTrianglesArray.v1.x[i]) <= maximumWidth);
-		NMASSERT(abs(testResultTrianglesArray.v2.x[i] - testResultTrianglesArray.v1.x[i]) <= maximumWidth);
-		NMASSERT(abs(testResultTrianglesArray.v0.x[i] - testResultTrianglesArray.v2.x[i]) <= maximumWidth);
-		NMASSERT(abs(testResultTrianglesArray.v0.y[i] - testResultTrianglesArray.v1.y[i]) <= maximumHeight);
-		NMASSERT(abs(testResultTrianglesArray.v2.y[i] - testResultTrianglesArray.v1.y[i]) <= maximumHeight);
-		NMASSERT(abs(testResultTrianglesArray.v0.y[i] - testResultTrianglesArray.v2.y[i]) <= maximumHeight);	
-	}
-	
+	triangulationFree();
+
 	int resultCount = 0;
 	if( 2 + treatedCounter > maximumDestinationSize )
 		resultCount = maximumDestinationSize;
@@ -117,9 +112,21 @@ int main()
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
 	}
 	
+
+	for(int i = 0; i < 2 + treatedCounter; ++i)
+	{
+		printf("\ni %d\n", i);
+		NMASSERT(abs(testResultTrianglesArray.v0.x[i] - testResultTrianglesArray.v1.x[i]) <= maximumWidth);
+		NMASSERT(abs(testResultTrianglesArray.v2.x[i] - testResultTrianglesArray.v1.x[i]) <= maximumWidth);
+		NMASSERT(abs(testResultTrianglesArray.v0.x[i] - testResultTrianglesArray.v2.x[i]) <= maximumWidth);
+		NMASSERT(abs(testResultTrianglesArray.v0.y[i] - testResultTrianglesArray.v1.y[i]) <= maximumHeight);
+		NMASSERT(abs(testResultTrianglesArray.v2.y[i] - testResultTrianglesArray.v1.y[i]) <= maximumHeight);
+		NMASSERT(abs(testResultTrianglesArray.v0.y[i] - testResultTrianglesArray.v2.y[i]) <= maximumHeight);	
+	}
+
 	printf("\n\n");
-//#ifdef __NM__
-	/*
+#ifdef __NM__
+#else	
 	if(!VS_Init())
     	return 0;
 	VS_CreateImage("Given Triangles", 0, WIDTH, HEIGHT, VS_RGB8, NULL);
@@ -145,7 +152,7 @@ int main()
 
 		VS_Draw(VS_DRAW_ALL);
 	}
-	*/
+#endif
 	return 0;
 }
 
