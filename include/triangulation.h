@@ -5,10 +5,15 @@
 		extern "C" {
 #endif
 
+/**
+    \defgroup triangulation 
+    \brief  функции триангуляции
+    
+*/
+	
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup 
+    \ingroup triangulation
     \brief  Поэлементное сложение векторов с умножением на константу
     \~
             dstVec[i * 2] = (srcVec1[i * 2] + srcVec2[i * 2]) * nVal[0];

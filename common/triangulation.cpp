@@ -79,6 +79,13 @@ extern "C" void sumFlags( int * flags, int * evenFlags, int * oddFlags, int srcC
 	}
 }
 
+//extern "C" void sumFlags( int * flags, int * Flags, int srcCount )
+//{
+//	for(int i = 0; i < srcCount; ++i){
+//		flags[i] 				|=  nmppsGetVal_1((nm1*)evenFlags,i);
+//	}
+//}
+
 extern "C" void generateMasks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags )
 {
 	v2nm32f * dXab = (v2nm32f*)bufNf6;
