@@ -6,14 +6,14 @@
 #endif
 
 /**
-    \defgroup triangulation 
+    \defgroup nmppsAdd_MulC_32f
     \brief  функции триангуляции
     
 */
 	
 //*****************************************************************************
     /**
-    \ingroup triangulation
+    \ingroup nmppsAdd_MulC_32f
     \brief  Поэлементное сложение векторов с умножением на константу
     \~
             dstVec[i * 2] = (srcVec1[i * 2] + srcVec2[i * 2]) * nVal[0];
@@ -31,8 +31,8 @@
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup triangulationInit
+    \ingroup triangulationInit
     \brief  Выделяет память под временные массивы для функции triangulate
     \return \e void
     */
@@ -42,8 +42,8 @@
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup triangulationFree
+    \ingroup triangulationFree
     \brief  Освобождает память под временные массивы для функции triangulate
     \return \e void
     */
@@ -53,8 +53,8 @@
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup sumFlags
+    \ingroup sumFlags
     \brief  Объединяет два массива флагов в один
     \param srcVec   [in]  Указатель на входной массив флагов
     \param dstVec   [out] Указатель на результирующий массив флагов 
@@ -67,8 +67,8 @@
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup generateMasks
+    \ingroup generateMasks
     \brief  Формирование флагов вместимости для треугольников
     \param srcTriangles [in]  Указатель на входную структуру треугольников
     \param srcCount     [in]  Количество треугольников. Четное число
@@ -83,8 +83,8 @@
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup sort
+    \ingroup sort
     \brief  Сортировка треугольников в соответствии с флагами вместимости
     \param srcTriangles             [in]  Указатель на входную структуру треугольников
     \param srcCount                 [in]  Количество треугольников на вход. Четное число
@@ -104,8 +104,8 @@
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup sumOfSquares
+    \ingroup sumOfSquares
     \brief  Поэлементная сумма квадратов двух векторов 
     \param srcVec1  [in]  Входной вектор
     \param srcVec2  [in]  Входной вектор
@@ -119,8 +119,8 @@
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup maxEdge
+    \ingroup maxEdge
     \brief  Нахождение максимального значения из трех 
     \~
             Поэлементное нахождение максимального значения из трех векторов. Соответствующий номер вектора записывается в результат.
@@ -137,8 +137,8 @@
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup split
+    \ingroup split
     \brief  Разбиение треугольников на два
     \~
             Разбиение треугольников на два по середине наибольшей стороны и противолежащей вершине.
@@ -155,8 +155,8 @@
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup triangulate
+    \ingroup triangulate
     \brief  Триангуляция массива треугольников 
     \param srcVertex            [in/out]  Указатель на входную структуру треугольников. Перезаписывается разбитыми треугольниками
     \param srcCount             [in/out]  Количество входных треугольников. Четное число. Должно быть меньше реального размера srcVertex хотябы в 2 раза
