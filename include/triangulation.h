@@ -16,7 +16,7 @@
     \param srcVec1  [in]  Входной вектор
     \param srcVec2  [in]  Входной вектор
     \param dstVec   [out] Результирующий вектор
-	\param nVal     [in]  Указатель на константу-множитель
+	\param nVal     [in]  Указатель на константу-множитель. Массив из двух элементов типа float
 	\param srcCount [in]  Размер векторов в элементах. Четное число
     \return \e void
     */
@@ -88,7 +88,6 @@
 	\param toSplitTrianglesCount    [out] Указатель на количество треугольников для разбития
 	\param resultTriangles          [out] Указатель на структуру выходных треугольников
 	\param resultCount              [out] Указатель на количество выходных треугольников
-	\param maxDstSize               [in]  Ограничение на максимальное количество выходных треугольников  
 	\param flags                    [in]  Массив флагов вместимости для входных треугольников
     \return \e void
     */
@@ -96,7 +95,7 @@
     void sort( 	TrianglePointers * srcTriangles, int srcCount,
 			    TrianglePointers * toSplitTriangles, int * toSplitTrianglesCount,
 			    TrianglePointers * resultTriangles, int * resultCount,
-			    int maxDstSize, int * flags );
+			    int * flags );
 	//! \}
 
 //*****************************************************************************
@@ -143,13 +142,11 @@
     \param toSplitTrianglesCount    [in]  Количество входных треугольников
     \param splittedTriangles        [out] Указатель на структуру полученных треугольников
 	\param splittedTrianglesCount   [out] Указатель на количество полученных треугольников
-	\param srcTreatedCount          [in]  Указатель на количество разбитых треугольников
     \return \e void
     */
     //! \{
     void split( TrianglePointers * toSplitTriangles, int toSplitTrianglesCount,
-                TrianglePointers * splittedTriangles, int * splittedTrianglesCount,
-                int * srcTreatedCount );
+                TrianglePointers * splittedTriangles, int * splittedTrianglesCount );
 	//! \}
 
 //*****************************************************************************
@@ -157,20 +154,18 @@
     \defgroup 
     \ingroup 
     \brief  Триангуляция массива треугольников 
-    \param srcVertex        [in]  Указатель на входную структуру треугольников
-    \param srcCount         [in]  Количество входных треугольников. Четное число
-    \param maxWidth         [in]  Ограничение по ширине
-	\param maxHeight        [in]  Ограничение по высоте
-	\param maxDstSize       [in]  Ограничение по выходному количеству треугольников
-	\param dstVertex        [out] Указатель на выходную структуру треугольников
-	\param srcTreatedCount  [out] Указатель на число разбитых треугольников
+    \param srcVertex            [in/out]  Указатель на входную структуру треугольников. Перезаписывается разбитыми треугольниками
+    \param srcCount             [in/out]  Количество входных треугольников. Четное число. Должно быть меньше реального размера srcVertex хотябы в 2 раза
+    \param maxWidth             [in]      Ограничение по ширине
+	\param maxHeight            [in]      Ограничение по высоте
+	\param dstSuitableVertex    [out]     Указатель на выходную структуру годных треугольников
+	\param srcTreatedCount      [out]     Указатель на число годных треугольников
     \return \e void
     */
     //! \{
-    void triangulate(	TrianglePointers* srcVertex, int srcCount,
+    void triangulate(	TrianglePointers* srcVertex, int * srcCount,
 						int maxWidth, int maxHeight,
-						int maxDstSize, TrianglePointers* dstVertex,
-						int* srcTreatedCount );
+						TrianglePointers* dstSuitableVertex, int * dstSuitableCount );
 	//! \}
 
 #ifdef __cplusplus

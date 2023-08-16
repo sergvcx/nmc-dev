@@ -12,7 +12,6 @@
 #include "VShell.h"
 #endif
 
-const int size = 4;
 const int maximumDestinationSize = 256;
 const int maximumHeight = 30;
 const int maximumWidth  = 30;
@@ -21,6 +20,7 @@ static const int HEIGHT = 512;
 
 int main()
 {
+	int size = 2;
 	TrianglePointers testResultTrianglesArray;
 	int treatedCounter = 0;
 
@@ -40,12 +40,12 @@ int main()
 
 	TrianglePointers testTrianglesArray;
 
-	float ax[size];
-	float ay[size];
-	float bx[size];
-	float by[size];
-	float cx[size];
-	float cy[size];
+	float ax[maximumDestinationSize];
+	float ay[maximumDestinationSize];
+	float bx[maximumDestinationSize];
+	float by[maximumDestinationSize];
+	float cx[maximumDestinationSize];
+	float cy[maximumDestinationSize];
 
 	testTrianglesArray.v0.x = ax;
 	testTrianglesArray.v0.y = ay;
@@ -66,7 +66,7 @@ int main()
 	testTrianglesArray.v1.y[1] = 300;
 	testTrianglesArray.v2.x[1] = 100;
 	testTrianglesArray.v2.y[1] = 150;
-
+	/*
 	testTrianglesArray.v0.x[2] = 150;
 	testTrianglesArray.v0.y[2] = 50;
 	testTrianglesArray.v1.x[2] = 200;
@@ -80,7 +80,7 @@ int main()
 	testTrianglesArray.v1.y[3] = 90;
 	testTrianglesArray.v2.x[3] = 210;
 	testTrianglesArray.v2.y[3] = 120;
-
+	*/
 	printf("\n%d Given Triangles:", size);
 	/*
 	for(int i = 0; i < size; ++i)
@@ -93,15 +93,19 @@ int main()
 	
 	triangulationInit();
 
-	triangulate( &testTrianglesArray, 2, maximumWidth, maximumHeight, maximumDestinationSize, &testResultTrianglesArray, &treatedCounter );
-	
+	while ( treatedCounter < maximumDestinationSize && size != 0 )
+	{
+		triangulate( &testTrianglesArray, &size, maximumWidth, maximumHeight, &testResultTrianglesArray, &treatedCounter );
+		printf("\nSuitable Triangles: %d\nSplitted triangles: %d\n", treatedCounter, size);
+	}
+
 	triangulationFree();
 
 	int resultCount = 0;
-	if( 2 + treatedCounter > maximumDestinationSize )
+	if( size + treatedCounter > maximumDestinationSize )
 		resultCount = maximumDestinationSize;
 	else
-		resultCount = 2 + treatedCounter;
+		resultCount = size + treatedCounter;
 	printf("\n\n%d Result Triangles:", resultCount);
 
 	
@@ -113,7 +117,7 @@ int main()
 	}
 	
 
-	for(int i = 0; i < 2 + treatedCounter; ++i)
+	for(int i = 0; i < size + treatedCounter; ++i)
 	{
 		printf("\ni %d\n", i);
 		NMASSERT(abs(testResultTrianglesArray.v0.x[i] - testResultTrianglesArray.v1.x[i]) <= maximumWidth);

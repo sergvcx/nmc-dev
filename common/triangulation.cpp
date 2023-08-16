@@ -189,15 +189,13 @@ extern "C" void generateMasks( TrianglePointers * srcTriangles, int srcCount, in
 extern "C" void sort( 	TrianglePointers * srcTriangles, int srcCount,
 			TrianglePointers * toSplitTriangles, int * toSplitTrianglesCount,
 			TrianglePointers * resultTriangles, int * resultCount,
-			int maxDstSize, int * flags )
+			int * flags )
 {
 	(*toSplitTrianglesCount) = 0;
 	int tempResultCount = *resultCount;
 	int tempToSplitTrianglesCount = *toSplitTrianglesCount;
 	for(int i = 0; i < srcCount / 2; ++i)
 	{
-		if( tempResultCount == maxDstSize )
-			break;
 		if( flags[i] == 0 )
 		{
 			resultTriangles->v0.x[tempResultCount] = srcTriangles->v0.x[i * 2];
@@ -218,11 +216,6 @@ extern "C" void sort( 	TrianglePointers * srcTriangles, int srcCount,
 			toSplitTriangles->v2.y[tempToSplitTrianglesCount] = srcTriangles->v2.y[i * 2];
 			tempToSplitTrianglesCount++;
 		}
-	}
-	for(int i = 0; i < srcCount / 2; ++i)
-	{
-		if( tempResultCount == maxDstSize )
-			break;
 		if( flags[i + (srcCount / 2)] == 0 )
 		{
 			resultTriangles->v0.x[tempResultCount] = srcTriangles->v0.x[i * 2 + 1];
@@ -274,8 +267,7 @@ extern "C" void maxEdge( int * maxEdgeArray, float * edge1, float * edge2, float
 }
 
 extern "C" void split( TrianglePointers * toSplitTriangles, int toSplitTrianglesCount,
-			TrianglePointers * splittedTriangles, int * splittedTrianglesCount,
-			int * srcTreatedCount )
+			TrianglePointers * splittedTriangles, int * splittedTrianglesCount)
 {
 	float * dXab = bufDeltaNf0;
 	float * dYab = bufDeltaNf1;
@@ -343,42 +335,15 @@ extern "C" void split( TrianglePointers * toSplitTriangles, int toSplitTriangles
 	nmppsMerge_32f ( newVertexX,			 newVertexX,			 splittedTriangles->v2.x, toSplitTrianglesCount + 1 );
 	nmppsMerge_32f ( newVertexY,			 newVertexY,			 splittedTriangles->v2.y, toSplitTrianglesCount + 1 );
 	(*splittedTrianglesCount) = 2 * toSplitTrianglesCount;
-	(*srcTreatedCount) += toSplitTrianglesCount;
 }
 
-extern "C" void triangulate(	TrianglePointers* srcVertex, int srcCount,
+extern "C" void triangulate(	TrianglePointers* srcVertex, int * srcCount,
 						int maxWidth, int maxHeight,
-						int maxDstSize, TrianglePointers* dstVertex,
-						int* srcTreatedCount)
+						TrianglePointers* dstSuitableVertex, int * dstSuitableCount)
 {
-	int currentDstCount = 0;
-	int checkForFitCount = srcCount;
 	int toSplitTrianglesCount = 0;
 
 	int * flags = bufNi0;
-
-	TrianglePointers trianglesArrayToCheck;
-
-	float * ax = bufNf0;
-	float * ay = bufNf1;
-	float * bx = bufNf2;
-	float * by = bufNf3;
-	float * cx = bufNf4;
-	float * cy = bufNf5;
-	
-	trianglesArrayToCheck.v0.x = ax;
-	trianglesArrayToCheck.v0.y = ay;
-	trianglesArrayToCheck.v1.x = bx;
-	trianglesArrayToCheck.v1.y = by;
-	trianglesArrayToCheck.v2.x = cx;
-	trianglesArrayToCheck.v2.y = cy;
-	
-	nmppsCopy_32f ( (*srcVertex).v0.x, trianglesArrayToCheck.v0.x, srcCount );
-	nmppsCopy_32f ( (*srcVertex).v1.x, trianglesArrayToCheck.v1.x, srcCount );
-	nmppsCopy_32f ( (*srcVertex).v2.x, trianglesArrayToCheck.v2.x, srcCount );
-	nmppsCopy_32f ( (*srcVertex).v0.y, trianglesArrayToCheck.v0.y, srcCount );
-	nmppsCopy_32f ( (*srcVertex).v1.y, trianglesArrayToCheck.v1.y, srcCount );
-	nmppsCopy_32f ( (*srcVertex).v2.y, trianglesArrayToCheck.v2.y, srcCount );
 
 	TrianglePointers toSplitTriangles;
 
@@ -396,19 +361,14 @@ extern "C" void triangulate(	TrianglePointers* srcVertex, int srcCount,
 	toSplitTriangles.v2.x = cxNew;
 	toSplitTriangles.v2.y = cyNew;
 
-	while ( currentDstCount < maxDstSize && checkForFitCount != 0 )
+	for(int i = 0; i < maxTrianglesCount; ++i)
 	{
-		printf("\nCurrent dst count %d\n", currentDstCount);
-		for(int i = 0; i < maxDstSize; ++i)
-		{
-			flags[i] = 0;
-		}
-
-		generateMasks( &trianglesArrayToCheck, checkForFitCount, maxWidth, maxHeight, flags );
-
-		sort( &trianglesArrayToCheck, checkForFitCount, &toSplitTriangles, &toSplitTrianglesCount, dstVertex, &currentDstCount, maxDstSize, flags );
-
-		if( currentDstCount < maxDstSize )
-			split( &toSplitTriangles, toSplitTrianglesCount, &trianglesArrayToCheck, &checkForFitCount, srcTreatedCount );
+		flags[i] = 0;
 	}
+
+	generateMasks( srcVertex, *srcCount, maxWidth, maxHeight, flags );
+	
+	sort( srcVertex, *srcCount, &toSplitTriangles, &toSplitTrianglesCount, srcVertex, dstSuitableCount, flags );
+	
+	split( &toSplitTriangles, toSplitTrianglesCount, srcVertex, srcCount );
 }
