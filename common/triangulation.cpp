@@ -70,12 +70,11 @@ extern "C" void triangulationFree()
 	free(bufNf13);
 }
 
-extern "C" void sumFlags( int * flags, int * evenFlags, int * oddFlags, int srcCount )
+extern "C" void sumFlags( nm1 * srcVec, int * dstVec, int srcCount )
 {
-	for(int i = 0; i < srcCount / 2; ++i)
+	for(int i = 0; i < srcCount; ++i)
 	{
-		flags[i] 				|= ((evenFlags[i / 32]) << (31 - i)) >> 31;
-		flags[i + srcCount / 2] |= (( oddFlags[i / 32]) << (31 - i)) >> 31;
+		dstVec[i] |= nmppsGet_1(srcVec, i);
 	}
 }
 
@@ -88,64 +87,55 @@ extern "C" void sumFlags( int * flags, int * evenFlags, int * oddFlags, int srcC
 
 extern "C" void generateMasks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags )
 {
-	v2nm32f * dXab = (v2nm32f*)bufNf6;
-	v2nm32f * dXbc = (v2nm32f*)bufNf7;
-	v2nm32f * dXac = (v2nm32f*)bufNf8;
-	v2nm32f * dYab = (v2nm32f*)bufNf9;
-	v2nm32f * dYbc = (v2nm32f*)bufNf10;
-	v2nm32f * dYac = (v2nm32f*)bufNf11;
+	v2nm32f * Axy = (v2nm32f*)bufNf6;
+	v2nm32f * Bxy = (v2nm32f*)bufNf7;
+	v2nm32f * Cxy = (v2nm32f*)bufNf8;
 
-	v2nm32f maxWidthConstant;
-	maxWidthConstant.v0 = maxWidth;
-	maxWidthConstant.v1 = maxWidth;
-	v2nm32f maxHeightConstant;
-	maxHeightConstant.v0 = maxHeight;
-	maxHeightConstant.v1 = maxHeight;
+	v2nm32f * dAB = (v2nm32f*)bufNf9;
+	v2nm32f * dBC = (v2nm32f*)bufNf10;
+	v2nm32f * dAC = (v2nm32f*)bufNf11;
+
+	v2nm32f limatationConstant;
+	limatationConstant.v0 = maxWidth;
+	limatationConstant.v1 = maxHeight;
 
 	int * evenFlagsInt = (int*)bufNf12;
 	int * oddFlagsInt  = (int*)bufNf13;
 
-	for(int i = 0; i < srcCount / 2; ++i)
+	nmppsMerge_32f ( srcTriangles->v0.x, srcTriangles->v0.y, (float*)Axy, srcCount );
+	nmppsMerge_32f ( srcTriangles->v1.x, srcTriangles->v1.y, (float*)Bxy, srcCount );
+	nmppsMerge_32f ( srcTriangles->v2.x, srcTriangles->v2.y, (float*)Cxy, srcCount );
+
+	nmppsSub_32f( (float*)Axy, (float*)Bxy, (float*)dAB, srcCount );
+	nmppsSub_32f( (float*)Bxy, (float*)Cxy, (float*)dBC, srcCount );
+	nmppsSub_32f( (float*)Axy, (float*)Cxy, (float*)dAC, srcCount );
+
+	for(int i = 0; i < srcCount; ++i)
 	{
-		dXab[i].v0 = abs(srcTriangles->v0.x[i * 2] - srcTriangles->v1.x[i * 2]);
-		dXab[i].v1 = abs(srcTriangles->v0.x[i * 2 + 1] - srcTriangles->v1.x[i * 2 + 1]);
-		dXbc[i].v0 = abs(srcTriangles->v1.x[i * 2] - srcTriangles->v2.x[i * 2]);
-		dXbc[i].v1 = abs(srcTriangles->v1.x[i * 2 + 1] - srcTriangles->v2.x[i * 2 + 1]);
-		dXac[i].v0 = abs(srcTriangles->v0.x[i * 2] - srcTriangles->v2.x[i * 2]);
-		dXac[i].v1 = abs(srcTriangles->v0.x[i * 2 + 1] - srcTriangles->v2.x[i * 2 + 1]);
-		dYab[i].v0 = abs(srcTriangles->v0.y[i * 2] - srcTriangles->v1.y[i * 2]);
-		dYab[i].v1 = abs(srcTriangles->v0.y[i * 2 + 1] - srcTriangles->v1.y[i * 2 + 1]);
-		dYbc[i].v0 = abs(srcTriangles->v1.y[i * 2] - srcTriangles->v2.y[i * 2]);
-		dYbc[i].v1 = abs(srcTriangles->v1.y[i * 2 + 1] - srcTriangles->v2.y[i * 2 + 1]);
-		dYac[i].v0 = abs(srcTriangles->v0.y[i * 2] - srcTriangles->v2.y[i * 2]);
-		dYac[i].v1 = abs(srcTriangles->v0.y[i * 2 + 1] - srcTriangles->v2.y[i * 2 + 1]);
+		dAB[i].v0 = fabs(dAB[i].v0);
+		dAB[i].v1 = fabs(dAB[i].v1);
+		dBC[i].v0 = fabs(dBC[i].v0);
+		dBC[i].v1 = fabs(dBC[i].v1);
+		dAC[i].v0 = fabs(dAC[i].v0);
+		dAC[i].v1 = fabs(dAC[i].v1);
+		
 	}
 
 	int step = 1;
+	nmppsCmpGtC_v2nm32f (dAB, &limatationConstant, evenFlagsInt, 					   oddFlagsInt, 					  step, srcCount);
+	nmppsCmpGtC_v2nm32f (dBC, &limatationConstant, evenFlagsInt + (srcCount / 32 + 2), oddFlagsInt + (srcCount / 32 + 2), step, srcCount);
+	nmppsCmpGtC_v2nm32f (dAC, &limatationConstant, evenFlagsInt + (srcCount / 16 + 2), oddFlagsInt + (srcCount / 16 + 2), step, srcCount);
 
-	nmppsCmpGtC_v2nm32f (dXab, &maxWidthConstant, evenFlagsInt, oddFlagsInt, step, srcCount / 2);
-
-	sumFlags( flags, evenFlagsInt, oddFlagsInt, srcCount );
-
-	nmppsCmpGtC_v2nm32f (dXbc, &maxWidthConstant, evenFlagsInt, oddFlagsInt, step, srcCount / 2);
-
-	sumFlags( flags, evenFlagsInt, oddFlagsInt, srcCount );
-
-	nmppsCmpGtC_v2nm32f (dXac, &maxWidthConstant, evenFlagsInt, oddFlagsInt, step, srcCount / 2);
-
-	sumFlags( flags, evenFlagsInt, oddFlagsInt, srcCount );
-
-	nmppsCmpGtC_v2nm32f (dYab, &maxHeightConstant, evenFlagsInt, oddFlagsInt, step, srcCount / 2);
-
-	sumFlags( flags, evenFlagsInt, oddFlagsInt, srcCount );
-
-	nmppsCmpGtC_v2nm32f (dYbc, &maxHeightConstant, evenFlagsInt, oddFlagsInt, step, srcCount / 2);
-
-	sumFlags( flags, evenFlagsInt, oddFlagsInt, srcCount );
-
-	nmppsCmpGtC_v2nm32f (dYac, &maxHeightConstant, evenFlagsInt, oddFlagsInt, step, srcCount / 2);
-
-	sumFlags( flags, evenFlagsInt, oddFlagsInt, srcCount );
+	for(int i = 0; i < srcCount / 32 + 1; ++i)
+	{
+		evenFlagsInt[i] |= evenFlagsInt[srcCount / 32 + 2 + i];
+		evenFlagsInt[i] |= evenFlagsInt[srcCount / 16 + 2 + i];
+		oddFlagsInt[i] |= oddFlagsInt[srcCount / 32 + 2 + i];
+		oddFlagsInt[i] |= oddFlagsInt[srcCount / 16 + 2 + i];
+		evenFlagsInt[i] |= oddFlagsInt[i];
+	}
+	
+	sumFlags( evenFlagsInt, flags, srcCount );
 }
 
 extern "C" void sort( 	TrianglePointers * srcTriangles, int srcCount,
@@ -156,46 +146,26 @@ extern "C" void sort( 	TrianglePointers * srcTriangles, int srcCount,
 	(*toSplitTrianglesCount) = 0;
 	int tempResultCount = *resultCount;
 	int tempToSplitTrianglesCount = *toSplitTrianglesCount;
-	for(int i = 0; i < srcCount / 2; ++i)
+	for(int i = 0; i < srcCount; ++i)
 	{
 		if( flags[i] == 0 )
 		{
-			resultTriangles->v0.x[tempResultCount] = srcTriangles->v0.x[i * 2];
-			resultTriangles->v0.y[tempResultCount] = srcTriangles->v0.y[i * 2];
-			resultTriangles->v1.x[tempResultCount] = srcTriangles->v1.x[i * 2];
-			resultTriangles->v1.y[tempResultCount] = srcTriangles->v1.y[i * 2];
-			resultTriangles->v2.x[tempResultCount] = srcTriangles->v2.x[i * 2];
-			resultTriangles->v2.y[tempResultCount] = srcTriangles->v2.y[i * 2];
+			resultTriangles->v0.x[tempResultCount] = srcTriangles->v0.x[i];
+			resultTriangles->v0.y[tempResultCount] = srcTriangles->v0.y[i];
+			resultTriangles->v1.x[tempResultCount] = srcTriangles->v1.x[i];
+			resultTriangles->v1.y[tempResultCount] = srcTriangles->v1.y[i];
+			resultTriangles->v2.x[tempResultCount] = srcTriangles->v2.x[i];
+			resultTriangles->v2.y[tempResultCount] = srcTriangles->v2.y[i];
 			tempResultCount++;
 		}
 		else
 		{
-			toSplitTriangles->v0.x[tempToSplitTrianglesCount] = srcTriangles->v0.x[i * 2];
-			toSplitTriangles->v0.y[tempToSplitTrianglesCount] = srcTriangles->v0.y[i * 2];
-			toSplitTriangles->v1.x[tempToSplitTrianglesCount] = srcTriangles->v1.x[i * 2];
-			toSplitTriangles->v1.y[tempToSplitTrianglesCount] = srcTriangles->v1.y[i * 2];
-			toSplitTriangles->v2.x[tempToSplitTrianglesCount] = srcTriangles->v2.x[i * 2];
-			toSplitTriangles->v2.y[tempToSplitTrianglesCount] = srcTriangles->v2.y[i * 2];
-			tempToSplitTrianglesCount++;
-		}
-		if( flags[i + (srcCount / 2)] == 0 )
-		{
-			resultTriangles->v0.x[tempResultCount] = srcTriangles->v0.x[i * 2 + 1];
-			resultTriangles->v0.y[tempResultCount] = srcTriangles->v0.y[i * 2 + 1];
-			resultTriangles->v1.x[tempResultCount] = srcTriangles->v1.x[i * 2 + 1];
-			resultTriangles->v1.y[tempResultCount] = srcTriangles->v1.y[i * 2 + 1];
-			resultTriangles->v2.x[tempResultCount] = srcTriangles->v2.x[i * 2 + 1];
-			resultTriangles->v2.y[tempResultCount] = srcTriangles->v2.y[i * 2 + 1];
-			tempResultCount++;
-		}
-		else
-		{
-			toSplitTriangles->v0.x[tempToSplitTrianglesCount] = srcTriangles->v0.x[i * 2 + 1];
-			toSplitTriangles->v0.y[tempToSplitTrianglesCount] = srcTriangles->v0.y[i * 2 + 1];
-			toSplitTriangles->v1.x[tempToSplitTrianglesCount] = srcTriangles->v1.x[i * 2 + 1];
-			toSplitTriangles->v1.y[tempToSplitTrianglesCount] = srcTriangles->v1.y[i * 2 + 1];
-			toSplitTriangles->v2.x[tempToSplitTrianglesCount] = srcTriangles->v2.x[i * 2 + 1];
-			toSplitTriangles->v2.y[tempToSplitTrianglesCount] = srcTriangles->v2.y[i * 2 + 1];
+			toSplitTriangles->v0.x[tempToSplitTrianglesCount] = srcTriangles->v0.x[i];
+			toSplitTriangles->v0.y[tempToSplitTrianglesCount] = srcTriangles->v0.y[i];
+			toSplitTriangles->v1.x[tempToSplitTrianglesCount] = srcTriangles->v1.x[i];
+			toSplitTriangles->v1.y[tempToSplitTrianglesCount] = srcTriangles->v1.y[i];
+			toSplitTriangles->v2.x[tempToSplitTrianglesCount] = srcTriangles->v2.x[i];
+			toSplitTriangles->v2.y[tempToSplitTrianglesCount] = srcTriangles->v2.y[i];
 			tempToSplitTrianglesCount++;
 		}
 	}
@@ -203,11 +173,11 @@ extern "C" void sort( 	TrianglePointers * srcTriangles, int srcCount,
 	*toSplitTrianglesCount = tempToSplitTrianglesCount;
 }
 
-extern "C" void squareSum( float * edgeArray, float * dX, float * dY, int edgeCount )
+extern "C" void sumOfSquares( float * srcVec1, float * srcVec2, float * dstVec, int srcCount )
 {
-	for(int i = 0; i < edgeCount; ++i)
+	for(int i = 0; i < srcCount; ++i)
 	{
-		edgeArray[i] = dX[i] * dX[i] + dY[i] * dY[i];
+		dstVec[i] = srcVec1[i] * srcVec1[i] + srcVec2[i] * srcVec2[i];
 	}
 }
 
@@ -236,7 +206,7 @@ extern "C" void split( TrianglePointers * toSplitTriangles, int toSplitTriangles
 	nmppsSub_32f ( toSplitTriangles->v0.x, toSplitTriangles->v1.x, dXab, toSplitTrianglesCount + 1 );
 	nmppsSub_32f ( toSplitTriangles->v0.y, toSplitTriangles->v1.y, dYab, toSplitTrianglesCount + 1 );
 	float * edge1 = bufNf8;
-	squareSum( edge1, dXab, dYab, toSplitTrianglesCount );
+	sumOfSquares( dXab, dYab, edge1, toSplitTrianglesCount );
 //	nmppsMul_Mul_Add_32f( dXab, dXab, dYab, dYab, edge1, toSplitTrianglesCount );
 
 	float * dXbc = dXab;
@@ -244,7 +214,7 @@ extern "C" void split( TrianglePointers * toSplitTriangles, int toSplitTriangles
 	nmppsSub_32f ( toSplitTriangles->v1.x, toSplitTriangles->v2.x, dXbc, toSplitTrianglesCount + 1 );
 	nmppsSub_32f ( toSplitTriangles->v1.y, toSplitTriangles->v2.y, dYbc, toSplitTrianglesCount + 1 );
 	float * edge2 = bufNf9;
-	squareSum( edge2, dXbc, dYbc, toSplitTrianglesCount );
+	sumOfSquares( dXbc, dYbc, edge2, toSplitTrianglesCount );
 //	nmppsMul_Mul_Add_32f( dXbc, dXbc, dYbc, dYbc, edge2, toSplitTrianglesCount );
 
 	float * dXac = dXab;
@@ -252,7 +222,7 @@ extern "C" void split( TrianglePointers * toSplitTriangles, int toSplitTriangles
 	nmppsSub_32f ( toSplitTriangles->v0.x, toSplitTriangles->v2.x, dXac, toSplitTrianglesCount + 1 );
 	nmppsSub_32f ( toSplitTriangles->v0.y, toSplitTriangles->v2.y, dYac, toSplitTrianglesCount + 1 );	
 	float * edge3 = bufNf10;
-	squareSum( edge3, dXac, dYac, toSplitTrianglesCount );
+	sumOfSquares( dXac, dYac, edge3, toSplitTrianglesCount );
 //	nmppsMul_Mul_Add_32f( dXac, dXac, dYac, dYac, edge3, toSplitTrianglesCount );
 
 	int * maxEdgeArray = (int*)bufNf11;
@@ -329,7 +299,7 @@ extern "C" void triangulate(	TrianglePointers* srcVertex, int * srcCount,
 	}
 
 	generateMasks( srcVertex, *srcCount, maxWidth, maxHeight, flags );
-	
+
 	sort( srcVertex, *srcCount, &toSplitTriangles, &toSplitTrianglesCount, dstSuitableVertex, dstSuitableCount, flags );
 	
 	split( &toSplitTriangles, toSplitTrianglesCount, srcVertex, srcCount );

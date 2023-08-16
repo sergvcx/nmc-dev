@@ -81,15 +81,39 @@ int main()
 	testTrianglesArray.v2.x[3] = 210;
 	testTrianglesArray.v2.y[3] = 120;
 	
-	printf("\n%d Given Triangles:", size);
-	/*
+	TrianglePointers savedTrianglesArray;
+
+	float axSaved[size];
+	float aySaved[size];
+	float bxSaved[size];
+	float bySaved[size];
+	float cxSaved[size];
+	float cySaved[size];
+
+	savedTrianglesArray.v0.x = axSaved;
+	savedTrianglesArray.v0.y = aySaved;
+	savedTrianglesArray.v1.x = bxSaved;
+	savedTrianglesArray.v1.y = bySaved;
+	savedTrianglesArray.v2.x = cxSaved;
+	savedTrianglesArray.v2.y = cySaved;
+
 	for(int i = 0; i < size; ++i)
 	{
-		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testTrianglesArray.v0.x[i], testTrianglesArray.v0.y[i]);
-		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testTrianglesArray.v1.x[i], testTrianglesArray.v1.y[i]);
-		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testTrianglesArray.v2.x[i], testTrianglesArray.v2.y[i]);
+		savedTrianglesArray.v0.x[i] = testTrianglesArray.v0.x[i];
+		savedTrianglesArray.v0.y[i] = testTrianglesArray.v0.y[i];
+		savedTrianglesArray.v1.x[i] = testTrianglesArray.v1.x[i];
+		savedTrianglesArray.v1.y[i] = testTrianglesArray.v1.y[i];
+		savedTrianglesArray.v2.x[i] = testTrianglesArray.v2.x[i];
+		savedTrianglesArray.v2.y[i] = testTrianglesArray.v2.y[i];
 	}
-	*/
+
+	printf("\n%d Given Triangles:", size);
+	// for(int i = 0; i < size; ++i)
+	// {
+	// 	printf("\nTriangle %d point a: ( %f; %f )", i + 1, savedTrianglesArray.v0.x[i], savedTrianglesArray.v0.y[i]);
+	// 	printf("\nTriangle %d point b: ( %f; %f )", i + 1, savedTrianglesArray.v1.x[i], savedTrianglesArray.v1.y[i]);
+	// 	printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, savedTrianglesArray.v2.x[i], savedTrianglesArray.v2.y[i]);
+	// }
 	
 	triangulationInit();
 
@@ -107,16 +131,13 @@ int main()
 	else
 		resultCount = size + treatedCounter;
 	printf("\n\n%d Result Triangles:", resultCount);
-
-	/*
-	for(int i = 0; i < resultCount; ++i)
-	{
-		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i]);
-		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i]);
-		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
-	}
-	*/
-
+	// for(int i = 0; i < resultCount; ++i)
+	// {
+	// 	printf("\nTriangle %d point a: ( %f; %f )", i + 1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i]);
+	// 	printf("\nTriangle %d point b: ( %f; %f )", i + 1, testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i]);
+	// 	printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
+	// }
+	
 	for(int i = 0; i < size + treatedCounter; ++i)
 	{
 		printf("\ni %d\n", i);
@@ -127,32 +148,39 @@ int main()
 		NMASSERT(abs(testResultTrianglesArray.v2.y[i] - testResultTrianglesArray.v1.y[i]) <= maximumHeight);
 		NMASSERT(abs(testResultTrianglesArray.v0.y[i] - testResultTrianglesArray.v2.y[i]) <= maximumHeight);	
 	}
-
+	
 	printf("\n\n");
 #ifdef __NM__
 #else	
 	if(!VS_Init())
     	return 0;
-	VS_CreateImage("Given Triangles", 0, WIDTH, HEIGHT, VS_RGB8, NULL);
-	VS_CreateImage("Result Triangles", 1, WIDTH, HEIGHT, VS_RGB8, NULL);
+	VS_STOP_COLOR pStopColor[2]={
+		VS_MAKE_STOP_COLOR(3	,VS_WHITE),
+		VS_MAKE_STOP_COLOR(26	,VS_BLACK),
+	};
+	S_VS_Pal palette[256];
+	VS_CreateCustomPalette(palette,pStopColor, 1);
+
+	VS_CreateImage("Given Triangles", 0, WIDTH, HEIGHT, VS_RGB8, palette);
+	VS_CreateImage("Result Triangles", 1, WIDTH, HEIGHT, VS_RGB8, palette);
 	while(VS_Run())
 	{
-		for(int i = 0; i < size; ++i)
+		for(int i = 0; i < 4; ++i)
 		{
-			VS_Line(0, testTrianglesArray.v0.x[i], testTrianglesArray.v0.y[i], testTrianglesArray.v1.x[i], testTrianglesArray.v1.y[i], RGB(255, 255, 255));
-			VS_Line(0, testTrianglesArray.v0.x[i], testTrianglesArray.v0.y[i], testTrianglesArray.v2.x[i], testTrianglesArray.v2.y[i], RGB(255, 255, 255));
-			VS_Line(0, testTrianglesArray.v2.x[i], testTrianglesArray.v2.y[i], testTrianglesArray.v1.x[i], testTrianglesArray.v1.y[i], RGB(255, 255, 255));
+			VS_Line(0, savedTrianglesArray.v0.x[i], savedTrianglesArray.v0.y[i], savedTrianglesArray.v1.x[i], savedTrianglesArray.v1.y[i], RGB(0, 0, 0));
+			VS_Line(0, savedTrianglesArray.v0.x[i], savedTrianglesArray.v0.y[i], savedTrianglesArray.v2.x[i], savedTrianglesArray.v2.y[i], RGB(0, 0, 0));
+			VS_Line(0, savedTrianglesArray.v2.x[i], savedTrianglesArray.v2.y[i], savedTrianglesArray.v1.x[i], savedTrianglesArray.v1.y[i], RGB(0, 0, 0));
 		}
 
 		for(int i = 0; i < resultCount; ++i)
 		{
-			VS_Line(1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i], testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i], RGB(255, 255, 255));
-			VS_Line(1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i], testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i], RGB(255, 255, 255));
-			VS_Line(1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i], testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i], RGB(255, 255, 255));
+			VS_Line(1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i], testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i], RGB(0, 0, 0));
+			VS_Line(1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i], testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i], RGB(0, 0, 0));
+			VS_Line(1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i], testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i], RGB(0, 0, 0));
 		}
 
-		VS_Rectangle(0, 10, 300, 10 + maximumWidth, 300 + maximumHeight, RGB(255, 255, 255), RGB(0, 0, 0));
-		VS_Rectangle(1, 10, 300, 10 + maximumWidth, 300 + maximumHeight, RGB(255, 255, 255), RGB(0, 0, 0));
+		VS_Rectangle(0, 10, 300, 10 + maximumWidth, 300 + maximumHeight, RGB(0, 0, 0), RGB(255, 255, 255));
+		VS_Rectangle(1, 10, 300, 10 + maximumWidth, 300 + maximumHeight, RGB(0, 0, 0), RGB(255, 255, 255));
 
 		VS_Draw(VS_DRAW_ALL);
 	}
