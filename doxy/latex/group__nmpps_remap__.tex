@@ -1,0 +1,68 @@
+\doxysection{nmpps\+Remap\+\_\+}
+\hypertarget{group__nmpps_remap__}{}\label{group__nmpps_remap__}\index{nmppsRemap\_@{nmppsRemap\_}}
+
+
+Переупорядочивание элементов вектора по таблице.  
+
+
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__nmpps_remap___gaeddeb200f1beaf913e24ae598d88fc5c}\label{group__nmpps_remap___gaeddeb200f1beaf913e24ae598d88fc5c} 
+void {\bfseries nmpps\+Remap\+\_\+32u} (\mbox{\hyperlink{nmtype_8h_acb8af4747a1a1b39683e44fb7caff5b2}{nm32u}} \texorpdfstring{$\ast$}{*}p\+Src\+Vec, \mbox{\hyperlink{nmtype_8h_acb8af4747a1a1b39683e44fb7caff5b2}{nm32u}} \texorpdfstring{$\ast$}{*}p\+Dst\+Vec, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}p\+Remap\+Table, int n\+Dst\+Vec\+Size)
+\item 
+\Hypertarget{group__nmpps_remap___ga4d5b4915fd7ce41479574e06d3b2900d}\label{group__nmpps_remap___ga4d5b4915fd7ce41479574e06d3b2900d} 
+void {\bfseries nmpps\+Remap\+\_\+8u} (\mbox{\hyperlink{nmtype_8h_a112cca25519f88ad8aa9950b5545132c}{nm8u}} \texorpdfstring{$\ast$}{*}p\+Src\+Vec, \mbox{\hyperlink{nmtype_8h_a112cca25519f88ad8aa9950b5545132c}{nm8u}} \texorpdfstring{$\ast$}{*}p\+Dst\+Vec, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}p\+Remap\+Table, int n\+Src\+Vec\+Size, int n\+Dst\+Vec\+Size, void \texorpdfstring{$\ast$}{*}p\+Tmp\+Buf1, void \texorpdfstring{$\ast$}{*}p\+Tmp\+Buf2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Переупорядочивание элементов вектора по таблице. 
+
+\[
+    pDstVec[i]=pSrcVec[pRemapTable[i]],
+\]
+
+\[ i = \overline{0 \ldots nSize-1} \] \begin{DoxyVerb}\~
+\end{DoxyVerb}
+ 
+\begin{DoxyParams}{Аргументы}
+{\em p\+Src\+Vec} & Входной вектор.\\
+\hline
+{\em p\+Remap\+Table} & Таблица новых индексов для переупорядочивания.\\
+\hline
+{\em n\+Dst\+Vec\+Size} & Размер результирующего вектора в элементах.\\
+\hline
+{\em p\+Tmp\+Buf1} & Временный массив nm32u p\+Tmp\+Buf1\mbox{[}n\+Src\+Vec\+Size\mbox{]}.\\
+\hline
+{\em p\+Tmp\+Buf2} & Временный массив nm32u p\+Tmp\+Buf2\mbox{[}n\+Dst\+Vec\+Size\mbox{]}. Результирующий вектор nm8u p\+Dst\+Vec\mbox{[}n\+Dst\+Vec\+Size\mbox{]}.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+{\itshape void} 
+\end{DoxyReturn}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{comment}{//\ Функция}}
+\DoxyCodeLine{\textcolor{comment}{//\ void\ nmppsRemap\_8u(nm8u*\ pSrcVec,\ nm8u*\ pDstVec,\ nm32s*\ pRemapTable,\ int\ nSrcVecSize,\ int\ nDstVecSize,\ void*\ pTmpBuf1,\ void*\ pTmpBuf2);}}
+\DoxyCodeLine{\textcolor{comment}{//\ выполняет\ следющие\ действия:}}
+\DoxyCodeLine{nmppsConvert\_8u((\mbox{\hyperlink{nmtype_8h_a112cca25519f88ad8aa9950b5545132c}{nm8u}}*)\ pSrcVec,\ (\mbox{\hyperlink{nmtype_8h_acb8af4747a1a1b39683e44fb7caff5b2}{nm32u}}*)pTmpBuf1,nSrcVecSize);}
+\DoxyCodeLine{nmppsRemap\_32u((\mbox{\hyperlink{nmtype_8h_acb8af4747a1a1b39683e44fb7caff5b2}{nm32u}}*)pTmpBuf1,(\mbox{\hyperlink{nmtype_8h_acb8af4747a1a1b39683e44fb7caff5b2}{nm32u}}*)pTmpBuf2,RemapTable,DstVecSize);}
+\DoxyCodeLine{nmppsConvert\_32s((\mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}}*)pTmpBuf2,(\mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}}*)\ pDstVec,\ DstVecSize);}
+
+\end{DoxyCode}
+
+
+\begin{DoxyNote}{Заметки}
+Возможность использования inplace параметров определяется исходя из последовательности процессов чтения/записи\+: ~\newline
+ the folowing sequence of actions \+: ~\newline
+
+\begin{DoxyItemize}
+\item p\+Src\+Vec =\texorpdfstring{$>$}{>} p\+Tmp\+Buf1 -\/ inplace запрещен; ~\newline
+
+\item p\+Tmp\+Buf1=\texorpdfstring{$>$}{>}p\+Tmp\+Buf2 -\/ inplace запрещен; ~\newline
+
+\item p\+Tmp\+Buf2=\texorpdfstring{$>$}{>}p\+Dst\+Vec -\/ inplace разрешен; ~\newline
+
+\end{DoxyItemize}
+\end{DoxyNote}

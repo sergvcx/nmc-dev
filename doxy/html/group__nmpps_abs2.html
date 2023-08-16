@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.7"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ringbuffer: nmppsAbs2</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">ringbuffer
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.7 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Титульная&#160;страница</span></a></li>
+      <li class="current"><a href="modules.html"><span>Группы</span></a></li>
+      <li><a href="annotated.html"><span>Классы</span></a></li>
+      <li><a href="files.html"><span>Файлы</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Функции</a>  </div>
+  <div class="headertitle"><div class="title">nmppsAbs2</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Функция вычисления абсолютных элементов вектора.  
+<a href="#details">Подробнее...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:ga91a770b38a19e24848aa18674e05d11d"><td class="memItemLeft" align="right" valign="top"><a id="ga91a770b38a19e24848aa18674e05d11d" name="ga91a770b38a19e24848aa18674e05d11d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>nmppsAbs2_8s</b> (<a class="el" href="nmtype_8h.html#ae72f2b9432062ccd3940ddea7c7e98df">nm8s</a> *srcA, <a class="el" href="nmtype_8h.html#ae72f2b9432062ccd3940ddea7c7e98df">nm8s</a> *dstB, int size)</td></tr>
+<tr class="separator:ga91a770b38a19e24848aa18674e05d11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gabb215cec16b9032ece712d714ab47d1f"><td class="memItemLeft" align="right" valign="top"><a id="gabb215cec16b9032ece712d714ab47d1f" name="gabb215cec16b9032ece712d714ab47d1f"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>nmppsAbs2_16s</b> (<a class="el" href="nmtype_8h.html#ac7e3460b4b4f074cf4a75a3071bf04c8">nm16s</a> *srcA, <a class="el" href="nmtype_8h.html#ac7e3460b4b4f074cf4a75a3071bf04c8">nm16s</a> *dstB, int size)</td></tr>
+<tr class="separator:gabb215cec16b9032ece712d714ab47d1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gac64a290a43189ffd0f78b636a85f3b9d"><td class="memItemLeft" align="right" valign="top"><a id="gac64a290a43189ffd0f78b636a85f3b9d" name="gac64a290a43189ffd0f78b636a85f3b9d"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>nmppsAbs2_32s</b> (<a class="el" href="nmtype_8h.html#a340133c964d0ae670f3bd3ff3a6b172a">nm32s</a> *srcA, <a class="el" href="nmtype_8h.html#a340133c964d0ae670f3bd3ff3a6b172a">nm32s</a> *dstB, int size)</td></tr>
+<tr class="separator:gac64a290a43189ffd0f78b636a85f3b9d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga7e7a3414d5e73b4188d7470d43fb055b"><td class="memItemLeft" align="right" valign="top"><a id="ga7e7a3414d5e73b4188d7470d43fb055b" name="ga7e7a3414d5e73b4188d7470d43fb055b"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>nmppsAbs2_64s</b> (<a class="el" href="nmtype_8h.html#a4e59c2dc9731ba8592b0991bf71c7af3">nm64s</a> *srcA, <a class="el" href="nmtype_8h.html#a4e59c2dc9731ba8592b0991bf71c7af3">nm64s</a> *dstB, int size)</td></tr>
+<tr class="separator:ga7e7a3414d5e73b4188d7470d43fb055b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<p>Функция вычисления абсолютных элементов вектора. </p>
+<p class="formulaDsp">
+<img class="formulaDsp" alt="\[
+    b[ i] =\begin{cases}
+        a[ i] , &amp; if\ a[ i] \geq 0\\
+        -a[ i] , &amp; if\ 0 &gt;a[ i]  &gt;-2^{n-1}\\
+        2^{n-1} -1, &amp; if\ a[ i] =-2^{n-1}
+    \end{cases}
+\]" src="form_5.png"/>
+</p>
+<p class="formulaDsp">
+<img class="formulaDsp" alt="\[ i = \overline{0 \ldots size-1} \]" src="form_6.png"/>
+</p>
+<p>n - разрядность элементов.</p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>Входной вектор.</td></tr>
+    <tr><td class="paramname">size</td><td>Размер векторов в элементах.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="retval"><dt>Возвращаемые значения</dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">b</td><td>Результирующий вектор.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd><em>void</em> </dd></dl>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Документация по ringbuffer. Последние изменения: Ср 16 Авг 2023 19:10:27. Создано системой&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7
+</small></address>
+</body>
+</html>

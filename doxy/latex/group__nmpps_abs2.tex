@@ -1,0 +1,54 @@
+\doxysection{nmpps\+Abs2}
+\hypertarget{group__nmpps_abs2}{}\label{group__nmpps_abs2}\index{nmppsAbs2@{nmppsAbs2}}
+
+
+Функция вычисления абсолютных элементов вектора.  
+
+
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__nmpps_abs2_ga91a770b38a19e24848aa18674e05d11d}\label{group__nmpps_abs2_ga91a770b38a19e24848aa18674e05d11d} 
+void {\bfseries nmpps\+Abs2\+\_\+8s} (\mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}} \texorpdfstring{$\ast$}{*}srcA, \mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}} \texorpdfstring{$\ast$}{*}dstB, int size)
+\item 
+\Hypertarget{group__nmpps_abs2_gabb215cec16b9032ece712d714ab47d1f}\label{group__nmpps_abs2_gabb215cec16b9032ece712d714ab47d1f} 
+void {\bfseries nmpps\+Abs2\+\_\+16s} (\mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}srcA, \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}dstB, int size)
+\item 
+\Hypertarget{group__nmpps_abs2_gac64a290a43189ffd0f78b636a85f3b9d}\label{group__nmpps_abs2_gac64a290a43189ffd0f78b636a85f3b9d} 
+void {\bfseries nmpps\+Abs2\+\_\+32s} (\mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}srcA, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}dstB, int size)
+\item 
+\Hypertarget{group__nmpps_abs2_ga7e7a3414d5e73b4188d7470d43fb055b}\label{group__nmpps_abs2_ga7e7a3414d5e73b4188d7470d43fb055b} 
+void {\bfseries nmpps\+Abs2\+\_\+64s} (\mbox{\hyperlink{nmtype_8h_a4e59c2dc9731ba8592b0991bf71c7af3}{nm64s}} \texorpdfstring{$\ast$}{*}srcA, \mbox{\hyperlink{nmtype_8h_a4e59c2dc9731ba8592b0991bf71c7af3}{nm64s}} \texorpdfstring{$\ast$}{*}dstB, int size)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Функция вычисления абсолютных элементов вектора. 
+
+\[
+    b[ i] =\begin{cases}
+        a[ i] , & if\ a[ i] \geq 0\\
+        -a[ i] , & if\ 0 >a[ i]  >-2^{n-1}\\
+        2^{n-1} -1, & if\ a[ i] =-2^{n-1}
+    \end{cases}
+\]
+
+\[ i = \overline{0 \ldots size-1} \]
+
+n -\/ разрядность элементов.
+
+
+\begin{DoxyParams}{Аргументы}
+{\em a} & Входной вектор.\\
+\hline
+{\em size} & Размер векторов в элементах.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Возвращаемые значения}
+{\em b} & Результирующий вектор.\\
+\hline
+\end{DoxyRetVals}
+\begin{DoxyReturn}{Возвращает}
+{\itshape void} 
+\end{DoxyReturn}

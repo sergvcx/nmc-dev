@@ -1,0 +1,39 @@
+\doxysection{nmpp\+Split}
+\hypertarget{group__nmpp_split}{}\label{group__nmpp_split}\index{nmppSplit@{nmppSplit}}
+
+
+Расщепляет массив на два массива, группируя по четным и нечетным элементам  
+
+
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__nmpp_split_gaf7cba46a163a840a54f8fb54323bffa1}\label{group__nmpp_split_gaf7cba46a163a840a54f8fb54323bffa1} 
+void {\bfseries nmpps\+Split\+\_\+8s} (const \mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}} \texorpdfstring{$\ast$}{*}src, \mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}} \texorpdfstring{$\ast$}{*}dst1, \mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}} \texorpdfstring{$\ast$}{*}dst2, int size\+Src)
+\item 
+\Hypertarget{group__nmpp_split_ga8534f86000b551b94e126c7ec3fafeac}\label{group__nmpp_split_ga8534f86000b551b94e126c7ec3fafeac} 
+void {\bfseries nmpps\+Split\+\_\+16s} (const \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}src, \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}dst1, \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}dst2, int size\+Src)
+\item 
+\Hypertarget{group__nmpp_split_gadf1f854d2a0e3252e35737347874c01a}\label{group__nmpp_split_gadf1f854d2a0e3252e35737347874c01a} 
+void {\bfseries nmpps\+Split\+\_\+32s} (const \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}src, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}dst1, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}dst2, int size\+Src)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Расщепляет массив на два массива, группируя по четным и нечетным элементам 
+
+
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ in}}  & {\em src} & Входной массив \\
+\hline
+\mbox{\texttt{ out}}  & {\em dst1} & Выходной массив размера size\+Src/2 \\
+\hline
+\mbox{\texttt{ out}}  & {\em dst2} & Выходной массив размера size\+Src/2 \\
+\hline
+\mbox{\texttt{ in}}  & {\em size\+Src} & Размер входного массива в элементах. Кратность параметра size\+Src должна быть равна плотности элементов в 64-\/р. слове. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+Details Максимальная производительность достигается при размещении входных, выходных массивов в разных банках памяти. Массивы dst1 и dst2 могут находится в одном банке. Макс производительность на 64-\/р. слово результата = 2.\+14 такта (при size\+Src=10240 байт) и 2.\+6 такта (при size\+Src=4096 байт) 

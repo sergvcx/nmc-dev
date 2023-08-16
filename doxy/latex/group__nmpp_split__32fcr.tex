@@ -1,0 +1,33 @@
+\doxysection{nmpp\+Split\+\_\+32fcr}
+\hypertarget{group__nmpp_split__32fcr}{}\label{group__nmpp_split__32fcr}\index{nmppSplit\_32fcr@{nmppSplit\_32fcr}}
+
+
+Расщепляет массив на два, группируя по четным и нечетным элементам  
+
+
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__nmpp_split__32fcr_ga07a2ecc48f63d2d3ee73b5848f5cb09b}\label{group__nmpp_split__32fcr_ga07a2ecc48f63d2d3ee73b5848f5cb09b} 
+void {\bfseries nmpps\+Split\+\_\+32fcr} (const \mbox{\hyperlink{structs__nm32fcr}{nm32fcr}} \texorpdfstring{$\ast$}{*}p\+Src\+Vec, \mbox{\hyperlink{structs__nm32fcr}{nm32fcr}} \texorpdfstring{$\ast$}{*}p\+Dst\+Vec1, \mbox{\hyperlink{structs__nm32fcr}{nm32fcr}} \texorpdfstring{$\ast$}{*}p\+Dst\+Vec, int size\+Src)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Расщепляет массив на два, группируя по четным и нечетным элементам 
+
+
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ in}}  & {\em p\+Src\+Vec} & Входной массив \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst\+Vec1} & Выходной массив размера size/2 \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst\+Vec2} & Выходной массив размера size/2 \\
+\hline
+\mbox{\texttt{ in}}  & {\em size\+Src} & Размер исходного массива в элементах (должен быть четным) \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+Details Максимальная производительность достигается при размещении входных, выходных массивов в разных банках памяти. Массивы dst1 и dst2 могут находится в одном банке. Макс производительность на 64-\/р. слово результата = 1 такт 

@@ -1,0 +1,40 @@
+\doxysection{VEC\+\_\+\+QSort}
+\hypertarget{group___v_e_c___q_sort}{}\label{group___v_e_c___q_sort}\index{VEC\_QSort@{VEC\_QSort}}
+
+
+функции переупорядочивания данных  
+
+
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group___v_e_c___q_sort_ga8bc65141ead8c6f230a3fad5a08fe649}\label{group___v_e_c___q_sort_ga8bc65141ead8c6f230a3fad5a08fe649} 
+void {\bfseries nmpps\+QSort\+\_\+32s} (\mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}p\+Src\+Dst\+Vec, int n\+Size)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+функции переупорядочивания данных 
+
+\begin{DoxyAuthor}{Автор}
+S.\+Mushkaev 
+\end{DoxyAuthor}
+Сортировка массива по убыванию.
+
+
+\begin{DoxyParams}{Аргументы}
+{\em p\+Src\+Dst\+Vec} & Входной и результирующий вектор.\\
+\hline
+{\em n\+Size} & Размер вектора в элементах.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+{\itshape void} 
+\end{DoxyReturn}
+~\newline
+ \begin{DoxyParagraph}{Restrictions\+:}
+Функция работает рекурсивно, передавая параметры через стек, поэтому размер стека должен быть больше 4\texorpdfstring{$\ast$}{*}log2(n\+Size) 32-\/битных слов в лучшем случае (элементы массива расположены беспорядочно) и больше 6\texorpdfstring{$\ast$}{*}n\+Size 32-\/битных слов в худшем случае (элементы массива уже упорядочены)
+\end{DoxyParagraph}
+\begin{DoxyParagraph}{}
+ 
+\end{DoxyParagraph}

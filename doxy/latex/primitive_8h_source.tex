@@ -1,0 +1,56 @@
+\doxysection{primitive.\+h}
+\hypertarget{primitive_8h_source}{}\label{primitive_8h_source}\index{c:/Module/nmc-\/dev/nmc-\/dev/include/primitive.h@{c:/Module/nmc-\/dev/nmc-\/dev/include/primitive.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ \_\_PRIMITIVE\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ \_\_PRIMITIVE\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{nmtype_8h}{./nmtype.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00010}\mbox{\hyperlink{struct_combine_pointers}{00010}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_combine_pointers}{CombinePointers}}\ \{}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00011}00011\ \ \ \ \ \textcolor{keywordtype}{float}\ *\ x;}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00012}00012\ \ \ \ \ \textcolor{keywordtype}{float}\ *\ y;}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00013}00013\ \ \ \ \ \textcolor{keywordtype}{float}\ *\ z;}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00014}00014\ \ \ \ \ \textcolor{keywordtype}{float}\ *\ w;}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00015}00015\ \ \ \ \ \textcolor{comment}{//\ TEXTURING\ PART}}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00016}00016\ \ \ \ \ \textcolor{keywordtype}{float}\ *\ s;}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00017}00017\ \ \ \ \ \textcolor{keywordtype}{float}\ *\ t;}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00018}00018\ \ \ \ \ \textcolor{comment}{//\ TEXTURING\ PART}}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00019}00019\ \ \ \ \ \mbox{\hyperlink{structs__v4nm32f}{v4nm32f}}\ *\ color;}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00020}00020\ \ \ \ \ \textcolor{keywordtype}{int}\ dummy;}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00021}00021\ \};}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00022}00022\ }
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00023}00023\ }
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00028}\mbox{\hyperlink{struct_triangle_pointers}{00028}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_triangle_pointers}{TrianglePointers}}\ \{}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00029}00029\ \ \ \ \ \mbox{\hyperlink{struct_combine_pointers}{CombinePointers}}\ v0;}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00030}00030\ \ \ \ \ \mbox{\hyperlink{struct_combine_pointers}{CombinePointers}}\ v1;}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00031}00031\ \ \ \ \ \mbox{\hyperlink{struct_combine_pointers}{CombinePointers}}\ v2;}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00032}00032\ \};}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00033}00033\ }
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00038}\mbox{\hyperlink{struct_line_pointers}{00038}}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct_line_pointers}{LinePointers}}\ \{}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00039}00039\ \ \ \ \ \mbox{\hyperlink{struct_combine_pointers}{CombinePointers}}\ v0;}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00040}00040\ \ \ \ \ \mbox{\hyperlink{struct_combine_pointers}{CombinePointers}}\ v1;}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00041}00041\ \};}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00083}00083\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{int}\ repackToPrimitives\_t(\textcolor{keyword}{const}\ \mbox{\hyperlink{structs__v4nm32f}{v4nm32f}}\ *srcVertex,}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00084}00084\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structs__v4nm32f}{v4nm32f}}\ *srcColor,}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00085}00085\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structs__v2nm32f}{v2nm32f}}\ *srcTex,}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00086}00086\ \ \ \ \ \mbox{\hyperlink{struct_triangle_pointers}{TrianglePointers}}\ *dstVertex,}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00087}00087\ \ \ \ \ \textcolor{keywordtype}{int}\ vertexAmount);}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00089}00089\ }
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00129}00129\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{int}\ repackToPrimitives\_ts(\textcolor{keyword}{const}\ \mbox{\hyperlink{structs__v4nm32f}{v4nm32f}}\ *srcVertex,}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00130}00130\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structs__v4nm32f}{v4nm32f}}\ *srcColor,}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00131}00131\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structs__v2nm32f}{v2nm32f}}\ *srcTex,}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00132}00132\ \ \ \ \ \mbox{\hyperlink{struct_triangle_pointers}{TrianglePointers}}\ *dstVertex,}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00133}00133\ \ \ \ \ \textcolor{keywordtype}{int}\ vertexAmount);}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00175}00175\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{int}\ repackToPrimitives\_tf(\textcolor{keyword}{const}\ \mbox{\hyperlink{structs__v4nm32f}{v4nm32f}}\ *srcVertex,}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00176}00176\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structs__v4nm32f}{v4nm32f}}\ *srcColor,}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00177}00177\ \ \ \ \ \textcolor{keyword}{const}\ \mbox{\hyperlink{structs__v2nm32f}{v2nm32f}}\ *srcTex,}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00178}00178\ \ \ \ \ \mbox{\hyperlink{struct_triangle_pointers}{TrianglePointers}}\ *dstVertex,}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00179}00179\ \ \ \ \ \textcolor{keywordtype}{int}\ vertexAmount);}
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00181}00181\ }
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00182}00182\ }
+\DoxyCodeLine{\Hypertarget{primitive_8h_source_l00183}00183\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\_\_PRIMITIVE\_H\_\_}}
+
+\end{DoxyCode}

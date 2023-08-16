@@ -1,0 +1,35 @@
+\doxysection{nmpp\+Split\+Tmp}
+\hypertarget{group__nmpp_split_tmp}{}\label{group__nmpp_split_tmp}\index{nmppSplitTmp@{nmppSplitTmp}}
+
+
+Расщепляет массив на два, группируя по четным и нечетным элементам  
+
+
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__nmpp_split_tmp_ga0ca269962de2ca38302bca76a70857a1}\label{group__nmpp_split_tmp_ga0ca269962de2ca38302bca76a70857a1} 
+void {\bfseries nmpps\+Split\+Tmp\+\_\+8s} (const \mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}} \texorpdfstring{$\ast$}{*}src, \mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}} \texorpdfstring{$\ast$}{*}dst1, \mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}} \texorpdfstring{$\ast$}{*}dst2, int size, \mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}} \texorpdfstring{$\ast$}{*}tmp\+Size\+Of\+Dst)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Расщепляет массив на два, группируя по четным и нечетным элементам 
+
+
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ in}}  & {\em src} & Входной массив \\
+\hline
+\mbox{\texttt{ out}}  & {\em dst1} & Выходной массив размера size/2 \\
+\hline
+\mbox{\texttt{ out}}  & {\em dst2} & Выходной массив размера size/2 \\
+\hline
+\mbox{\texttt{ in}}  & {\em size} & Размер исходного массива в элементах. Кратность параметра size должна соответствовать двум длинным 64-\/р. словам. \\
+\hline
+\mbox{\texttt{ in}}  & {\em tmp\+Size\+Of\+Dst} & Временный массив размера size/2 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+Details Максимальная производительность достигается при размещении входных, выходных и временных массивов в разных банках памяти. Массивы dst1 и dst2 могут находится в одном банке. Макс производительность на 64-\/р. слово результата = 2.\+1 такта (при size=10240 байт) и 2.\+5 такта (при size=4096 байт) 

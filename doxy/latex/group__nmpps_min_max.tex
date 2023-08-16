@@ -1,0 +1,57 @@
+\doxysection{nmpps\+Min\+Max}
+\hypertarget{group__nmpps_min_max}{}\label{group__nmpps_min_max}\index{nmppsMinMax@{nmppsMinMax}}
+
+
+Функция для выделения минимумов и максимумов среду пар в отдельные массивы.  
+
+
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__nmpps_min_max_gad5d937d1869332f7fdd272e2b7809678}\label{group__nmpps_min_max_gad5d937d1869332f7fdd272e2b7809678} 
+void {\bfseries nmpps\+Min\+Max\+\_\+8s} (\mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}} \texorpdfstring{$\ast$}{*}srcA, \mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}} \texorpdfstring{$\ast$}{*}srcB, \mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}} \texorpdfstring{$\ast$}{*}dst\+Min, \mbox{\hyperlink{nmtype_8h_ae72f2b9432062ccd3940ddea7c7e98df}{nm8s}} \texorpdfstring{$\ast$}{*}dst\+Max, int size)
+\item 
+\Hypertarget{group__nmpps_min_max_gabad726316884388c69870b4b63e32105}\label{group__nmpps_min_max_gabad726316884388c69870b4b63e32105} 
+void {\bfseries nmpps\+Min\+Max\+\_\+16s} (\mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}srcA, \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}srcB, \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}dst\+Min, \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}dst\+Max, int size)
+\item 
+\Hypertarget{group__nmpps_min_max_ga4330a154310fc6c1537389952061de6c}\label{group__nmpps_min_max_ga4330a154310fc6c1537389952061de6c} 
+void {\bfseries nmpps\+Min\+Max\+\_\+32s} (\mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}srcA, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}srcB, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}dst\+Min, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}dst\+Max, int size)
+\item 
+\Hypertarget{group__nmpps_min_max_ga6a3346fbcee8df4381606a5684b4211c}\label{group__nmpps_min_max_ga6a3346fbcee8df4381606a5684b4211c} 
+void {\bfseries nmpps\+Min\+Max\+\_\+64s} (\mbox{\hyperlink{nmtype_8h_a4e59c2dc9731ba8592b0991bf71c7af3}{nm64s}} \texorpdfstring{$\ast$}{*}srcA, \mbox{\hyperlink{nmtype_8h_a4e59c2dc9731ba8592b0991bf71c7af3}{nm64s}} \texorpdfstring{$\ast$}{*}srcB, \mbox{\hyperlink{nmtype_8h_a4e59c2dc9731ba8592b0991bf71c7af3}{nm64s}} \texorpdfstring{$\ast$}{*}dst\+Min, \mbox{\hyperlink{nmtype_8h_a4e59c2dc9731ba8592b0991bf71c7af3}{nm64s}} \texorpdfstring{$\ast$}{*}dst\+Max, int size)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Функция для выделения минимумов и максимумов среду пар в отдельные массивы. 
+
+Во избежание некорректных результатов, вызванных переполнением, рекомендуется использовать числа из следующего диапазона\+:
+
+\[
+    \left( 2^{n-1} ;-2^{n-1}\right]
+\]
+
+n -\/ разрядность чисел
+
+
+\begin{DoxyParams}{Аргументы}
+{\em srcA} & Первый входной вектор.\\
+\hline
+{\em srcВ} & Второй входной вектор.\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Возвращаемые значения}
+{\em dst\+Min} & Результирующий вектор для минимумов.\\
+\hline
+{\em dst\+Max} & Результирующий вектор для максимумов.\\
+\hline
+\end{DoxyRetVals}
+
+\begin{DoxyParams}{Аргументы}
+{\em size} & Размер векторов в элементах.\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+{\itshape void} 
+\end{DoxyReturn}

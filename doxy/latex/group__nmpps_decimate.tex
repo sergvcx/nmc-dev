@@ -1,0 +1,38 @@
+\doxysection{nmpps\+Decimate}
+\hypertarget{group__nmpps_decimate}{}\label{group__nmpps_decimate}\index{nmppsDecimate@{nmppsDecimate}}
+
+
+Производит выборку элементов из массива c некоторым шагом  
+
+
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__nmpps_decimate_ga33c5e98731434db06b0859f0c3f40102}\label{group__nmpps_decimate_ga33c5e98731434db06b0859f0c3f40102} 
+void {\bfseries nmpps\+Decimate\+\_\+16s} (\mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}p\+Src, int start\+Pos, int step, \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}p\+Dst, int n\+Size\+Dst)
+\item 
+\Hypertarget{group__nmpps_decimate_ga24c4b195fcd37f66b8c9d28db12f0c36}\label{group__nmpps_decimate_ga24c4b195fcd37f66b8c9d28db12f0c36} 
+void {\bfseries nmpps\+Decimate\+\_\+32s} (\mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}p\+Src, int start\+Pos, int step, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}p\+Dst, int n\+Size\+Dst)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Производит выборку элементов из массива c некоторым шагом 
+
+
+\begin{DoxyParams}[1]{Аргументы}
+\mbox{\texttt{ in}}  & {\em p\+Src} & Входной массив \\
+\hline
+\mbox{\texttt{ in}}  & {\em start\+Pos} & Положение начального элемента в первом 64-\/р. слове исходного массива с которого начнется выборка \\
+\hline
+\mbox{\texttt{ out}}  & {\em step} & Шаг выборки. Должен быть кратен плотности элементов. \\
+\hline
+\mbox{\texttt{ out}}  & {\em p\+Dst} & Выходной массив \\
+\hline
+\mbox{\texttt{ in}}  & {\em n\+Size\+Dst} & Размер результирующего массива в элементах. Должен быть кратен плотности элементов. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+
+\end{DoxyReturn}
+Details Максимальная производительность достигается при размещении входных, выходных массивов в разных банках памяти. 
