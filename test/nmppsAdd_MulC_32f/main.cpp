@@ -29,25 +29,29 @@ bool vecCompare( float* srcVec1, float* srcVec2, int srcCount )
 
 int main()
 {
-//	DISABLE_SYS_TIMER();
-//	clock_t t1 = clock();
-//	clock_t t2 = clock();
-//	clock_t dt = t2 - t1;
+#ifdef __NM__
+	DISABLE_SYS_TIMER();
+#endif	
+	clock_t t1 = clock();
+	clock_t t2 = clock();
+	clock_t dt = t2 - t1;
 	
 	float nVal[2] = {0.5, 0.5};
 
-	for(int i = 2; i < dim - 1; i += 1)
+	for(int i = 0; i < dim - 1; i += 1)
 	{
 		randFloatArray( srcVec1, i );
 		randFloatArray( srcVec2, i );
 		
-//		t1 = clock();
+		t1 = clock();
 		nmppsAdd_MulC_32f(srcVec1, srcVec2, dstVec, nVal, i + 1);
-//		t2 = clock();
+		t2 = clock();
 		
 		verifivationFunc(srcVec1, srcVec2, dstStandardVec, nVal, i + 1);
 		
-//		printf("Time for ASM func %lf\n\n", (float)(t2 - t1 - dt) / i);
+#ifdef __NM__
+		printf("Time for ASM func %lf\n\n", (float)(t2 - t1 - dt) / i);
+#endif	
 		
 		if( !vecCompare(dstVec, dstStandardVec, i) )
 		{

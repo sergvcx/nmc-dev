@@ -51,14 +51,13 @@
     \defgroup 
     \ingroup 
     \brief  Объединяет два массива флагов в один
-    \param flags        [out] Указатель на результирующий массив флагов 
-    \param evenFlags    [in]  Указатель на входной массив флагов
-    \param oddFlags     [in]  Указатель на входной массив флагов
-	\param srcCount     [in]  Размер результирующего массива в элементах
+    \param srcVec   [in]  Указатель на входной массив флагов
+    \param dstVec   [out] Указатель на результирующий массив флагов 
+	\param srcCount [in]  Размер результирующего массива в элементах
     \return \e void
     */
     //! \{
-    void sumFlags( int * flags, int * evenFlags, int * oddFlags, int srcCount );
+    void sumFlags( nm1 * srcVec, int * dstVec, int srcCount );
 	//! \}
 
 //*****************************************************************************
@@ -103,14 +102,14 @@
     \defgroup 
     \ingroup 
     \brief  Поэлементная сумма квадратов двух векторов 
-    \param edgeArray    [out] Результирующий вектор
-    \param dX           [in]  Входной вектор
-    \param dY           [in]  Входной вектор
-	\param edgeCount    [in]  Размер векторов в элементах
+    \param srcVec1  [in]  Входной вектор
+    \param srcVec2  [in]  Входной вектор
+    \param dstVec   [out] Результирующий вектор
+	\param srcCount [in]  Размер векторов в элементах
     \return \e void
     */
     //! \{
-    void squareSum( float * edgeArray, float * dX, float * dY, int edgeCount );
+    void sumOfSquares( float * srcVec1, float * srcVec2, float * dstVec, int srcCount );
 	//! \}
 
 //*****************************************************************************
