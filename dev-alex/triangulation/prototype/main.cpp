@@ -20,7 +20,7 @@ static const int HEIGHT = 512;
 
 int main()
 {
-	int size = 2;
+	int size = 4;
 	TrianglePointers testResultTrianglesArray;
 	int treatedCounter = 0;
 
@@ -66,7 +66,7 @@ int main()
 	testTrianglesArray.v1.y[1] = 300;
 	testTrianglesArray.v2.x[1] = 100;
 	testTrianglesArray.v2.y[1] = 150;
-	/*
+	
 	testTrianglesArray.v0.x[2] = 150;
 	testTrianglesArray.v0.y[2] = 50;
 	testTrianglesArray.v1.x[2] = 200;
@@ -80,7 +80,7 @@ int main()
 	testTrianglesArray.v1.y[3] = 90;
 	testTrianglesArray.v2.x[3] = 210;
 	testTrianglesArray.v2.y[3] = 120;
-	*/
+	
 	printf("\n%d Given Triangles:", size);
 	/*
 	for(int i = 0; i < size; ++i)
@@ -108,14 +108,14 @@ int main()
 		resultCount = size + treatedCounter;
 	printf("\n\n%d Result Triangles:", resultCount);
 
-	
+	/*
 	for(int i = 0; i < resultCount; ++i)
 	{
 		printf("\nTriangle %d point a: ( %f; %f )", i + 1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i]);
 		printf("\nTriangle %d point b: ( %f; %f )", i + 1, testResultTrianglesArray.v1.x[i], testResultTrianglesArray.v1.y[i]);
 		printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, testResultTrianglesArray.v2.x[i], testResultTrianglesArray.v2.y[i]);
 	}
-	
+	*/
 
 	for(int i = 0; i < size + treatedCounter; ++i)
 	{
