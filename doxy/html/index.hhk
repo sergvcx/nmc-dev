@@ -7,14 +7,46 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="nmtype_8h.html#a4009d0a6b2574344aca76bfef765adc3"><param name="Name" value="CAPACITY_nm64s"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_combine_pointers.html"><param name="Name" value="CombinePointers"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__generate_masks.html"><param name="Name" value="GenerateMasks"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hadamard.html"><param name="Name" value="Hadamard"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hadamard.html"><param name="Name" value="Hadamard"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hadamard.html#ga7ae7fc0dbf1d9f63493fa4167110c5bb"><param name="Name" value="nmppsHadamard(nm32s *src, nm32s *dst, nm2s *H, nm32s *temp, int size)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hadamard.html"><param name="Name" value="Hadamard"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hadamard.html#ga377223a11116d7f9464aaafe35d3d855"><param name="Name" value="nmppsHadamardInit(nm2s *H, int dim)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hadamard.html"><param name="Name" value="Hadamard"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hadamard.html#ga56c13643a4bc167598008a9229e077a3"><param name="Name" value="nmppsHadamardInitSort(const nm2s *srcNaturalOrderdMtr, nm2s *dstSequencyOrderedMtr, int dim)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hadamard.html"><param name="Name" value="Hadamard"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hadamard.html#ga3685e61d8fd1af19b33c149c22bb72bf"><param name="Name" value="nmppsHadamardInverse(nm32s *src, nm32s *dst, nm2s *H, nm32s *temp, int size)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hash64.html"><param name="Name" value="Hash64"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hash64.html"><param name="Name" value="Hash64"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hash64.html#gacd502bf3d951629f133960ccc1bcbc49"><param name="Name" value="nmppsHash64u(long long *a, int size)"></OBJECT>
+  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_line_pointers.html"><param name="Name" value="LinePointers"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__max_edge.html"><param name="Name" value="MaxEdge"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___mul_m_m.html"><param name="Name" value="MulMM"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___mul_m_m.html"><param name="Name" value="MulMM"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="group___mul_m_m.html#ga8bf30d25d9e01427ee99fcd19665ca2e"><param name="Name" value="nmppsMulMM_2s32s(nm2s *A, int H, int W1, nm32s *B, nm32s *C, int W2)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___mul_m_m.html"><param name="Name" value="MulMM"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="group___mul_m_m.html#ga99903cf4b730d4be1fca4ca696cd85d3"><param name="Name" value="nmppsMulMM_2s32s_2col(nm2s *A, int H, int W1, nm32s *B, nm32s *C, int W2)"></OBJECT>
+  </UL>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__nmpps_add___mul_c__32f.html"><param name="Name" value="NmppsAdd_MulC_32f"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__sort.html"><param name="Name" value="Sort"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__split.html"><param name="Name" value="Split"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__sum_flags.html"><param name="Name" value="SumFlags"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__sum_of_squares.html"><param name="Name" value="SumOfSquares"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_tmp2_buff_spec.html"><param name="Name" value="Tmp2BuffSpec"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___transpose.html"><param name="Name" value="Transpose"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_triangle_pointers.html"><param name="Name" value="TrianglePointers"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__triangulate.html"><param name="Name" value="Triangulate"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__triangulation_free.html"><param name="Name" value="TriangulationFree"></OBJECT>
@@ -68,7 +100,14 @@
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__nmpps_add___mul_c__32f.html#ga6926e0c94af0fff6eaa0a6141e62d754"><param name="Name" value="nmppsAdd_MulC_32f(float *srcVec1, float *srcVec2, float *dstVec, float *nVal, int srcCount)"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__nmpps_add___mul_c__32f.html#ga6926e0c94af0fff6eaa0a6141e62d754"><param name="Name" value="nmppsAdd_MulC_32f"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__nmpps_decimate.html"><param name="Name" value="nmppsDecimate"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hadamard.html#ga7ae7fc0dbf1d9f63493fa4167110c5bb"><param name="Name" value="nmppsHadamard(nm32s *src, nm32s *dst, nm2s *H, nm32s *temp, int size)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hadamard.html#ga377223a11116d7f9464aaafe35d3d855"><param name="Name" value="nmppsHadamardInit(nm2s *H, int dim)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hadamard.html#ga56c13643a4bc167598008a9229e077a3"><param name="Name" value="nmppsHadamardInitSort(const nm2s *srcNaturalOrderdMtr, nm2s *dstSequencyOrderedMtr, int dim)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hadamard.html#ga3685e61d8fd1af19b33c149c22bb72bf"><param name="Name" value="nmppsHadamardInverse(nm32s *src, nm32s *dst, nm2s *H, nm32s *temp, int size)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___hash64.html#gacd502bf3d951629f133960ccc1bcbc49"><param name="Name" value="nmppsHash64u(long long *a, int size)"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__nmpps_min_max.html"><param name="Name" value="nmppsMinMax"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___mul_m_m.html#ga8bf30d25d9e01427ee99fcd19665ca2e"><param name="Name" value="nmppsMulMM_2s32s(nm2s *A, int H, int W1, nm32s *B, nm32s *C, int W2)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="group___mul_m_m.html#ga99903cf4b730d4be1fca4ca696cd85d3"><param name="Name" value="nmppsMulMM_2s32s_2col(nm2s *A, int H, int W1, nm32s *B, nm32s *C, int W2)"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="group__nmpps_remap__.html"><param name="Name" value="nmppsRemap_"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="structnmreg.html"><param name="Name" value="nmreg"></OBJECT>
   <LI><OBJECT type="text/sitemap"><param name="Local" value="nmtype_8h.html"><param name="Name" value="nmtype.h"></OBJECT>

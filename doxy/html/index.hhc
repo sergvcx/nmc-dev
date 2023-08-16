@@ -6,10 +6,29 @@
 <UL>
 <LI><OBJECT type="text/sitemap"><param name="Name" value="Ãðóïïû"><param name="Local" value="modules.html"><param name="ImageNumber" value="1"></OBJECT>
   <UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Hadamard"><param name="Local" value="group___hadamard.html"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="nmppsHadamard"><param name="Local" value="group___hadamard.html#ga7ae7fc0dbf1d9f63493fa4167110c5bb"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="nmppsHadamardInit"><param name="Local" value="group___hadamard.html#ga377223a11116d7f9464aaafe35d3d855"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="nmppsHadamardInitSort"><param name="Local" value="group___hadamard.html#ga56c13643a4bc167598008a9229e077a3"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="nmppsHadamardInverse"><param name="Local" value="group___hadamard.html#ga3685e61d8fd1af19b33c149c22bb72bf"><param name="ImageNumber" value="11"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="MulMM"><param name="Local" value="group___mul_m_m.html"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="nmppsMulMM_2s32s"><param name="Local" value="group___mul_m_m.html#ga8bf30d25d9e01427ee99fcd19665ca2e"><param name="ImageNumber" value="11"></OBJECT>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="nmppsMulMM_2s32s_2col"><param name="Local" value="group___mul_m_m.html#ga99903cf4b730d4be1fca4ca696cd85d3"><param name="ImageNumber" value="11"></OBJECT>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Hash64"><param name="Local" value="group___hash64.html"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Name" value="nmppsHash64u"><param name="Local" value="group___hash64.html#gacd502bf3d951629f133960ccc1bcbc49"><param name="ImageNumber" value="11"></OBJECT>
+    </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="nmppsAbs2"><param name="Local" value="group__nmpps_abs2.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="nmppsMinMax"><param name="Local" value="group__nmpps_min_max.html"><param name="ImageNumber" value="1"></OBJECT>
+    <UL>
+    </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Name" value="Transpose"><param name="Local" value="group___transpose.html"><param name="ImageNumber" value="1"></OBJECT>
     <UL>
     </UL>
   <LI><OBJECT type="text/sitemap"><param name="Name" value="repackToPrimitives_t"><param name="Local" value="group__repack_to_primitives__t.html"><param name="ImageNumber" value="1"></OBJECT>

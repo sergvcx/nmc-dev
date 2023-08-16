@@ -1,0 +1,35 @@
+\doxysection{Transpose}
+\hypertarget{group___transpose}{}\label{group___transpose}\index{Transpose@{Transpose}}
+
+
+Функция транспонирования матрицы  
+
+
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group___transpose_ga668afc5fdd60ed678296a3284ff83df9}\label{group___transpose_ga668afc5fdd60ed678296a3284ff83df9} 
+void {\bfseries nmppm\+Transpose\+\_\+32s} (const \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}src\+Matrix, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}dst\+Matrix, int height, int width)
+\item 
+\Hypertarget{group___transpose_ga72e968694d770b924161a9df103832ea}\label{group___transpose_ga72e968694d770b924161a9df103832ea} 
+void {\bfseries nmppm\+Transpose\+\_\+16s} (const \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}src\+Matrix, \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}dst\+Matrix, int height, int width)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Функция транспонирования матрицы 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em src\+Matrix} & \mbox{[}in\mbox{]} Исходная матрица \\
+\hline
+{\em dst\+Matrix} & \mbox{[}out\mbox{]} Результирующая траспонированая матрица \\
+\hline
+{\em height} & \mbox{[}in\mbox{]} Высота входной матрицы в элементах. Кратно плотности элементов \\
+\hline
+{\em width} & \mbox{[}in\mbox{]} Ширина входной матрицы в элементах. Кратно плотности элементов \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+{\itshape void} 
+\end{DoxyReturn}

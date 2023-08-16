@@ -6,8 +6,8 @@
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup 
+    \defgroup Transpose
+    \ingroup Transpose
     \brief    Функция транспонирования матрицы
     \param srcMatrix [in]  Исходная матрица
     \param dstMatrix [out] Результирующая траспонированая матрица

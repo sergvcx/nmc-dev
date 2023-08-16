@@ -25,6 +25,10 @@ globals.html
 globals_defs.html
 globals_type.html
 graph_legend.html
+group___hadamard.html
+group___hash64.html
+group___mul_m_m.html
+group___transpose.html
 group___v_e_c___q_sort.html
 group__generate_masks.html
 group__max_edge.html

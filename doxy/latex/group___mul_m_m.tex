@@ -1,0 +1,89 @@
+\doxysection{Mul\+MM}
+\hypertarget{group___mul_m_m}{}\label{group___mul_m_m}\index{MulMM@{MulMM}}
+
+
+Функции перемножения матриц  
+
+
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___mul_m_m_ga8bf30d25d9e01427ee99fcd19665ca2e}{nmpps\+Mul\+MM\+\_\+2s32s}} (\mbox{\hyperlink{nmtype_8h_a6ad9cb56e53e6a4673aa943c89864eef}{nm2s}} \texorpdfstring{$\ast$}{*}A, int H, int W1, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}B, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}C, int W2)
+\begin{DoxyCompactList}\small\item\em Функция умножения матрицы на матрицу. \end{DoxyCompactList}\item 
+\Hypertarget{group___mul_m_m_gabec8a3ce8270eca651a01d135cab9801}\label{group___mul_m_m_gabec8a3ce8270eca651a01d135cab9801} 
+void {\bfseries nmpps\+Mul\+MM\+\_\+2s16s} (\mbox{\hyperlink{nmtype_8h_a6ad9cb56e53e6a4673aa943c89864eef}{nm2s}} \texorpdfstring{$\ast$}{*}A, int H, int W1, \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}B, \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}C, int W2)
+\end{DoxyCompactItemize}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group___mul_m_m_ga99903cf4b730d4be1fca4ca696cd85d3}{nmpps\+Mul\+MM\+\_\+2s32s\+\_\+2col}} (\mbox{\hyperlink{nmtype_8h_a6ad9cb56e53e6a4673aa943c89864eef}{nm2s}} \texorpdfstring{$\ast$}{*}A, int H, int W1, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}B, \mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}C, int W2)
+\begin{DoxyCompactList}\small\item\em Функция умножения матрицы на 2 столбца другой матрицы. \end{DoxyCompactList}\item 
+\Hypertarget{group___mul_m_m_ga4188c98f8d6351f1c4dbdfb26042ca91}\label{group___mul_m_m_ga4188c98f8d6351f1c4dbdfb26042ca91} 
+void {\bfseries nmpps\+Mul\+MM\+\_\+2s16s\+\_\+4col} (\mbox{\hyperlink{nmtype_8h_a6ad9cb56e53e6a4673aa943c89864eef}{nm2s}} \texorpdfstring{$\ast$}{*}A, int H, int W1, \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}B, \mbox{\hyperlink{nmtype_8h_ac7e3460b4b4f074cf4a75a3071bf04c8}{nm16s}} \texorpdfstring{$\ast$}{*}C, int W2)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Функции перемножения матриц 
+
+
+
+\doxysubsection{Функции}
+\Hypertarget{group___mul_m_m_ga8bf30d25d9e01427ee99fcd19665ca2e}\label{group___mul_m_m_ga8bf30d25d9e01427ee99fcd19665ca2e} 
+\index{MulMM@{MulMM}!nmppsMulMM\_2s32s@{nmppsMulMM\_2s32s}}
+\index{nmppsMulMM\_2s32s@{nmppsMulMM\_2s32s}!MulMM@{MulMM}}
+\doxysubsubsection{\texorpdfstring{nmppsMulMM\_2s32s()}{nmppsMulMM\_2s32s()}}
+{\footnotesize\ttfamily void nmpps\+Mul\+MM\+\_\+2s32s (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{nmtype_8h_a6ad9cb56e53e6a4673aa943c89864eef}{nm2s}} \texorpdfstring{$\ast$}{*}}]{A,  }\item[{int}]{H,  }\item[{int}]{W1,  }\item[{\mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}}]{B,  }\item[{\mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}}]{C,  }\item[{int}]{W2 }\end{DoxyParamCaption})}
+
+
+
+Функция умножения матрицы на матрицу. 
+
+Функция умножает 2-\/разрядную матрицу на 32-\/разрядную.
+
+
+\begin{DoxyParams}{Аргументы}
+{\em A} & Адрес начала 2-\/разрядной матрицы.\\
+\hline
+{\em H} & Количество строк 2-\/разрядной матрицы (определяет количество строк результата).\\
+\hline
+{\em W1} & Количество столбцов 2-\/разрядной матрицы (равно количеству строк 32-\/разрядной).\\
+\hline
+{\em B} & Адрес начала 32-\/рязрядной матрицы.\\
+\hline
+{\em C} & Адрес результата.\\
+\hline
+{\em W2} & Количество столбцов 32-\/разрядной матрицы (определяет количество столбцов результата).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+{\itshape void} 
+\end{DoxyReturn}
+\Hypertarget{group___mul_m_m_ga99903cf4b730d4be1fca4ca696cd85d3}\label{group___mul_m_m_ga99903cf4b730d4be1fca4ca696cd85d3} 
+\index{MulMM@{MulMM}!nmppsMulMM\_2s32s\_2col@{nmppsMulMM\_2s32s\_2col}}
+\index{nmppsMulMM\_2s32s\_2col@{nmppsMulMM\_2s32s\_2col}!MulMM@{MulMM}}
+\doxysubsubsection{\texorpdfstring{nmppsMulMM\_2s32s\_2col()}{nmppsMulMM\_2s32s\_2col()}}
+{\footnotesize\ttfamily void nmpps\+Mul\+MM\+\_\+2s32s\+\_\+2col (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{nmtype_8h_a6ad9cb56e53e6a4673aa943c89864eef}{nm2s}} \texorpdfstring{$\ast$}{*}}]{A,  }\item[{int}]{H,  }\item[{int}]{W1,  }\item[{\mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}}]{B,  }\item[{\mbox{\hyperlink{nmtype_8h_a340133c964d0ae670f3bd3ff3a6b172a}{nm32s}} \texorpdfstring{$\ast$}{*}}]{C,  }\item[{int}]{W2 }\end{DoxyParamCaption})}
+
+
+
+Функция умножения матрицы на 2 столбца другой матрицы. 
+
+Функция умножает 2-\/разрядную матрицу на 2 столбца 32-\/разрядной.
+
+
+\begin{DoxyParams}{Аргументы}
+{\em A} & Адрес начала 2-\/разрядной матрицы.\\
+\hline
+{\em H} & Количество строк 2-\/разрядной матрицы.\\
+\hline
+{\em W1} & Количество столбцов 2-\/разрядной матрицы.\\
+\hline
+{\em B} & Адрес начала столбца 32-\/рязрядной матрицы.\\
+\hline
+{\em C} & Адрес результата столбца.\\
+\hline
+{\em W2} & Количество столбцов 32-\/разрядной матрицы (используется для смещения).\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+{\itshape void} 
+\end{DoxyReturn}
