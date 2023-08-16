@@ -26,7 +26,7 @@
     \return \e void
     */
     //! \{
-    void nmppsAdd_MulC_32f( float* srcVec1, float* srcVec2, float* dstVec, float* nVal, int srcCount );
+    void nmppsAdd_MulC_32f( float* srcVec1, float* srcVec2, float* dstVec, float* nVal, int srcCount ); // -> 1.2- per elem
 	//! \}
 
 //*****************************************************************************

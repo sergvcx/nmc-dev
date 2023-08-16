@@ -7,8 +7,8 @@
 #include "nmpp.h"
 
 const int dim = 4096;
-int srcVec[dim];
-int dstVec[dim];
+int srcVec[dim] __attribute__ ((section (".data.imu0")));
+int dstVec[dim] __attribute__ ((section (".data.imu1")));
 
 int main()
 {

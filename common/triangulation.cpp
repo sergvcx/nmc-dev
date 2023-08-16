@@ -70,7 +70,7 @@ extern "C" void triangulationFree()
 	free(bufNf13);
 }
 
-extern "C" void sumFlags( nm1 * srcVec, int * dstVec, int srcCount )
+extern "C" void sumFlags( nm1 * srcVec, int * dstVec, int srcCount ) //57 per elem
 {
 	for(int i = 0; i < srcCount; ++i)
 	{
@@ -173,7 +173,7 @@ extern "C" void sort( 	TrianglePointers * srcTriangles, int srcCount,
 	*toSplitTrianglesCount = tempToSplitTrianglesCount;
 }
 
-extern "C" void sumOfSquares( float * srcVec1, float * srcVec2, float * dstVec, int srcCount )
+extern "C" void sumOfSquares( float * srcVec1, float * srcVec2, float * dstVec, int srcCount ) //146 per elem
 {
 	for(int i = 0; i < srcCount; ++i)
 	{

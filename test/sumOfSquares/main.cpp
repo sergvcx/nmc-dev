@@ -7,9 +7,9 @@
 #include "nmpp.h"
 
 const int dim = 4096;
-float srcVec1[dim];
-float srcVec2[dim];
-float dstVec[dim];
+float srcVec1[dim]  __attribute__ ((section (".data.imu0")));
+float srcVec2[dim]  __attribute__ ((section (".data.imu1")));
+float dstVec[dim] __attribute__ ((section (".data.imu2")));
 
 int main()
 {
