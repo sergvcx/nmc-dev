@@ -17,12 +17,12 @@ void nmppsHadamardInverse_16s(nm16s* src, nm16s* dst, nm2s* H, nm16s* temp, int 
 
 	int nShift = 0;
 	int nSize = size;
-	while (nSize >>= 1) nShift++; 
+	while (nSize >>= 1) nShift++;
 
 	nmppsMulMM_2s16s(H, size, size, src, temp, size);
-	nmppsRShiftC_16s(temp, nShift, dst, size*size);
+	nmppsRShiftC_16u((const nm16u*)temp, nShift, (nm16u*)dst, size * size);
 	nmppmTranspose_16s(dst, temp, size, size);
 	nmppsMulMM_2s16s(H, size, size, temp, dst, size);
-	nmppsRShiftC_16s(dst, nShift, temp, size*size);
+	nmppsRShiftC_16u((const nm16u*)dst, nShift, (nm16u*)temp, size * size);
 	nmppmTranspose_16s(temp, dst, size, size);
 }
