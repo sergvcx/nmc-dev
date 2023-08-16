@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.7"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ringbuffer: nmppSplit</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">ringbuffer
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.7 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Титульная&#160;страница</span></a></li>
+      <li class="current"><a href="modules.html"><span>Группы</span></a></li>
+      <li><a href="annotated.html"><span>Классы</span></a></li>
+      <li><a href="files.html"><span>Файлы</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Функции</a>  </div>
+  <div class="headertitle"><div class="title">nmppSplit</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>Расщепляет массив на два массива, группируя по четным и нечетным элементам  
+<a href="#details">Подробнее...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:gaf7cba46a163a840a54f8fb54323bffa1"><td class="memItemLeft" align="right" valign="top"><a id="gaf7cba46a163a840a54f8fb54323bffa1" name="gaf7cba46a163a840a54f8fb54323bffa1"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>nmppsSplit_8s</b> (const <a class="el" href="nmtype_8h.html#ae72f2b9432062ccd3940ddea7c7e98df">nm8s</a> *src, <a class="el" href="nmtype_8h.html#ae72f2b9432062ccd3940ddea7c7e98df">nm8s</a> *dst1, <a class="el" href="nmtype_8h.html#ae72f2b9432062ccd3940ddea7c7e98df">nm8s</a> *dst2, int sizeSrc)</td></tr>
+<tr class="separator:gaf7cba46a163a840a54f8fb54323bffa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ga8534f86000b551b94e126c7ec3fafeac"><td class="memItemLeft" align="right" valign="top"><a id="ga8534f86000b551b94e126c7ec3fafeac" name="ga8534f86000b551b94e126c7ec3fafeac"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>nmppsSplit_16s</b> (const <a class="el" href="nmtype_8h.html#ac7e3460b4b4f074cf4a75a3071bf04c8">nm16s</a> *src, <a class="el" href="nmtype_8h.html#ac7e3460b4b4f074cf4a75a3071bf04c8">nm16s</a> *dst1, <a class="el" href="nmtype_8h.html#ac7e3460b4b4f074cf4a75a3071bf04c8">nm16s</a> *dst2, int sizeSrc)</td></tr>
+<tr class="separator:ga8534f86000b551b94e126c7ec3fafeac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:gadf1f854d2a0e3252e35737347874c01a"><td class="memItemLeft" align="right" valign="top"><a id="gadf1f854d2a0e3252e35737347874c01a" name="gadf1f854d2a0e3252e35737347874c01a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>nmppsSplit_32s</b> (const <a class="el" href="nmtype_8h.html#a340133c964d0ae670f3bd3ff3a6b172a">nm32s</a> *src, <a class="el" href="nmtype_8h.html#a340133c964d0ae670f3bd3ff3a6b172a">nm32s</a> *dst1, <a class="el" href="nmtype_8h.html#a340133c964d0ae670f3bd3ff3a6b172a">nm32s</a> *dst2, int sizeSrc)</td></tr>
+<tr class="separator:gadf1f854d2a0e3252e35737347874c01a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<p>Расщепляет массив на два массива, группируя по четным и нечетным элементам </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">src</td><td>Входной массив </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dst1</td><td>Выходной массив размера sizeSrc/2 </td></tr>
+    <tr><td class="paramdir">[out]</td><td class="paramname">dst2</td><td>Выходной массив размера sizeSrc/2 </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">sizeSrc</td><td>Размер входного массива в элементах. Кратность параметра sizeSrc должна быть равна плотности элементов в 64-р. слове. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd></dd></dl>
+<p>Details Максимальная производительность достигается при размещении входных, выходных массивов в разных банках памяти. Массивы dst1 и dst2 могут находится в одном банке. Макс производительность на 64-р. слово результата = 2.14 такта (при sizeSrc=10240 байт) и 2.6 такта (при sizeSrc=4096 байт) </p>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Документация по ringbuffer. Последние изменения: Ср 16 Авг 2023 19:12:17. Создано системой&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7
+</small></address>
+</body>
+</html>

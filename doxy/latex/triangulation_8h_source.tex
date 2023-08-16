@@ -1,0 +1,62 @@
+\doxysection{triangulation.\+h}
+\hypertarget{triangulation_8h_source}{}\label{triangulation_8h_source}\index{C:/Module/Alex/nmc-\/dev/include/triangulation.h@{C:/Module/Alex/nmc-\/dev/include/triangulation.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00001}00001\ \textcolor{preprocessor}{\#include\ "{}./primitive.h"{}}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00002}00002\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{nmtype_8h}{./nmtype.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00004}00004\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00005}00005\ \ \ \ \ \ \ \ \ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00006}00006\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00014}00014\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00028}00028\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00029}\mbox{\hyperlink{group__nmpps_add___mul_c__32f_ga6926e0c94af0fff6eaa0a6141e62d754}{00029}}\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{group__nmpps_add___mul_c__32f_ga6926e0c94af0fff6eaa0a6141e62d754}{nmppsAdd\_MulC\_32f}}(\ \textcolor{keywordtype}{float}*\ srcVec1,\ \textcolor{keywordtype}{float}*\ srcVec2,\ \textcolor{keywordtype}{float}*\ dstVec,\ \textcolor{keywordtype}{float}*\ nVal,\ \textcolor{keywordtype}{int}\ srcCount\ );}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00032}00032\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00039}00039\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00040}00040\ \ \ \ \ \textcolor{keywordtype}{void}\ triangulationInit(\ \ );}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00042}00042\ }
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00043}00043\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00050}00050\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00051}00051\ \ \ \ \ \textcolor{keywordtype}{void}\ triangulationFree(\ \ );}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00053}00053\ }
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00054}00054\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00064}00064\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00065}00065\ \ \ \ \ \textcolor{keywordtype}{void}\ sumFlags(\ \mbox{\hyperlink{nmtype_8h_a996a9fe267a8499c49607464e44fbba2}{nm1}}\ *\ srcVec,\ \textcolor{keywordtype}{int}\ *\ dstVec,\ \textcolor{keywordtype}{int}\ srcCount\ );}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00068}00068\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00080}00080\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00081}00081\ \ \ \ \ \textcolor{keywordtype}{void}\ generateMasks(\ \mbox{\hyperlink{struct_triangle_pointers}{TrianglePointers}}\ *\ srcTriangles,\ \textcolor{keywordtype}{int}\ srcCount,\ \textcolor{keywordtype}{int}\ maxWidth,\ \textcolor{keywordtype}{int}\ maxHeight,\ \textcolor{keywordtype}{int}\ *\ flags\ );}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00083}00083\ }
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00084}00084\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00098}00098\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00099}00099\ \ \ \ \ \textcolor{keywordtype}{void}\ sort(\ \ \mbox{\hyperlink{struct_triangle_pointers}{TrianglePointers}}\ *\ srcTriangles,\ \textcolor{keywordtype}{int}\ srcCount,}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00100}00100\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_triangle_pointers}{TrianglePointers}}\ *\ toSplitTriangles,\ \textcolor{keywordtype}{int}\ *\ toSplitTrianglesCount,}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00101}00101\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_triangle_pointers}{TrianglePointers}}\ *\ resultTriangles,\ \textcolor{keywordtype}{int}\ *\ resultCount,}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00102}00102\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ *\ flags\ );}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00104}00104\ }
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00105}00105\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00116}00116\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00117}00117\ \ \ \ \ \textcolor{keywordtype}{void}\ sumOfSquares(\ \textcolor{keywordtype}{float}\ *\ srcVec1,\ \textcolor{keywordtype}{float}\ *\ srcVec2,\ \textcolor{keywordtype}{float}\ *\ dstVec,\ \textcolor{keywordtype}{int}\ srcCount\ );}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00119}00119\ }
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00120}00120\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00134}00134\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00135}00135\ \ \ \ \ \textcolor{keywordtype}{void}\ maxEdge(\ \textcolor{keywordtype}{int}\ *\ maxEdgeArray,\ \textcolor{keywordtype}{float}\ *\ edge1,\ \textcolor{keywordtype}{float}\ *\ edge2,\ \textcolor{keywordtype}{float}\ *\ edge3,\ \textcolor{keywordtype}{int}\ edgeCount\ );}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00137}00137\ }
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00138}00138\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00151}00151\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00152}00152\ \ \ \ \ \textcolor{keywordtype}{void}\ split(\ \mbox{\hyperlink{struct_triangle_pointers}{TrianglePointers}}\ *\ toSplitTriangles,\ \textcolor{keywordtype}{int}\ toSplitTrianglesCount,}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00153}00153\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_triangle_pointers}{TrianglePointers}}\ *\ splittedTriangles,\ \textcolor{keywordtype}{int}\ *\ splittedTrianglesCount\ );}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00155}00155\ }
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00156}00156\ \textcolor{comment}{//*****************************************************************************}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00169}00169\ \textcolor{comment}{}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00170}00170\ \ \ \ \ \textcolor{keywordtype}{void}\ triangulate(\ \ \ \mbox{\hyperlink{struct_triangle_pointers}{TrianglePointers}}*\ srcVertex,\ \textcolor{keywordtype}{int}\ *\ srcCount,}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00171}00171\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ maxWidth,\ \textcolor{keywordtype}{int}\ maxHeight,}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00172}00172\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \mbox{\hyperlink{struct_triangle_pointers}{TrianglePointers}}*\ dstSuitableVertex,\ \textcolor{keywordtype}{int}\ *\ dstSuitableCount\ );}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00175}00175\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00176}00176\ \ \ \ \ \};}
+\DoxyCodeLine{\Hypertarget{triangulation_8h_source_l00177}00177\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

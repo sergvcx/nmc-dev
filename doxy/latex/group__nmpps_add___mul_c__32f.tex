@@ -1,0 +1,52 @@
+\doxysection{Nmpps\+Add\+\_\+\+Mul\+C\+\_\+32f}
+\hypertarget{group__nmpps_add___mul_c__32f}{}\label{group__nmpps_add___mul_c__32f}\index{NmppsAdd\_MulC\_32f@{NmppsAdd\_MulC\_32f}}
+
+
+функции триангуляции  
+
+
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{group__nmpps_add___mul_c__32f_ga6926e0c94af0fff6eaa0a6141e62d754}{nmpps\+Add\+\_\+\+Mul\+C\+\_\+32f}} (float \texorpdfstring{$\ast$}{*}src\+Vec1, float \texorpdfstring{$\ast$}{*}src\+Vec2, float \texorpdfstring{$\ast$}{*}dst\+Vec, float \texorpdfstring{$\ast$}{*}n\+Val, int src\+Count)
+\begin{DoxyCompactList}\small\item\em Поэлементное сложение векторов с умножением на константу
+
+dst\+Vec\mbox{[}i \texorpdfstring{$\ast$}{*} 2\mbox{]} = (src\+Vec1\mbox{[}i \texorpdfstring{$\ast$}{*} 2\mbox{]} + src\+Vec2\mbox{[}i \texorpdfstring{$\ast$}{*} 2\mbox{]}) \texorpdfstring{$\ast$}{*} n\+Val\mbox{[}0\mbox{]}; dst\+Vec\mbox{[}i \texorpdfstring{$\ast$}{*} 2 + 1\mbox{]} = (src\+Vec1\mbox{[}i \texorpdfstring{$\ast$}{*} 2 + 1\mbox{]} + src\+Vec2\mbox{[}i \texorpdfstring{$\ast$}{*} 2 + 1\mbox{]}) \texorpdfstring{$\ast$}{*} n\+Val\mbox{[}1\mbox{]}; ~\newline
+ \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+функции триангуляции 
+
+
+
+\doxysubsection{Функции}
+\Hypertarget{group__nmpps_add___mul_c__32f_ga6926e0c94af0fff6eaa0a6141e62d754}\label{group__nmpps_add___mul_c__32f_ga6926e0c94af0fff6eaa0a6141e62d754} 
+\index{NmppsAdd\_MulC\_32f@{NmppsAdd\_MulC\_32f}!nmppsAdd\_MulC\_32f@{nmppsAdd\_MulC\_32f}}
+\index{nmppsAdd\_MulC\_32f@{nmppsAdd\_MulC\_32f}!NmppsAdd\_MulC\_32f@{NmppsAdd\_MulC\_32f}}
+\doxysubsubsection{\texorpdfstring{nmppsAdd\_MulC\_32f()}{nmppsAdd\_MulC\_32f()}}
+{\footnotesize\ttfamily void nmpps\+Add\+\_\+\+Mul\+C\+\_\+32f (\begin{DoxyParamCaption}\item[{float \texorpdfstring{$\ast$}{*}}]{src\+Vec1,  }\item[{float \texorpdfstring{$\ast$}{*}}]{src\+Vec2,  }\item[{float \texorpdfstring{$\ast$}{*}}]{dst\+Vec,  }\item[{float \texorpdfstring{$\ast$}{*}}]{n\+Val,  }\item[{int}]{src\+Count }\end{DoxyParamCaption})}
+
+
+
+Поэлементное сложение векторов с умножением на константу
+
+dst\+Vec\mbox{[}i \texorpdfstring{$\ast$}{*} 2\mbox{]} = (src\+Vec1\mbox{[}i \texorpdfstring{$\ast$}{*} 2\mbox{]} + src\+Vec2\mbox{[}i \texorpdfstring{$\ast$}{*} 2\mbox{]}) \texorpdfstring{$\ast$}{*} n\+Val\mbox{[}0\mbox{]}; dst\+Vec\mbox{[}i \texorpdfstring{$\ast$}{*} 2 + 1\mbox{]} = (src\+Vec1\mbox{[}i \texorpdfstring{$\ast$}{*} 2 + 1\mbox{]} + src\+Vec2\mbox{[}i \texorpdfstring{$\ast$}{*} 2 + 1\mbox{]}) \texorpdfstring{$\ast$}{*} n\+Val\mbox{[}1\mbox{]}; ~\newline
+ 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em src\+Vec1} & \mbox{[}in\mbox{]} Входной вектор \\
+\hline
+{\em src\+Vec2} & \mbox{[}in\mbox{]} Входной вектор \\
+\hline
+{\em dst\+Vec} & \mbox{[}out\mbox{]} Результирующий вектор \\
+\hline
+{\em n\+Val} & \mbox{[}in\mbox{]} Указатель на константу-\/множитель. Массив из двух элементов типа float \\
+\hline
+{\em src\+Count} & \mbox{[}in\mbox{]} Размер векторов в элементах. Четное число \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+{\itshape void} 
+\end{DoxyReturn}

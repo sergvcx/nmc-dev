@@ -1,0 +1,34 @@
+\doxysection{Generate\+Masks}
+\hypertarget{group__generate_masks}{}\label{group__generate_masks}\index{GenerateMasks@{GenerateMasks}}
+
+
+Формирование флагов вместимости для треугольников  
+
+
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__generate_masks_gae27ac825c8e15c4fa770eb7fa700de5f}\label{group__generate_masks_gae27ac825c8e15c4fa770eb7fa700de5f} 
+void {\bfseries generate\+Masks} (\mbox{\hyperlink{struct_triangle_pointers}{Triangle\+Pointers}} \texorpdfstring{$\ast$}{*}src\+Triangles, int src\+Count, int max\+Width, int max\+Height, int \texorpdfstring{$\ast$}{*}flags)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Формирование флагов вместимости для треугольников 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em src\+Triangles} & \mbox{[}in\mbox{]} Указатель на входную структуру треугольников \\
+\hline
+{\em src\+Count} & \mbox{[}in\mbox{]} Количество треугольников. Четное число \\
+\hline
+{\em max\+Width} & \mbox{[}in\mbox{]} Ограничение по ширине \\
+\hline
+{\em max\+Height} & \mbox{[}in\mbox{]} Ограничение по высоте \\
+\hline
+{\em flags} & \mbox{[}out\mbox{]} Массив флагов. Каждый элемент принимает значение 0 или 1 \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+{\itshape void} 
+\end{DoxyReturn}

@@ -1,0 +1,125 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "https://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="ru">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=11"/>
+<meta name="generator" content="Doxygen 1.9.7"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>ringbuffer: NmppsAdd_MulC_32f</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dynsections.js"></script>
+<link href="doxygen.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div id="top"><!-- do not remove this div, it is closed by doxygen! -->
+<div id="titlearea">
+<table cellspacing="0" cellpadding="0">
+ <tbody>
+ <tr id="projectrow">
+  <td id="projectalign">
+   <div id="projectname">ringbuffer
+   </div>
+  </td>
+ </tr>
+ </tbody>
+</table>
+</div>
+<!-- end header part -->
+<!-- Создано системой Doxygen 1.9.7 -->
+  <div id="navrow1" class="tabs">
+    <ul class="tablist">
+      <li><a href="index.html"><span>Титульная&#160;страница</span></a></li>
+      <li class="current"><a href="modules.html"><span>Группы</span></a></li>
+      <li><a href="annotated.html"><span>Классы</span></a></li>
+      <li><a href="files.html"><span>Файлы</span></a></li>
+    </ul>
+  </div>
+</div><!-- top -->
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Функции</a>  </div>
+  <div class="headertitle"><div class="title">NmppsAdd_MulC_32f</div></div>
+</div><!--header-->
+<div class="contents">
+
+<p>функции триангуляции  
+<a href="#details">Подробнее...</a></p>
+<table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Функции</h2></td></tr>
+<tr class="memitem:ga6926e0c94af0fff6eaa0a6141e62d754"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__nmpps_add___mul_c__32f.html#ga6926e0c94af0fff6eaa0a6141e62d754">nmppsAdd_MulC_32f</a> (float *srcVec1, float *srcVec2, float *dstVec, float *nVal, int srcCount)</td></tr>
+<tr class="memdesc:ga6926e0c94af0fff6eaa0a6141e62d754"><td class="mdescLeft">&#160;</td><td class="mdescRight">Поэлементное сложение векторов с умножением на константуdstVec[i * 2] = (srcVec1[i * 2] + srcVec2[i * 2]) * nVal[0]; dstVec[i * 2 + 1] = (srcVec1[i * 2 + 1] + srcVec2[i * 2 + 1]) * nVal[1]; <br  />
+  <br /></td></tr>
+<tr class="separator:ga6926e0c94af0fff6eaa0a6141e62d754"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table>
+<a name="details" id="details"></a><h2 class="groupheader">Подробное описание</h2>
+<p>функции триангуляции </p>
+<h2 class="groupheader">Функции</h2>
+<a id="ga6926e0c94af0fff6eaa0a6141e62d754" name="ga6926e0c94af0fff6eaa0a6141e62d754"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga6926e0c94af0fff6eaa0a6141e62d754">&#9670;&#160;</a></span>nmppsAdd_MulC_32f()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void nmppsAdd_MulC_32f </td>
+          <td>(</td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>srcVec1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>srcVec2</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>dstVec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float *&#160;</td>
+          <td class="paramname"><em>nVal</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>srcCount</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Поэлементное сложение векторов с умножением на константуdstVec[i * 2] = (srcVec1[i * 2] + srcVec2[i * 2]) * nVal[0]; dstVec[i * 2 + 1] = (srcVec1[i * 2 + 1] + srcVec2[i * 2 + 1]) * nVal[1]; <br  />
+ </p>
+<dl class="params"><dt>Аргументы</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">srcVec1</td><td>[in] Входной вектор </td></tr>
+    <tr><td class="paramname">srcVec2</td><td>[in] Входной вектор </td></tr>
+    <tr><td class="paramname">dstVec</td><td>[out] Результирующий вектор </td></tr>
+    <tr><td class="paramname">nVal</td><td>[in] Указатель на константу-множитель. Массив из двух элементов типа float </td></tr>
+    <tr><td class="paramname">srcCount</td><td>[in] Размер векторов в элементах. Четное число </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Возвращает</dt><dd><em>void</em> </dd></dl>
+
+</div>
+</div>
+</div><!-- contents -->
+<!-- start footer part -->
+<hr class="footer"/><address class="footer"><small>
+Документация по ringbuffer. Последние изменения: Ср 16 Авг 2023 19:12:17. Создано системой&#160;<a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.7
+</small></address>
+</body>
+</html>

@@ -1,0 +1,38 @@
+\doxysection{Sort}
+\hypertarget{group__sort}{}\label{group__sort}\index{Sort@{Sort}}
+
+
+Сортировка треугольников в соответствии с флагами вместимости  
+
+
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__sort_gaea4153b72e48a8ad0ff8fded5efc1cf5}\label{group__sort_gaea4153b72e48a8ad0ff8fded5efc1cf5} 
+void {\bfseries sort} (\mbox{\hyperlink{struct_triangle_pointers}{Triangle\+Pointers}} \texorpdfstring{$\ast$}{*}src\+Triangles, int src\+Count, \mbox{\hyperlink{struct_triangle_pointers}{Triangle\+Pointers}} \texorpdfstring{$\ast$}{*}to\+Split\+Triangles, int \texorpdfstring{$\ast$}{*}to\+Split\+Triangles\+Count, \mbox{\hyperlink{struct_triangle_pointers}{Triangle\+Pointers}} \texorpdfstring{$\ast$}{*}result\+Triangles, int \texorpdfstring{$\ast$}{*}result\+Count, int \texorpdfstring{$\ast$}{*}flags)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Сортировка треугольников в соответствии с флагами вместимости 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em src\+Triangles} & \mbox{[}in\mbox{]} Указатель на входную структуру треугольников \\
+\hline
+{\em src\+Count} & \mbox{[}in\mbox{]} Количество треугольников на вход. Четное число \\
+\hline
+{\em to\+Split\+Triangles} & \mbox{[}out\mbox{]} Указатель на структуру треугольников для разбития \\
+\hline
+{\em to\+Split\+Triangles\+Count} & \mbox{[}out\mbox{]} Указатель на количество треугольников для разбития \\
+\hline
+{\em result\+Triangles} & \mbox{[}out\mbox{]} Указатель на структуру выходных треугольников \\
+\hline
+{\em result\+Count} & \mbox{[}out\mbox{]} Указатель на количество выходных треугольников \\
+\hline
+{\em flags} & \mbox{[}in\mbox{]} Массив флагов вместимости для входных треугольников \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+{\itshape void} 
+\end{DoxyReturn}

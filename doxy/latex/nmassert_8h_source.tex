@@ -1,0 +1,44 @@
+\doxysection{nmassert.\+h}
+\hypertarget{nmassert_8h_source}{}\label{nmassert_8h_source}\index{C:/Module/Alex/nmc-\/dev/include/nmassert.h@{C:/Module/Alex/nmc-\/dev/include/nmassert.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ \_\_NM\_ASSERT\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ \_\_NM\_ASSERT\_H\_\_}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00004}00004\ \textcolor{preprocessor}{\#include\ "{}stdio.h"{}}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00006}00006\ \textcolor{preprocessor}{\#define\ ASSERT\_EXIT\_CODE\ 3}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00007}00007\ }
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00008}00008\ \textcolor{preprocessor}{\#ifdef\ \_\_NM\_\_}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00010}00010\ \textcolor{preprocessor}{\#ifdef\ NDEBUG}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00011}00011\ \textcolor{preprocessor}{\#\ \ define\ NMASSERT(condition)\ ((void)0)}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00012}00012\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00013}00013\ \textcolor{preprocessor}{\#\ \ define\ NMASSERT(expr)\ if(!(expr))\ \{\ printf("{}Assertion\ \(\backslash\)'\%s\(\backslash\)'\ failed:\%s:\%d\(\backslash\)n"{}},\ \#expr,\ \_\_FILE\_\_,\ \_\_LINE\_\_);\ fflush(stdout);\ exit(ASSERT\_EXIT\_CODE);\ \}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00014}00014\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00016}00016\ \textcolor{preprocessor}{\#ifdef\ NDEBUG}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00017}00017\ \textcolor{preprocessor}{\#\ \ \ define\ NMASSERT\_MSG(expr,\ ...)\ ((void)0)}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00018}00018\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00019}00019\ \textcolor{preprocessor}{\#\ \ \ define\ NMASSERT\_MSG(expr,\ ...)\ if(!(expr))\ \{\ printf("{}Assertion\ \(\backslash\)'\%s\(\backslash\)'\ failed:\%s:\%d\(\backslash\)t"{}},\ \#expr,\ \_\_FILE\_\_,\ \_\_LINE\_\_);\ \(\backslash\)}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00020}00020\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf(\_\_VA\_ARGS\_\_);\ \(\backslash\)}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00021}00021\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ printf("{}\(\backslash\)n"{});\ \(\backslash\)}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00022}00022\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ fflush(stdout);\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00023}00023\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ exit(ASSERT\_EXIT\_CODE);\ \}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00024}00024\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00026}00026\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\_\_NM\_\_}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00027}00027\ }
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00028}00028\ \textcolor{preprocessor}{\#ifdef\ unix}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00029}00029\ \textcolor{preprocessor}{\#include\ "{}assert.h"{}}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00030}00030\ \textcolor{preprocessor}{\#\ \ define\ NMASSERT(condition)\ assert(condition)}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00031}00031\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00033}00033\ \textcolor{preprocessor}{\#ifdef\ \_WIN32}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00034}00034\ \textcolor{preprocessor}{\#include\ <assert.h>}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00035}00035\ \textcolor{preprocessor}{\#\ \ define\ NMASSERT(condition)\ assert(condition)}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00036}00036\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{nmassert_8h_source_l00038}00038\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\_\_NM\_ASSERT\_H\_\_}}
+
+\end{DoxyCode}

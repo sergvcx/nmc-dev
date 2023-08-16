@@ -1,0 +1,11 @@
+\doxysection{maxtimer.\+h}
+\hypertarget{maxtimer_8h_source}{}\label{maxtimer_8h_source}\index{C:/Module/Alex/nmc-\/dev/include/maxtimer.h@{C:/Module/Alex/nmc-\/dev/include/maxtimer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{maxtimer_8h_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{maxtimer_8h_source_l00002}00002\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \textcolor{keywordtype}{void}\ DisableInterrupts\_IMR\_Low(\textcolor{keywordtype}{int});}
+\DoxyCodeLine{\Hypertarget{maxtimer_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{maxtimer_8h_source_l00004}00004\ \textcolor{preprocessor}{\#define\ DISABLE\_SYS\_TIMER()\ \ DisableInterrupts\_IMR\_Low(1\ <<\ 10);\ *((int*)(0x40000800))\ =\ 0;}}
+\DoxyCodeLine{\Hypertarget{maxtimer_8h_source_l00005}00005\ \textcolor{comment}{//?\ *((int*)(0x40000802))\ =\ 1;}}
+
+\end{DoxyCode}
