@@ -26,7 +26,7 @@
     \return \e void
     */
     //! \{
-    void nmppsAdd_MulC_32f( float* srcVec1, float* srcVec2, float* dstVec, float* nVal, int srcCount ); // -> 1.2- per elem
+    void nmppsAdd_MulC_32f( float* srcVec1, float* srcVec2, float* dstVec, float* nVal, int srcCount ); // -> 1.17- per elem
 	//! \}
 
 //*****************************************************************************
@@ -62,7 +62,7 @@
     \return \e void
     */
     //! \{
-    void sumFlags( nm1 * srcVec, int * dstVec, int srcCount );
+    void sumFlags( nm1 * srcVec, int * dstVec, int srcCount ); // 57 per elem
 	//! \}
 
 //*****************************************************************************
@@ -78,7 +78,7 @@
     \return \e void
     */
     //! \{
-    void generateMasks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags );
+    void generateMasks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags ); // 135 per elem
 	//! \}
 
 //*****************************************************************************
@@ -97,7 +97,7 @@
     */
     //! \{
     void sort( 	TrianglePointers * srcTriangles, int srcCount,
-			    TrianglePointers * toSplitTriangles, int * toSplitTrianglesCount,
+			    TrianglePointers * toSplitTriangles, int * toSplitTrianglesCount, // 173 per elem
 			    TrianglePointers * resultTriangles, int * resultCount,
 			    int * flags );
 	//! \}
@@ -114,7 +114,7 @@
     \return \e void
     */
     //! \{
-    void sumOfSquares( float * srcVec1, float * srcVec2, float * dstVec, int srcCount );
+    void sumOfSquares( float * srcVec1, float * srcVec2, float * dstVec, int srcCount ); // 146 per elem
 	//! \}
 
 //*****************************************************************************
@@ -132,7 +132,7 @@
     \return \e void
     */
     //! \{
-    void maxEdge( int * maxEdgeArray, float * edge1, float * edge2, float * edge3, int edgeCount );
+    void maxEdge( int * maxEdgeArray, float * edge1, float * edge2, float * edge3, int edgeCount ); // 121 per elem
 	//! \}
 
 //*****************************************************************************
@@ -150,7 +150,7 @@
     */
     //! \{
     void split( TrianglePointers * toSplitTriangles, int toSplitTrianglesCount,
-                TrianglePointers * splittedTriangles, int * splittedTrianglesCount );
+                TrianglePointers * splittedTriangles, int * splittedTrianglesCount ); // 61 per elem
 	//! \}
 
 //*****************************************************************************

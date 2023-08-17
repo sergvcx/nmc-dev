@@ -50,7 +50,7 @@ int main()
 		verifivationFunc(srcVec1, srcVec2, dstStandardVec, nVal, i + 1);
 		
 #ifdef __NM__
-		printf("Time for ASM func %lf\n\n", (float)(t2 - t1 - dt) / i);
+		printf("\nSize =  %4d; clocks/element %lf", i, (float)(t2 - t1 - dt) / i);
 #endif	
 		
 		if( !vecCompare(dstVec, dstStandardVec, i) )

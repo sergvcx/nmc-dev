@@ -7,7 +7,7 @@
 #include "nmpp.h"
 #include "nmassert.h"
 
-int maxTrianglesCount = 256;
+int maxTrianglesCount = 1024;
 //triangulate
 int * bufNi0;
 float * bufNf0;
@@ -70,20 +70,13 @@ extern "C" void triangulationFree()
 	free(bufNf13);
 }
 
-extern "C" void sumFlags( nm1 * srcVec, int * dstVec, int srcCount ) //57 per elem
+extern "C" void sumFlags( nm1 * srcVec, int * dstVec, int srcCount )
 {
 	for(int i = 0; i < srcCount; ++i)
 	{
 		dstVec[i] |= nmppsGet_1(srcVec, i);
 	}
 }
-
-//extern "C" void sumFlags( int * flags, int * Flags, int srcCount )
-//{
-//	for(int i = 0; i < srcCount; ++i){
-//		flags[i] 				|=  nmppsGetVal_1((nm1*)evenFlags,i);
-//	}
-//}
 
 extern "C" void generateMasks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags )
 {
@@ -106,9 +99,9 @@ extern "C" void generateMasks( TrianglePointers * srcTriangles, int srcCount, in
 	nmppsMerge_32f ( srcTriangles->v1.x, srcTriangles->v1.y, (float*)Bxy, srcCount );
 	nmppsMerge_32f ( srcTriangles->v2.x, srcTriangles->v2.y, (float*)Cxy, srcCount );
 
-	nmppsSub_32f( (float*)Axy, (float*)Bxy, (float*)dAB, srcCount );
-	nmppsSub_32f( (float*)Bxy, (float*)Cxy, (float*)dBC, srcCount );
-	nmppsSub_32f( (float*)Axy, (float*)Cxy, (float*)dAC, srcCount );
+	nmppsSub_32f( (float*)Axy, (float*)Bxy, (float*)dAB, srcCount * 2 );
+	nmppsSub_32f( (float*)Bxy, (float*)Cxy, (float*)dBC, srcCount * 2 );
+	nmppsSub_32f( (float*)Axy, (float*)Cxy, (float*)dAC, srcCount * 2 );
 
 	for(int i = 0; i < srcCount; ++i)
 	{
@@ -118,20 +111,19 @@ extern "C" void generateMasks( TrianglePointers * srcTriangles, int srcCount, in
 		dBC[i].v1 = fabs(dBC[i].v1);
 		dAC[i].v0 = fabs(dAC[i].v0);
 		dAC[i].v1 = fabs(dAC[i].v1);
-		
 	}
 
 	int step = 1;
-	nmppsCmpGtC_v2nm32f (dAB, &limatationConstant, evenFlagsInt, 					   oddFlagsInt, 					  step, srcCount);
-	nmppsCmpGtC_v2nm32f (dBC, &limatationConstant, evenFlagsInt + (srcCount / 32 + 2), oddFlagsInt + (srcCount / 32 + 2), step, srcCount);
-	nmppsCmpGtC_v2nm32f (dAC, &limatationConstant, evenFlagsInt + (srcCount / 16 + 2), oddFlagsInt + (srcCount / 16 + 2), step, srcCount);
+	nmppsCmpGtC_v2nm32f (dAB, &limatationConstant, evenFlagsInt, 				   oddFlagsInt,					  step, srcCount * 2);
+	nmppsCmpGtC_v2nm32f (dBC, &limatationConstant, evenFlagsInt + (srcCount + 32), oddFlagsInt + (srcCount + 32), step, srcCount * 2);
+	nmppsCmpGtC_v2nm32f (dAC, &limatationConstant, evenFlagsInt + (srcCount + 64), oddFlagsInt + (srcCount + 64), step, srcCount * 2);
 
 	for(int i = 0; i < srcCount / 32 + 1; ++i)
 	{
-		evenFlagsInt[i] |= evenFlagsInt[srcCount / 32 + 2 + i];
-		evenFlagsInt[i] |= evenFlagsInt[srcCount / 16 + 2 + i];
-		oddFlagsInt[i] |= oddFlagsInt[srcCount / 32 + 2 + i];
-		oddFlagsInt[i] |= oddFlagsInt[srcCount / 16 + 2 + i];
+		evenFlagsInt[i] |= evenFlagsInt[srcCount + 32 + i];
+		evenFlagsInt[i] |= evenFlagsInt[srcCount + 64 + i];
+		oddFlagsInt[i] |= oddFlagsInt[srcCount + 32 + i];
+		oddFlagsInt[i] |= oddFlagsInt[srcCount + 64 + i];
 		evenFlagsInt[i] |= oddFlagsInt[i];
 	}
 	
@@ -173,7 +165,7 @@ extern "C" void sort( 	TrianglePointers * srcTriangles, int srcCount,
 	*toSplitTrianglesCount = tempToSplitTrianglesCount;
 }
 
-extern "C" void sumOfSquares( float * srcVec1, float * srcVec2, float * dstVec, int srcCount ) //146 per elem
+extern "C" void sumOfSquares( float * srcVec1, float * srcVec2, float * dstVec, int srcCount )
 {
 	for(int i = 0; i < srcCount; ++i)
 	{

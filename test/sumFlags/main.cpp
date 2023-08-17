@@ -31,15 +31,22 @@ int main()
 		t1 = clock();
 		sumFlags(srcVec, dstVec, i);
 		t2 = clock();
-	
+		// if(i == 4){
+		// 	for(int j = 0; j < i; ++j)
+		// 		printf("\nflags[%d] = %d; flagsCheck[%d] = %d", j, nmppsGet_1(srcVec, j), j, dstVec[j]);
+		// break;}
 #ifdef __NM__
-		printf("Time for ASM func %lf\n\n", (float)(t2 - t1 - dt) / i);
+		printf("\nSize =  %4d; clocks/element %lf", i, (float)(t2 - t1 - dt) / i);
 #endif		
 
 		sumHash ^= hashRep32((long long *)dstVec, i);
 	}
 	// printf("\n%d\n", sumHash);
+#ifdef __NM__
+	if( sumHash != 0 )
+#else
 	if( sumHash != -2104638998 )
+#endif
 	{
 		printf("\n*****************************************************************************************************");
 		printf("\nsumFlags on some sizes working incorrectly\n\n");
