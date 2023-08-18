@@ -8,7 +8,6 @@
 #include "nmassert.h"
 
 int maxTrianglesCount = 256;
-//triangulate
 int * bufNi0;
 float * bufNf0;
 float * bufNf1;
@@ -16,7 +15,6 @@ float * bufNf2;
 float * bufNf3;
 float * bufNf4;
 float * bufNf5;
-//generateMasks and split
 float * bufNf6;
 float * bufNf7;
 float * bufNf8;
@@ -48,95 +46,123 @@ float * protectedMallocFloat( float * dstPointer, int N )
 	return dstPointer;
 }
 
-extern "C" void triangulationInit()
+extern "C" int triangulationInit()
 {
-	// bufNi0 = (int*)malloc(maxTrianglesCount * sizeof(int));
-	// bufNf0 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	// bufNf1 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	// bufNf2 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	// bufNf3 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	// bufNf4 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	// bufNf5 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	// bufNf6 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	// bufNf7 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	// bufNf8 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	// bufNf9 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	// bufNf10 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	// bufNf11 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	// bufNf12 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	// bufNf13 = (float*)malloc(maxTrianglesCount * sizeof(float));
 	bufNi0 = protectedMallocInt( bufNi0, maxTrianglesCount);
-	printf("\nbufNi0 %p _ %d", bufNi0, (*(bufNi0 - 1)));
+	if(!bufNi0)
+		return -1;
+	// printf("\nbufNi0 %p _ %d", bufNi0, (*(bufNi0 - 1)));
 	bufNf0 = protectedMallocFloat( bufNf0, maxTrianglesCount );
-	printf("\nbufNf0 %p _ %f", bufNf0, (*(bufNf0 - 1)));
+	if(!bufNf0)
+		return -1;
+	// printf("\nbufNf0 %p _ %f", bufNf0, (*(bufNf0 - 1)));
 	bufNf1 = protectedMallocFloat( bufNf1, maxTrianglesCount );
-	printf("\nbufNf1 %p _ %f", bufNf1, (*(bufNf1 - 1)));
+	if(!bufNf1)
+		return -1;
+	// printf("\nbufNf1 %p _ %f", bufNf1, (*(bufNf1 - 1)));
 	bufNf2 = protectedMallocFloat( bufNf2, maxTrianglesCount );
-	printf("\nbufNf2 %p _ %f", bufNf2, (*(bufNf2 - 1)));
+	if(!bufNf2)
+		return -1;
+	// printf("\nbufNf2 %p _ %f", bufNf2, (*(bufNf2 - 1)));
 	bufNf3 = protectedMallocFloat( bufNf3, maxTrianglesCount );
-	printf("\nbufNf3 %p _ %f", bufNf3, (*(bufNf3 - 1)));
+	if(!bufNf3)
+		return -1;
+	// printf("\nbufNf3 %p _ %f", bufNf3, (*(bufNf3 - 1)));
 	bufNf4 = protectedMallocFloat( bufNf4, maxTrianglesCount );
-	printf("\nbufNf4 %p _ %f", bufNf4, (*(bufNf4 - 1)));
+	if(!bufNf4)
+		return -1;
+	// printf("\nbufNf4 %p _ %f", bufNf4, (*(bufNf4 - 1)));
 	bufNf5 = protectedMallocFloat( bufNf5, maxTrianglesCount );
-	printf("\nbufNf5 %p _ %f", bufNf5, (*(bufNf5 - 1)));
+	if(!bufNf5)
+		return -1;
+	// printf("\nbufNf5 %p _ %f", bufNf5, (*(bufNf5 - 1)));
 	bufNf6 = protectedMallocFloat( bufNf6, maxTrianglesCount );
-	printf("\nbufNf6 %p _ %f", bufNf6, (*(bufNf6 - 1)));
+	if(!bufNf6)
+		return -1;
+	// printf("\nbufNf6 %p _ %f", bufNf6, (*(bufNf6 - 1)));
 	bufNf7 = protectedMallocFloat( bufNf7, maxTrianglesCount );
-	printf("\nbufNf7 %p _ %f", bufNf7, (*(bufNf7 - 1)));
+	if(!bufNf7)
+		return -1;
+	// printf("\nbufNf7 %p _ %f", bufNf7, (*(bufNf7 - 1)));
 	bufNf8 = protectedMallocFloat( bufNf8, maxTrianglesCount );
-	printf("\nbufNf8 %p _ %f", bufNf8, (*(bufNf8 - 1)));
+	if(!bufNf8)
+		return -1;
+	// printf("\nbufNf8 %p _ %f", bufNf8, (*(bufNf8 - 1)));
 	bufNf9 = protectedMallocFloat( bufNf9, maxTrianglesCount );
-	printf("\nbufNf9 %p _ %f", bufNf9, (*(bufNf9 - 1)));
+	if(!bufNf9)
+		return -1;
+	// printf("\nbufNf9 %p _ %f", bufNf9, (*(bufNf9 - 1)));
 	bufNf10 = protectedMallocFloat( bufNf10, maxTrianglesCount );
-	printf("\nbufNf10 %p _ %f", bufNf10, (*(bufNf10 - 1)));
+	if(!bufNf10)
+		return -1;
+	// printf("\nbufNf10 %p _ %f", bufNf10, (*(bufNf10 - 1)));
 	bufNf11 = protectedMallocFloat( bufNf11, maxTrianglesCount );
-	printf("\nbufNf11 %p _ %f", bufNf11, (*(bufNf11 - 1)));
+	if(!bufNf11)
+		return -1;
+	// printf("\nbufNf11 %p _ %f", bufNf11, (*(bufNf11 - 1)));
 	bufNf12 = protectedMallocFloat( bufNf12, maxTrianglesCount );
-	printf("\nbufNf12 %p _ %f", bufNf12, (*(bufNf12 - 1)));
+	if(!bufNf12)
+		return -1;
+	// printf("\nbufNf12 %p _ %f", bufNf12, (*(bufNf12 - 1)));
 	bufNf13 = protectedMallocFloat( bufNf13, maxTrianglesCount );
-	printf("\nbufNf13 %p _ %f", bufNf13, (*(bufNf13 - 1)));
+	if(!bufNf13)
+		return -1;
+	// printf("\nbufNf13 %p _ %f", bufNf13, (*(bufNf13 - 1)));
+	return 0;
+}
+
+void freeBufCheckInt()
+{
+	if ( (*(bufNi0 - 2)) != 77 || (*(bufNi0 - 1)) != 77 || (*(bufNi0 + maxTrianglesCount)) != 77 || (*(bufNi0 + maxTrianglesCount + 1)) != 77 )
+		printf("\nbufNi0 { %d, %d, ..., %d, %d}", (*(bufNi0 - 2)), (*(bufNi0 - 1)), (*(bufNi0 + maxTrianglesCount)), (*(bufNi0 + maxTrianglesCount + 1)));
+	if ( (*(bufNf0 - 2)) != 66.0 || (*(bufNf0 - 1)) != 66.0 || (*(bufNf0 + maxTrianglesCount)) != 66.0 || (*(bufNf0 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf0 { %f, %f, ..., %f, %f}", (*(bufNf0 - 2)), (*(bufNf0 - 1)), (*(bufNf0 + maxTrianglesCount)), (*(bufNf0 + maxTrianglesCount + 1)));
+	if ( (*(bufNf1 - 2)) != 66.0 || (*(bufNf1 - 1)) != 66.0 || (*(bufNf1 + maxTrianglesCount)) != 66.0 || (*(bufNf1 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf1 { %f, %f, ..., %f, %f}", (*(bufNf1 - 2)), (*(bufNf1 - 1)), (*(bufNf1 + maxTrianglesCount)), (*(bufNf1 + maxTrianglesCount + 1)));
+	if ( (*(bufNf2 - 2)) != 66.0 || (*(bufNf2 - 1)) != 66.0 || (*(bufNf2 + maxTrianglesCount)) != 66.0 || (*(bufNf2 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf2 { %f, %f, ..., %f, %f}", (*(bufNf2 - 2)), (*(bufNf2 - 1)), (*(bufNf2 + maxTrianglesCount)), (*(bufNf2 + maxTrianglesCount + 1)));
+	if ( (*(bufNf3 - 2)) != 66.0 || (*(bufNf3 - 1)) != 66.0 || (*(bufNf3 + maxTrianglesCount)) != 66.0 || (*(bufNf3 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf3 { %f, %f, ..., %f, %f}", (*(bufNf3 - 2)), (*(bufNf3 - 1)), (*(bufNf3 + maxTrianglesCount)), (*(bufNf3 + maxTrianglesCount + 1)));
+	if ( (*(bufNf4 - 2)) != 66.0 || (*(bufNf4 - 1)) != 66.0 || (*(bufNf4 + maxTrianglesCount)) != 66.0 || (*(bufNf4 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf4 { %f, %f, ..., %f, %f}", (*(bufNf4 - 2)), (*(bufNf4 - 1)), (*(bufNf4 + maxTrianglesCount)), (*(bufNf4 + maxTrianglesCount + 1)));
+	if ( (*(bufNf5 - 2)) != 66.0 || (*(bufNf5 - 1)) != 66.0 || (*(bufNf5 + maxTrianglesCount)) != 66.0 || (*(bufNf5 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf5 { %f, %f, ..., %f, %f}", (*(bufNf5 - 2)), (*(bufNf5 - 1)), (*(bufNf5 + maxTrianglesCount)), (*(bufNf5 + maxTrianglesCount + 1)));
+	if ( (*(bufNf6 - 2)) != 66.0 || (*(bufNf6 - 1)) != 66.0 || (*(bufNf6 + maxTrianglesCount)) != 66.0 || (*(bufNf6 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf6 { %f, %f, ..., %f, %f}", (*(bufNf6 - 2)), (*(bufNf6 - 1)), (*(bufNf6 + maxTrianglesCount)), (*(bufNf6 + maxTrianglesCount + 1)));
+	if ( (*(bufNf7 - 2)) != 66.0 || (*(bufNf7 - 1)) != 66.0 || (*(bufNf7 + maxTrianglesCount)) != 66.0 || (*(bufNf7 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf7 { %f, %f, ..., %f, %f}", (*(bufNf7 - 2)), (*(bufNf7 - 1)), (*(bufNf7 + maxTrianglesCount)), (*(bufNf7 + maxTrianglesCount + 1)));
+	if ( (*(bufNf8 - 2)) != 66.0 || (*(bufNf8 - 1)) != 66.0 || (*(bufNf8 + maxTrianglesCount)) != 66.0 || (*(bufNf8 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf8 { %f, %f, ..., %f, %f}", (*(bufNf8 - 2)), (*(bufNf8 - 1)), (*(bufNf8 + maxTrianglesCount)), (*(bufNf8 + maxTrianglesCount + 1)));
+	if ( (*(bufNf9 - 2)) != 66.0 || (*(bufNf9 - 1)) != 66.0 || (*(bufNf9 + maxTrianglesCount)) != 66.0 || (*(bufNf9 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf9 { %f, %f, ..., %f, %f}", (*(bufNf9 - 2)), (*(bufNf9 - 1)), (*(bufNf9 + maxTrianglesCount)), (*(bufNf9 + maxTrianglesCount + 1)));
+	if ( (*(bufNf10 - 2)) != 66.0 || (*(bufNf10 - 1)) != 66.0 || (*(bufNf10 + maxTrianglesCount)) != 66.0 || (*(bufNf10 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf10 { %f, %f, ..., %f, %f}", (*(bufNf10 - 2)), (*(bufNf10 - 1)), (*(bufNf10 + maxTrianglesCount)), (*(bufNf10 + maxTrianglesCount + 1)));
+	if ( (*(bufNf11 - 2)) != 66.0 || (*(bufNf11 - 1)) != 66.0 || (*(bufNf11 + maxTrianglesCount)) != 66.0 || (*(bufNf11 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf11 { %f, %f, ..., %f, %f}", (*(bufNf11 - 2)), (*(bufNf11 - 1)), (*(bufNf11 + maxTrianglesCount)), (*(bufNf11 + maxTrianglesCount + 1)));
+	if ( (*(bufNf12 - 2)) != 66.0 || (*(bufNf12 - 1)) != 66.0 || (*(bufNf12 + maxTrianglesCount)) != 66.0 || (*(bufNf12 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf12 { %f, %f, ..., %f, %f}", (*(bufNf12 - 2)), (*(bufNf12 - 1)), (*(bufNf12 + maxTrianglesCount)), (*(bufNf12 + maxTrianglesCount + 1)));
+	if ( (*(bufNf13 - 2)) != 66.0 || (*(bufNf13 - 1)) != 66.0 || (*(bufNf13 + maxTrianglesCount)) != 66.0 || (*(bufNf13 + maxTrianglesCount + 1)) != 66.0 )
+		printf("\nbufNf13 { %f, %f, ..., %f, %f}", (*(bufNf13 - 2)), (*(bufNf13 - 1)), (*(bufNf13 + maxTrianglesCount)), (*(bufNf13 + maxTrianglesCount + 1)));
 }
 
 extern "C" void triangulationFree()
 {
-	printf("\nbufNi0 { %d, %d, ..., %d, %d}", (*(bufNi0 - 2)), (*(bufNi0 - 1)), (*(bufNi0 + maxTrianglesCount)), (*(bufNi0 + maxTrianglesCount + 1)));
+	freeBufCheckInt();
 	free((bufNi0 - 2));
-	printf("\nbufNf0 { %f, %f, ..., %f, %f}", (*(bufNf0 - 2)), (*(bufNf0 - 1)), (*(bufNf0 + maxTrianglesCount)), (*(bufNf0 + maxTrianglesCount + 1)));
 	free((bufNf0 - 2));
-	printf("\nbufNf1 { %f, %f, ..., %f, %f}", (*(bufNf1 - 2)), (*(bufNf1 - 1)), (*(bufNf1 + maxTrianglesCount)), (*(bufNf1 + maxTrianglesCount + 1)));
 	free((bufNf1 - 2));
-	printf("\nbufNf2 { %f, %f, ..., %f, %f}", (*(bufNf2 - 2)), (*(bufNf2 - 1)), (*(bufNf2 + maxTrianglesCount)), (*(bufNf2 + maxTrianglesCount + 1)));
 	free((bufNf2 - 2));
-	printf("\nbufNf3 { %f, %f, ..., %f, %f}", (*(bufNf3 - 2)), (*(bufNf3 - 1)), (*(bufNf3 + maxTrianglesCount)), (*(bufNf3 + maxTrianglesCount + 1)));
 	free((bufNf3 - 2));
-	printf("\nbufNf4 { %f, %f, ..., %f, %f}", (*(bufNf4 - 2)), (*(bufNf4 - 1)), (*(bufNf4 + maxTrianglesCount)), (*(bufNf4 + maxTrianglesCount + 1)));
 	free((bufNf4 - 2));
-	printf("\nbufNf5 { %f, %f, ..., %f, %f}", (*(bufNf5 - 2)), (*(bufNf5 - 1)), (*(bufNf5 + maxTrianglesCount)), (*(bufNf5 + maxTrianglesCount + 1)));
 	free((bufNf5 - 2));
-	printf("\nbufNf6 { %f, %f, ..., %f, %f}", (*(bufNf6 - 2)), (*(bufNf6 - 1)), (*(bufNf6 + maxTrianglesCount)), (*(bufNf6 + maxTrianglesCount + 1)));
 	free((bufNf6 - 2));
-	printf("\nbufNf7 { %f, %f, ..., %f, %f}", (*(bufNf7 - 2)), (*(bufNf7 - 1)), (*(bufNf7 + maxTrianglesCount)), (*(bufNf7 + maxTrianglesCount + 1)));
 	free((bufNf7 - 2));
-	printf("\nbufNf8 { %f, %f, ..., %f, %f}", (*(bufNf8 - 2)), (*(bufNf8 - 1)), (*(bufNf8 + maxTrianglesCount)), (*(bufNf8 + maxTrianglesCount + 1)));
 	free((bufNf8 - 2));
-	printf("\nbufNf9 { %f, %f, ..., %f, %f}", (*(bufNf9 - 2)), (*(bufNf9 - 1)), (*(bufNf9 + maxTrianglesCount)), (*(bufNf9 + maxTrianglesCount + 1)));
 	free((bufNf9 - 2));
-	printf("\nbufNf10 { %f, %f, ..., %f, %f}", (*(bufNf10 - 2)), (*(bufNf10 - 1)), (*(bufNf10 + maxTrianglesCount)), (*(bufNf10 + maxTrianglesCount + 1)));
 	free((bufNf10 - 2));
-	printf("\nbufNf11 { %f, %f, ..., %f, %f}", (*(bufNf11 - 2)), (*(bufNf11 - 1)), (*(bufNf11 + maxTrianglesCount)), (*(bufNf11 + maxTrianglesCount + 1)));
 	free((bufNf11 - 2));
-	printf("\nbufNf12 { %f, %f, ..., %f, %f}", (*(bufNf12 - 2)), (*(bufNf12 - 1)), (*(bufNf12 + maxTrianglesCount)), (*(bufNf12 + maxTrianglesCount + 1)));
 	free((bufNf12 - 2));
-	printf("\nbufNf13 { %f, %f, ..., %f, %f}", (*(bufNf13 - 2)), (*(bufNf13 - 1)), (*(bufNf13 + maxTrianglesCount)), (*(bufNf13 + maxTrianglesCount + 1)));
 	free((bufNf13 - 2));
-}
-
-extern "C" void sumFlags( nm1 * srcVec, int * dstVec, int srcCount )
-{
-	for(int i = 0; i < srcCount; ++i)
-	{
-		dstVec[i] |= nmppsGet_1(srcVec, i);
-	}
 }
 
 extern "C" void generateMasks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags )
@@ -153,7 +179,7 @@ extern "C" void generateMasks( TrianglePointers * srcTriangles, int srcCount, in
 	limatationConstant.v0 = maxWidth;
 	limatationConstant.v1 = maxHeight;
 
-	int * evenFlagsInt = (int*)bufNf12;
+	int * evenFlagsInt = flags;
 	int * oddFlagsInt  = (int*)bufNf13;
 
 	nmppsMerge_32f ( srcTriangles->v0.x, srcTriangles->v0.y, (float*)Axy, srcCount );
@@ -187,21 +213,19 @@ extern "C" void generateMasks( TrianglePointers * srcTriangles, int srcCount, in
 		oddFlagsInt[i] |= oddFlagsInt[srcCount + 64 + i];
 		evenFlagsInt[i] |= oddFlagsInt[i];
 	}
-	
-	sumFlags( evenFlagsInt, flags, srcCount );
 }
 
 extern "C" void sort( 	TrianglePointers * srcTriangles, int srcCount,
 			TrianglePointers * toSplitTriangles, int * toSplitTrianglesCount,
 			TrianglePointers * resultTriangles, int * resultCount,
-			int * flags )
+			nm1 * flags )
 {
 	(*toSplitTrianglesCount) = 0;
 	int tempResultCount = *resultCount;
 	int tempToSplitTrianglesCount = *toSplitTrianglesCount;
 	for(int i = 0; i < srcCount; ++i)
 	{
-		if( flags[i] == 0 )
+		if( nmppsGet_1(flags, i) == 0 )
 		{
 			resultTriangles->v0.x[tempResultCount] = srcTriangles->v0.x[i];
 			resultTriangles->v0.y[tempResultCount] = srcTriangles->v0.y[i];
@@ -345,11 +369,6 @@ extern "C" void triangulate(	TrianglePointers* srcVertex, int * srcCount,
 	toSplitTriangles.v1.y = byNew;
 	toSplitTriangles.v2.x = cxNew;
 	toSplitTriangles.v2.y = cyNew;
-
-	for(int i = 0; i < maxTrianglesCount; ++i)
-	{
-		flags[i] = 0;
-	}
 
 	generateMasks( srcVertex, *srcCount, maxWidth, maxHeight, flags );
 

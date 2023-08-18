@@ -107,7 +107,7 @@ int main()
 		savedTrianglesArray.v2.y[i] = testTrianglesArray.v2.y[i];
 	}
 
-	printf("\n%d Given Triangles:", size);
+	printf("\n%d Given Triangles:\n", size);
 	// for(int i = 0; i < size; ++i)
 	// {
 	// 	printf("\nTriangle %d point a: ( %f; %f )", i + 1, savedTrianglesArray.v0.x[i], savedTrianglesArray.v0.y[i]);
@@ -115,12 +115,12 @@ int main()
 	// 	printf("\nTriangle %d point c: ( %f; %f )\n", i + 1, savedTrianglesArray.v2.x[i], savedTrianglesArray.v2.y[i]);
 	// }
 	
-	triangulationInit();
+	printf("\n\ntriangulationInit %d\n", triangulationInit());
 	
 	while ( treatedCounter < maximumDestinationSize && size != 0 )
 	{
 		triangulate( &testTrianglesArray, &size, maximumWidth, maximumHeight, &testResultTrianglesArray, &treatedCounter );
-		printf("\nSuitable Triangles: %d\nSplitted triangles: %d\n", treatedCounter, size);
+		// printf("\nSuitable Triangles: %d\nSplitted triangles: %d\n", treatedCounter, size);
 	}
 
 	triangulationFree();
@@ -130,7 +130,7 @@ int main()
 		resultCount = maximumDestinationSize;
 	else
 		resultCount = size + treatedCounter;
-	printf("\n\n%d Result Triangles:", resultCount);
+	printf("\n\n%d Result Triangles:\n", resultCount);
 	// for(int i = 0; i < resultCount; ++i)
 	// {
 	// 	printf("\nTriangle %d point a: ( %f; %f )", i + 1, testResultTrianglesArray.v0.x[i], testResultTrianglesArray.v0.y[i]);
@@ -140,13 +140,13 @@ int main()
 	
 	for(int i = 0; i < size + treatedCounter; ++i)
 	{
-		printf("\ni %d\n", i);
 		NMASSERT(abs(testResultTrianglesArray.v0.x[i] - testResultTrianglesArray.v1.x[i]) <= maximumWidth);
 		NMASSERT(abs(testResultTrianglesArray.v2.x[i] - testResultTrianglesArray.v1.x[i]) <= maximumWidth);
 		NMASSERT(abs(testResultTrianglesArray.v0.x[i] - testResultTrianglesArray.v2.x[i]) <= maximumWidth);
 		NMASSERT(abs(testResultTrianglesArray.v0.y[i] - testResultTrianglesArray.v1.y[i]) <= maximumHeight);
 		NMASSERT(abs(testResultTrianglesArray.v2.y[i] - testResultTrianglesArray.v1.y[i]) <= maximumHeight);
 		NMASSERT(abs(testResultTrianglesArray.v0.y[i] - testResultTrianglesArray.v2.y[i]) <= maximumHeight);	
+		printf("\nTriangle %d checked\n", i + 1);
 	}
 	
 	printf("\n\n");

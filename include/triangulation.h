@@ -34,10 +34,10 @@
     \defgroup triangulationInit
     \ingroup triangulationInit
     \brief  Выделяет память под временные массивы для функции triangulate
-    \return \e void
+    \return \e int
     */
     //! \{
-    void triangulationInit(  );
+    int triangulationInit(  );
 	//! \}
 
 //*****************************************************************************
@@ -49,20 +49,6 @@
     */
     //! \{
     void triangulationFree(  );
-	//! \}
-
-//*****************************************************************************
-    /**
-    \defgroup sumFlags
-    \ingroup sumFlags
-    \brief  Объединяет два массива флагов в один
-    \param srcVec   [in]  Указатель на входной массив флагов
-    \param dstVec   [out] Указатель на результирующий массив флагов 
-	\param srcCount [in]  Размер результирующего массива в элементах
-    \return \e void
-    */
-    //! \{
-    void sumFlags( nm1 * srcVec, int * dstVec, int srcCount ); // 57 per elem
 	//! \}
 
 //*****************************************************************************
@@ -99,7 +85,7 @@
     void sort( 	TrianglePointers * srcTriangles, int srcCount,
 			    TrianglePointers * toSplitTriangles, int * toSplitTrianglesCount, // 173 per elem
 			    TrianglePointers * resultTriangles, int * resultCount,
-			    int * flags );
+			    nm1 * flags );
 	//! \}
 
 //*****************************************************************************
