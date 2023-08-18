@@ -1,0 +1,36 @@
+\doxysection{Triangulate}
+\hypertarget{group__triangulate}{}\label{group__triangulate}\index{Triangulate@{Triangulate}}
+
+
+Триангуляция массива треугольников  
+
+
+\doxysubsubsection*{Функции}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{group__triangulate_ga549bede06e4c2a681e83c18ed299f958}\label{group__triangulate_ga549bede06e4c2a681e83c18ed299f958} 
+void {\bfseries triangulate} (\mbox{\hyperlink{struct_triangle_pointers}{Triangle\+Pointers}} \texorpdfstring{$\ast$}{*}src\+Vertex, int \texorpdfstring{$\ast$}{*}src\+Count, int max\+Width, int max\+Height, \mbox{\hyperlink{struct_triangle_pointers}{Triangle\+Pointers}} \texorpdfstring{$\ast$}{*}dst\+Suitable\+Vertex, int \texorpdfstring{$\ast$}{*}dst\+Suitable\+Count)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Подробное описание}
+Триангуляция массива треугольников 
+
+
+\begin{DoxyParams}{Аргументы}
+{\em src\+Vertex} & \mbox{[}in/out\mbox{]} Указатель на входную структуру треугольников. Перезаписывается разбитыми треугольниками \\
+\hline
+{\em src\+Count} & \mbox{[}in/out\mbox{]} Количество входных треугольников. Четное число. Должно быть меньше реального размера src\+Vertex хотябы в 2 раза \\
+\hline
+{\em max\+Width} & \mbox{[}in\mbox{]} Ограничение по ширине \\
+\hline
+{\em max\+Height} & \mbox{[}in\mbox{]} Ограничение по высоте \\
+\hline
+{\em dst\+Suitable\+Vertex} & \mbox{[}out\mbox{]} Указатель на выходную структуру годных треугольников \\
+\hline
+{\em src\+Treated\+Count} & \mbox{[}out\mbox{]} Указатель на число годных треугольников \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Возвращает}
+{\itshape void} 
+\end{DoxyReturn}

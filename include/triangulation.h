@@ -6,14 +6,14 @@
 #endif
 
 /**
-    \defgroup triangulation 
+    \defgroup nmppsAdd_MulC_32f
     \brief  функции триангуляции
     
 */
 	
 //*****************************************************************************
     /**
-    \ingroup triangulation
+    \ingroup nmppsAdd_MulC_32f
     \brief  Поэлементное сложение векторов с умножением на константу
     \~
             dstVec[i * 2] = (srcVec1[i * 2] + srcVec2[i * 2]) * nVal[0];
@@ -26,24 +26,24 @@
     \return \e void
     */
     //! \{
-    void nmppsAdd_MulC_32f( float* srcVec1, float* srcVec2, float* dstVec, float* nVal, int srcCount );
+    void nmppsAdd_MulC_32f( float* srcVec1, float* srcVec2, float* dstVec, float* nVal, int srcCount ); // -> 1.17- per elem
 	//! \}
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup triangulationInit
+    \ingroup triangulationInit
     \brief  Выделяет память под временные массивы для функции triangulate
-    \return \e void
+    \return \e int
     */
     //! \{
-    void triangulationInit(  );
+    int triangulationInit(  );
 	//! \}
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup triangulationFree
+    \ingroup triangulationFree
     \brief  Освобождает память под временные массивы для функции triangulate
     \return \e void
     */
@@ -53,22 +53,8 @@
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
-    \brief  Объединяет два массива флагов в один
-    \param srcVec   [in]  Указатель на входной массив флагов
-    \param dstVec   [out] Указатель на результирующий массив флагов 
-	\param srcCount [in]  Размер результирующего массива в элементах
-    \return \e void
-    */
-    //! \{
-    void sumFlags( nm1 * srcVec, int * dstVec, int srcCount );
-	//! \}
-
-//*****************************************************************************
-    /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup generateMasks
+    \ingroup generateMasks
     \brief  Формирование флагов вместимости для треугольников
     \param srcTriangles [in]  Указатель на входную структуру треугольников
     \param srcCount     [in]  Количество треугольников. Четное число
@@ -78,13 +64,13 @@
     \return \e void
     */
     //! \{
-    void generateMasks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags );
+    void generateMasks( TrianglePointers * srcTriangles, int srcCount, int maxWidth, int maxHeight, int * flags ); // 135 per elem
 	//! \}
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup sort
+    \ingroup sort
     \brief  Сортировка треугольников в соответствии с флагами вместимости
     \param srcTriangles             [in]  Указатель на входную структуру треугольников
     \param srcCount                 [in]  Количество треугольников на вход. Четное число
@@ -97,15 +83,15 @@
     */
     //! \{
     void sort( 	TrianglePointers * srcTriangles, int srcCount,
-			    TrianglePointers * toSplitTriangles, int * toSplitTrianglesCount,
+			    TrianglePointers * toSplitTriangles, int * toSplitTrianglesCount, // 173 per elem
 			    TrianglePointers * resultTriangles, int * resultCount,
-			    int * flags );
+			    nm1 * flags );
 	//! \}
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup sumOfSquares
+    \ingroup sumOfSquares
     \brief  Поэлементная сумма квадратов двух векторов 
     \param srcVec1  [in]  Входной вектор
     \param srcVec2  [in]  Входной вектор
@@ -114,13 +100,13 @@
     \return \e void
     */
     //! \{
-    void sumOfSquares( float * srcVec1, float * srcVec2, float * dstVec, int srcCount );
+    void sumOfSquares( float * srcVec1, float * srcVec2, float * dstVec, int srcCount ); // 146 per elem
 	//! \}
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup maxEdge
+    \ingroup maxEdge
     \brief  Нахождение максимального значения из трех 
     \~
             Поэлементное нахождение максимального значения из трех векторов. Соответствующий номер вектора записывается в результат.
@@ -132,13 +118,13 @@
     \return \e void
     */
     //! \{
-    void maxEdge( int * maxEdgeArray, float * edge1, float * edge2, float * edge3, int edgeCount );
+    void maxEdge( int * maxEdgeArray, float * edge1, float * edge2, float * edge3, int edgeCount ); // 121 per elem
 	//! \}
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup split
+    \ingroup split
     \brief  Разбиение треугольников на два
     \~
             Разбиение треугольников на два по середине наибольшей стороны и противолежащей вершине.
@@ -150,13 +136,13 @@
     */
     //! \{
     void split( TrianglePointers * toSplitTriangles, int toSplitTrianglesCount,
-                TrianglePointers * splittedTriangles, int * splittedTrianglesCount );
+                TrianglePointers * splittedTriangles, int * splittedTrianglesCount ); // 61 per elem
 	//! \}
 
 //*****************************************************************************
     /**
-    \defgroup 
-    \ingroup triangulation
+    \defgroup triangulate
+    \ingroup triangulate
     \brief  Триангуляция массива треугольников 
     \param srcVertex            [in/out]  Указатель на входную структуру треугольников. Перезаписывается разбитыми треугольниками
     \param srcCount             [in/out]  Количество входных треугольников. Четное число. Должно быть меньше реального размера srcVertex хотябы в 2 раза
