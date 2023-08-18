@@ -7,7 +7,7 @@
 #include "nmpp.h"
 #include "nmassert.h"
 
-int maxTrianglesCount = 1024;
+int maxTrianglesCount = 256;
 //triangulate
 int * bufNi0;
 float * bufNf0;
@@ -26,48 +26,109 @@ float * bufNf11;
 float * bufNf12;
 float * bufNf13;
 
+int * protectedMallocInt( int * dstPointer, int N )
+{
+	int * mallocPointer = (int*)malloc((N + 4) * sizeof(int));
+	mallocPointer[0] = 77;
+	mallocPointer[1] = 77;
+	mallocPointer[N + 2] = 77;
+	mallocPointer[N + 3] = 77;
+	dstPointer = mallocPointer + 2;
+	return dstPointer;
+}
 
+float * protectedMallocFloat( float * dstPointer, int N )
+{
+	float * mallocPointer = (float*)malloc((N + 4) * sizeof(float));
+	mallocPointer[0] = 66.0;
+	mallocPointer[1] = 66.0;
+	mallocPointer[N + 2] = 66.0;
+	mallocPointer[N + 3] = 66.0;
+	dstPointer = mallocPointer + 2;
+	return dstPointer;
+}
 
 extern "C" void triangulationInit()
 {
-	//triangulate
-	bufNi0 = (int*)malloc(maxTrianglesCount * sizeof(int));
-	bufNf0 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	bufNf1 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	bufNf2 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	bufNf3 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	bufNf4 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	bufNf5 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	//generateMasks and split
-	bufNf6 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	bufNf7 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	bufNf8 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	bufNf9 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	bufNf10 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	bufNf11 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	bufNf12 = (float*)malloc(maxTrianglesCount * sizeof(float));
-	bufNf13 = (float*)malloc(maxTrianglesCount * sizeof(float));	
+	// bufNi0 = (int*)malloc(maxTrianglesCount * sizeof(int));
+	// bufNf0 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	// bufNf1 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	// bufNf2 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	// bufNf3 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	// bufNf4 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	// bufNf5 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	// bufNf6 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	// bufNf7 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	// bufNf8 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	// bufNf9 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	// bufNf10 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	// bufNf11 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	// bufNf12 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	// bufNf13 = (float*)malloc(maxTrianglesCount * sizeof(float));
+	bufNi0 = protectedMallocInt( bufNi0, maxTrianglesCount);
+	printf("\nbufNi0 %p _ %d", bufNi0, (*(bufNi0 - 1)));
+	bufNf0 = protectedMallocFloat( bufNf0, maxTrianglesCount );
+	printf("\nbufNf0 %p _ %f", bufNf0, (*(bufNf0 - 1)));
+	bufNf1 = protectedMallocFloat( bufNf1, maxTrianglesCount );
+	printf("\nbufNf1 %p _ %f", bufNf1, (*(bufNf1 - 1)));
+	bufNf2 = protectedMallocFloat( bufNf2, maxTrianglesCount );
+	printf("\nbufNf2 %p _ %f", bufNf2, (*(bufNf2 - 1)));
+	bufNf3 = protectedMallocFloat( bufNf3, maxTrianglesCount );
+	printf("\nbufNf3 %p _ %f", bufNf3, (*(bufNf3 - 1)));
+	bufNf4 = protectedMallocFloat( bufNf4, maxTrianglesCount );
+	printf("\nbufNf4 %p _ %f", bufNf4, (*(bufNf4 - 1)));
+	bufNf5 = protectedMallocFloat( bufNf5, maxTrianglesCount );
+	printf("\nbufNf5 %p _ %f", bufNf5, (*(bufNf5 - 1)));
+	bufNf6 = protectedMallocFloat( bufNf6, maxTrianglesCount );
+	printf("\nbufNf6 %p _ %f", bufNf6, (*(bufNf6 - 1)));
+	bufNf7 = protectedMallocFloat( bufNf7, maxTrianglesCount );
+	printf("\nbufNf7 %p _ %f", bufNf7, (*(bufNf7 - 1)));
+	bufNf8 = protectedMallocFloat( bufNf8, maxTrianglesCount );
+	printf("\nbufNf8 %p _ %f", bufNf8, (*(bufNf8 - 1)));
+	bufNf9 = protectedMallocFloat( bufNf9, maxTrianglesCount );
+	printf("\nbufNf9 %p _ %f", bufNf9, (*(bufNf9 - 1)));
+	bufNf10 = protectedMallocFloat( bufNf10, maxTrianglesCount );
+	printf("\nbufNf10 %p _ %f", bufNf10, (*(bufNf10 - 1)));
+	bufNf11 = protectedMallocFloat( bufNf11, maxTrianglesCount );
+	printf("\nbufNf11 %p _ %f", bufNf11, (*(bufNf11 - 1)));
+	bufNf12 = protectedMallocFloat( bufNf12, maxTrianglesCount );
+	printf("\nbufNf12 %p _ %f", bufNf12, (*(bufNf12 - 1)));
+	bufNf13 = protectedMallocFloat( bufNf13, maxTrianglesCount );
+	printf("\nbufNf13 %p _ %f", bufNf13, (*(bufNf13 - 1)));
 }
 
 extern "C" void triangulationFree()
 {
-	//triangulate
-	free(bufNi0);
-	free(bufNf0);
-	free(bufNf1);
-	free(bufNf2);
-	free(bufNf3);
-	free(bufNf4);
-	free(bufNf5);
-	//generateMasks and split
-	free(bufNf6);
-	free(bufNf7);
-	free(bufNf8);
-	free(bufNf9);
-	free(bufNf10);
-	free(bufNf11);
-	free(bufNf12);
-	free(bufNf13);
+	printf("\nbufNi0 { %d, %d, ..., %d, %d}", (*(bufNi0 - 2)), (*(bufNi0 - 1)), (*(bufNi0 + maxTrianglesCount)), (*(bufNi0 + maxTrianglesCount + 1)));
+	free((bufNi0 - 2));
+	printf("\nbufNf0 { %f, %f, ..., %f, %f}", (*(bufNf0 - 2)), (*(bufNf0 - 1)), (*(bufNf0 + maxTrianglesCount)), (*(bufNf0 + maxTrianglesCount + 1)));
+	free((bufNf0 - 2));
+	printf("\nbufNf1 { %f, %f, ..., %f, %f}", (*(bufNf1 - 2)), (*(bufNf1 - 1)), (*(bufNf1 + maxTrianglesCount)), (*(bufNf1 + maxTrianglesCount + 1)));
+	free((bufNf1 - 2));
+	printf("\nbufNf2 { %f, %f, ..., %f, %f}", (*(bufNf2 - 2)), (*(bufNf2 - 1)), (*(bufNf2 + maxTrianglesCount)), (*(bufNf2 + maxTrianglesCount + 1)));
+	free((bufNf2 - 2));
+	printf("\nbufNf3 { %f, %f, ..., %f, %f}", (*(bufNf3 - 2)), (*(bufNf3 - 1)), (*(bufNf3 + maxTrianglesCount)), (*(bufNf3 + maxTrianglesCount + 1)));
+	free((bufNf3 - 2));
+	printf("\nbufNf4 { %f, %f, ..., %f, %f}", (*(bufNf4 - 2)), (*(bufNf4 - 1)), (*(bufNf4 + maxTrianglesCount)), (*(bufNf4 + maxTrianglesCount + 1)));
+	free((bufNf4 - 2));
+	printf("\nbufNf5 { %f, %f, ..., %f, %f}", (*(bufNf5 - 2)), (*(bufNf5 - 1)), (*(bufNf5 + maxTrianglesCount)), (*(bufNf5 + maxTrianglesCount + 1)));
+	free((bufNf5 - 2));
+	printf("\nbufNf6 { %f, %f, ..., %f, %f}", (*(bufNf6 - 2)), (*(bufNf6 - 1)), (*(bufNf6 + maxTrianglesCount)), (*(bufNf6 + maxTrianglesCount + 1)));
+	free((bufNf6 - 2));
+	printf("\nbufNf7 { %f, %f, ..., %f, %f}", (*(bufNf7 - 2)), (*(bufNf7 - 1)), (*(bufNf7 + maxTrianglesCount)), (*(bufNf7 + maxTrianglesCount + 1)));
+	free((bufNf7 - 2));
+	printf("\nbufNf8 { %f, %f, ..., %f, %f}", (*(bufNf8 - 2)), (*(bufNf8 - 1)), (*(bufNf8 + maxTrianglesCount)), (*(bufNf8 + maxTrianglesCount + 1)));
+	free((bufNf8 - 2));
+	printf("\nbufNf9 { %f, %f, ..., %f, %f}", (*(bufNf9 - 2)), (*(bufNf9 - 1)), (*(bufNf9 + maxTrianglesCount)), (*(bufNf9 + maxTrianglesCount + 1)));
+	free((bufNf9 - 2));
+	printf("\nbufNf10 { %f, %f, ..., %f, %f}", (*(bufNf10 - 2)), (*(bufNf10 - 1)), (*(bufNf10 + maxTrianglesCount)), (*(bufNf10 + maxTrianglesCount + 1)));
+	free((bufNf10 - 2));
+	printf("\nbufNf11 { %f, %f, ..., %f, %f}", (*(bufNf11 - 2)), (*(bufNf11 - 1)), (*(bufNf11 + maxTrianglesCount)), (*(bufNf11 + maxTrianglesCount + 1)));
+	free((bufNf11 - 2));
+	printf("\nbufNf12 { %f, %f, ..., %f, %f}", (*(bufNf12 - 2)), (*(bufNf12 - 1)), (*(bufNf12 + maxTrianglesCount)), (*(bufNf12 + maxTrianglesCount + 1)));
+	free((bufNf12 - 2));
+	printf("\nbufNf13 { %f, %f, ..., %f, %f}", (*(bufNf13 - 2)), (*(bufNf13 - 1)), (*(bufNf13 + maxTrianglesCount)), (*(bufNf13 + maxTrianglesCount + 1)));
+	free((bufNf13 - 2));
 }
 
 extern "C" void sumFlags( nm1 * srcVec, int * dstVec, int srcCount )

@@ -116,7 +116,7 @@ int main()
 	// }
 	
 	triangulationInit();
-
+	
 	while ( treatedCounter < maximumDestinationSize && size != 0 )
 	{
 		triangulate( &testTrianglesArray, &size, maximumWidth, maximumHeight, &testResultTrianglesArray, &treatedCounter );
