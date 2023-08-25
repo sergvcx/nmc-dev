@@ -6,8 +6,8 @@
 #include "../../include/hadamard.h"
 #include "time.h"
 
-const int width = 128;
-const int height = 128;
+const int width = 1280;
+const int height = 4;
 __attribute__((section(".data.imu0"))) long long array[width * height / 4];
 __attribute__((section(".data.imu1"))) long long result[width * height / 4];
 
@@ -39,7 +39,7 @@ int main()
 			// dump_16u("%04x ", result, j, i, i * 2, 2);
 			// printf("-----------------------------------\n");
 		}
-			printf("\n");
+			//printf("\n");
 	}
 
 	// single call test
@@ -53,8 +53,8 @@ int main()
 	// dump_64s("%0llx ", array, height, width / 4, width / 4, 2);
 	// printf("\n");
 	// dump_64s("%0llx ", result, width, height / 4, height / 4, 2);
-
-	int return_code = hash^0x779121de; // lines or columns 128, 128
+int return_code = hash;
+	//int return_code = hash^0x779121de; // lines or columns 128, 128
 
 	printf("return code = 0x%0x\n", return_code);
 
