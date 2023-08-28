@@ -13,22 +13,6 @@ void getHadamardProduct_32s(nm32s* srcA, nm32s* srcB, nm32s* dst, int height, in
 #include <vector>
 #include "VShell.h"
 
-namespace {
-	void SmoothFilter(const std::vector<BYTE>& vecSrc, std::vector<BYTE>& vecDst, int nWidth, int nHeight, int nFilterSize) {
-		int i, j, k, m, nInd, nTmp;
-
-		for (i = 0; i < (nHeight - nFilterSize); i++)
-			for (j = 0; j < (nWidth - nFilterSize); j++) {
-				nInd = i * nWidth + j;
-				nTmp = 0;
-				for (k = 0; k < nFilterSize; k++)
-					for (m = 0; m < nFilterSize; m++)
-						nTmp += vecSrc[nInd + k * nWidth + m];
-				vecDst[nInd + (nFilterSize / 2) * (nWidth + 1)] = (BYTE)(nTmp / (nFilterSize * nFilterSize));
-			}
-	}
-}
-
 int main()
 {
 	if (!VS_Init())
@@ -78,14 +62,10 @@ int main()
 	VS_CreateImage("Interp 32", 3, W * 2, H * 2, VS_RGB8_32, NULL);
 	VS_CreateImage("Interp 16", 4, W * 2, H * 2, VS_RGB8_16, NULL);
 	VS_CreateImage("Filter", 5, W * 2, H * 2, VS_RGB8_32, FilterPalette);
-	VS_CreateImage("Spectrum 32", 6, W * 2, H * 2, VS_RGB32, NULL);
-	VS_CreateImage("Spectrum 16", 7, W * 2, H * 2, VS_RGB16, NULL);
+	VS_CreateImage("Spectrum 32", 6, W * 2, H * 2, VS_RGB8_32, NULL);
+	VS_CreateImage("Spectrum 16", 7, W * 2, H * 2, VS_RGB8_16, NULL);
 
-	VS_CreateEdit("Filter size", 0);
 	VS_CreateSlider("Had", 0, 0, W * 4, 1, W*2);
-
-	VS_CreateEdit("Filter size", 0);
-	VS_SetEditInt(0, 3);
 
 	// Hadamard transform
 	nmppsHadamardInit((nm2s*)&Had[0], H * 2);
@@ -104,13 +84,11 @@ int main()
 		memset(&srcChess32[0], 0, H * W * sizeof(int));
 		memset(&srcChess16[0], 0, H * W * sizeof(short));
 		for (int i = 0; i < H; i++) {
-			for (int j = 0; j < W; j++) {
-				srcChess32[i * W * 4 + j * 2] = src32[i * W + j];
-				srcChess32[i * W * 4 + j * 2 + W * 2 + 1] = src32[i * W + j];
+			nmppsConvert_32u64u((const nm32u*)&src32[0] + i * H, (nm64u*)&srcChess32[0] + i * H * 2, W);
+			nmppsMulC_32s64s((const nm32s*)&src32[0] + i * H, 0x100000000, (nm64s*)&srcChess32[0] + i * H * 2 + W, W);
 
-				srcChess16[i * W * 4 + j * 2] = src16[i * W + j];
-				srcChess16[i * W * 4 + j * 2 + W * 2 + 1] = src16[i * W + j];
-			}
+			nmppsConvert_16u32u((const nm16u*)&src16[0] + i * H, (nm32u*)&srcChess16[0] + i * H * 2, W);
+			nmppsMulC_16s32s((const nm16s*)&src16[0] + i * H, 0x10000, (nm32s*)&srcChess16[0] + i * H * 2 + W, W);
 		}
 		VS_SetData(1, &srcChess32[0]);
 		VS_SetData(2, &srcChess16[0]);
@@ -165,6 +143,7 @@ int main()
 			for (int j = 0; j < W * 2; j++) {
 				dst32[i * H * 2 + j] <<= 1;
 				dst16[i * H * 2 + j] <<= 1;
+				dst16[i * H * 2 + j] += 128;
 			}
 		}
 
