@@ -4,13 +4,41 @@
 #ifdef __cplusplus
 		extern "C" {
 #endif
+	
+//*****************************************************************************
+    /**
+    \defgroup nmppsAbs_32f
+    \ingroup nmppsAbs_32f
+    \brief  Поэлементное нахождение модуля разности векторов
+    \param srcVec1  [in]  Входной вектор
+    \param srcVec2  [in]  Входной вектор
+    \param dstVec   [out] Результирующий вектор
+	\param srcCount [in]  Размер векторов в элементах. Четное число
+    \return \e void
+    */
+    //! \{
+    void nmppsAbsDiff_32f( float* srcVec1, float* srcVec2, float* dstVec, int srcCount ); // -> . - per elem
+	//! \}
+	
+//*****************************************************************************
+    /**
+    \defgroup nmppsAbs_32f
+    \ingroup nmppsAbs_32f
+    \brief  Поэлементное нахождение модуля элементов вектора
+    \param srcVec  [in]  Входной вектор
+    \param dstVec   [out] Результирующий вектор
+	\param srcCount [in]  Размер векторов в элементах. Четное число
+    \return \e void
+    */
+    //! \{
+    void nmppsAbs_32f( float* srcVec, float* dstVec, int srcCount ); // -> . - per elem
+	//! \}
 
 /**
     \defgroup nmppsAdd_MulC_32f
     \brief  функции триангуляции
     
 */
-	
 //*****************************************************************************
     /**
     \ingroup nmppsAdd_MulC_32f

@@ -250,14 +250,6 @@ extern "C" void sort( 	TrianglePointers * srcTriangles, int srcCount,
 	*toSplitTrianglesCount = tempToSplitTrianglesCount;
 }
 
-extern "C" void sumOfSquares( float * srcVec1, float * srcVec2, float * dstVec, int srcCount )
-{
-	for(int i = 0; i < srcCount; ++i)
-	{
-		dstVec[i] = srcVec1[i] * srcVec1[i] + srcVec2[i] * srcVec2[i];
-	}
-}
-
 extern "C" void maxEdge( int * maxEdgeArray, float * edge1, float * edge2, float * edge3, int edgeCount )
 {
 	for(int i = 0; i < edgeCount; ++i)
