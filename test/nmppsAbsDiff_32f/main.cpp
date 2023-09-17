@@ -42,7 +42,7 @@ int main()
 		randFloatArray(srcVec2, i);		
 
 		t1 = clock();
-		nmppsAbsDiff_32f( srcVec1, srcVec2, dstVec, i );
+		nmppsSub_Abs_32f( srcVec1, srcVec2, dstVec, i );
 		t2 = clock();
 
 		verifivationFunc( srcVec1, srcVec2, dstStandardVec, i );

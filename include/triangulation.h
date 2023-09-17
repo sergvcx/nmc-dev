@@ -17,7 +17,7 @@
     \return \e void
     */
     //! \{
-    void nmppsAbsDiff_32f( float* srcVec1, float* srcVec2, float* dstVec, int srcCount ); // -> . - per elem
+    void nmppsSub_Abs_32f( float* srcVec1, float* srcVec2, float* dstVec, int srcCount ); // -> . - per elem
 	//! \}
 	
 //*****************************************************************************

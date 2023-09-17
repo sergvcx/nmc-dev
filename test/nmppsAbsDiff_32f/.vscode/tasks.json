@@ -72,7 +72,7 @@
                 "-I../../include/",
                 "main.cpp",
                 "../../common/dataInit.cpp",
-                "../../pc/nmppsAbsDiff_32f.cpp",
+                "../../pc/nmppsSub_Abs_32f.cpp",
                 "-o",
                 "result"
             ],

@@ -1,8 +1,8 @@
-.global _nmppsAbsDiff_32f
+.global _nmppsSub_Abs_32f
 #include "printx.hs"
 
 .section .text.MyCode
-_nmppsAbsDiff_32f:
+_nmppsSub_Abs_32f:
     ar5 = ar7 - 2;
 	push ar0, gr0; 	// srcVec1
 	push ar1, gr1;	// srcVec2

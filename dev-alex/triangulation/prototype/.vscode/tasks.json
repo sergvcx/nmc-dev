@@ -75,6 +75,7 @@
                 "main.cpp",
                 "../../../common/triangulation.cpp",
                 "../../../pc/nmppsAdd_MulC_32f.cpp",
+                "../../../pc/sumOfSquares.cpp",
                 "-L${env:NMPP}/lib",
                 "-lnmpp-x64",
                 "-L${env:VSHELL}/lib",
