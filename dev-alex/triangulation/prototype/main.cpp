@@ -120,7 +120,7 @@ int main()
 	while ( treatedCounter < maximumDestinationSize && size != 0 )
 	{
 		triangulate( &testTrianglesArray, &size, maximumWidth, maximumHeight, &testResultTrianglesArray, &treatedCounter );
-		// printf("\nSuitable Triangles: %d\nSplitted triangles: %d\n", treatedCounter, size);
+		 printf("\nSuitable Triangles: %d\nSplitted triangles: %d\n", treatedCounter, size);
 	}
 
 	triangulationFree();

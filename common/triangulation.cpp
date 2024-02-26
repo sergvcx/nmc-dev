@@ -23,6 +23,27 @@ float * bufNf10;
 float * bufNf11;
 float * bufNf12;
 float * bufNf13;
+int bitTableOnes[256] = {
+0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 5,
+0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 6,
+0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 5,
+0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 7,
+0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 5,
+0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 6,
+0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 5,
+0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 8
+};
+int bitTableZeros[256] = {
+8, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+6, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+7, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+6, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0,
+5, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0, 4, 0, 1, 0, 2, 0, 1, 0, 3, 0, 1, 0, 2, 0, 1, 0
+};
+
 
 int * protectedMallocInt( int * dstPointer, int N )
 {
@@ -223,40 +244,95 @@ extern "C" void sort( 	TrianglePointers * srcTriangles, int srcCount,
 	(*toSplitTrianglesCount) = 0;
 	int tempResultCount = *resultCount;
 	int tempToSplitTrianglesCount = *toSplitTrianglesCount;
-	for(int i = 0; i < srcCount; ++i)
+	
+	int rowSize = 0;
+	int i = 0;
+	int i32 = 0;
+	int* vecFlags = ((int*)flags);
+	int tmpFlags;
+	int remainingBits;
+	
+	while (i < srcCount)
 	{
-		if( nmppsGet_1(flags, i) == 0 )
+		tmpFlags = vecFlags[i32];
+		i32++;
+		remainingBits = 32;
+		while ( (remainingBits != 0) && (i < srcCount) )
 		{
-			resultTriangles->v0.x[tempResultCount] = srcTriangles->v0.x[i];
-			resultTriangles->v0.y[tempResultCount] = srcTriangles->v0.y[i];
-			resultTriangles->v1.x[tempResultCount] = srcTriangles->v1.x[i];
-			resultTriangles->v1.y[tempResultCount] = srcTriangles->v1.y[i];
-			resultTriangles->v2.x[tempResultCount] = srcTriangles->v2.x[i];
-			resultTriangles->v2.y[tempResultCount] = srcTriangles->v2.y[i];
-			tempResultCount++;
-		}
-		else
-		{
-			toSplitTriangles->v0.x[tempToSplitTrianglesCount] = srcTriangles->v0.x[i];
-			toSplitTriangles->v0.y[tempToSplitTrianglesCount] = srcTriangles->v0.y[i];
-			toSplitTriangles->v1.x[tempToSplitTrianglesCount] = srcTriangles->v1.x[i];
-			toSplitTriangles->v1.y[tempToSplitTrianglesCount] = srcTriangles->v1.y[i];
-			toSplitTriangles->v2.x[tempToSplitTrianglesCount] = srcTriangles->v2.x[i];
-			toSplitTriangles->v2.y[tempToSplitTrianglesCount] = srcTriangles->v2.y[i];
-			tempToSplitTrianglesCount++;
+			if (tmpFlags & 1)
+			{
+				rowSize = bitTableOnes[tmpFlags & 255];
+				if(rowSize > remainingBits)
+					rowSize = remainingBits;
+				if(rowSize > (srcCount - i))
+					rowSize = srcCount - i;
+				nmppsCopy_32f (srcTriangles->v0.x + i, toSplitTriangles->v0.x + tempToSplitTrianglesCount, rowSize);
+				nmppsCopy_32f (srcTriangles->v0.y + i, toSplitTriangles->v0.y + tempToSplitTrianglesCount, rowSize);
+				nmppsCopy_32f (srcTriangles->v1.x + i, toSplitTriangles->v1.x + tempToSplitTrianglesCount, rowSize);
+				nmppsCopy_32f (srcTriangles->v1.y + i, toSplitTriangles->v1.y + tempToSplitTrianglesCount, rowSize);
+				nmppsCopy_32f (srcTriangles->v2.x + i, toSplitTriangles->v2.x + tempToSplitTrianglesCount, rowSize);
+				nmppsCopy_32f (srcTriangles->v2.y + i, toSplitTriangles->v2.y + tempToSplitTrianglesCount, rowSize);
+				tempToSplitTrianglesCount += rowSize;
+			}
+			else
+			{
+				rowSize = bitTableZeros[tmpFlags & 255];
+				if(rowSize > remainingBits)
+					rowSize = remainingBits;
+				if(rowSize > (srcCount - i))
+					rowSize = srcCount - i;
+				nmppsCopy_32f (srcTriangles->v0.x + i, resultTriangles->v0.x + tempResultCount, rowSize);
+				nmppsCopy_32f (srcTriangles->v0.y + i, resultTriangles->v0.y + tempResultCount, rowSize);
+				nmppsCopy_32f (srcTriangles->v1.x + i, resultTriangles->v1.x + tempResultCount, rowSize);
+				nmppsCopy_32f (srcTriangles->v1.y + i, resultTriangles->v1.y + tempResultCount, rowSize);
+				nmppsCopy_32f (srcTriangles->v2.x + i, resultTriangles->v2.x + tempResultCount, rowSize);
+				nmppsCopy_32f (srcTriangles->v2.y + i, resultTriangles->v2.y + tempResultCount, rowSize);
+				tempResultCount += rowSize;
+			}
+			i += rowSize;
+			tmpFlags >>= rowSize;
+			remainingBits -= rowSize;
 		}
 	}
+
 	*resultCount = tempResultCount;
 	*toSplitTrianglesCount = tempToSplitTrianglesCount;
 }
 
-extern "C" void sumOfSquares( float * srcVec1, float * srcVec2, float * dstVec, int srcCount )
-{
-	for(int i = 0; i < srcCount; ++i)
-	{
-		dstVec[i] = srcVec1[i] * srcVec1[i] + srcVec2[i] * srcVec2[i];
-	}
-}
+// extern "C" void sort( 	TrianglePointers * srcTriangles, int srcCount,
+// 			TrianglePointers * toSplitTriangles, int * toSplitTrianglesCount,
+// 			TrianglePointers * resultTriangles, int * resultCount,
+// 			nm1 * flags )
+// {
+// 	(*toSplitTrianglesCount) = 0;
+// 	int tempResultCount = *resultCount;
+// 	int tempToSplitTrianglesCount = *toSplitTrianglesCount;
+// 	for(int i = 0; i < srcCount; ++i)
+// 	{
+// 		if( nmppsGet_1(flags, i) == 0 )
+// 		{
+// 			resultTriangles->v0.x[tempResultCount] = srcTriangles->v0.x[i];
+// 			resultTriangles->v0.y[tempResultCount] = srcTriangles->v0.y[i];
+// 			resultTriangles->v1.x[tempResultCount] = srcTriangles->v1.x[i];
+// 			resultTriangles->v1.y[tempResultCount] = srcTriangles->v1.y[i];
+// 			resultTriangles->v2.x[tempResultCount] = srcTriangles->v2.x[i];
+// 			resultTriangles->v2.y[tempResultCount] = srcTriangles->v2.y[i];
+// 			tempResultCount++;
+// 		}
+// 		else
+// 		{
+// 			toSplitTriangles->v0.x[tempToSplitTrianglesCount] = srcTriangles->v0.x[i];
+// 			toSplitTriangles->v0.y[tempToSplitTrianglesCount] = srcTriangles->v0.y[i];
+// 			toSplitTriangles->v1.x[tempToSplitTrianglesCount] = srcTriangles->v1.x[i];
+// 			toSplitTriangles->v1.y[tempToSplitTrianglesCount] = srcTriangles->v1.y[i];
+// 			toSplitTriangles->v2.x[tempToSplitTrianglesCount] = srcTriangles->v2.x[i];
+// 			toSplitTriangles->v2.y[tempToSplitTrianglesCount] = srcTriangles->v2.y[i];
+// 			tempToSplitTrianglesCount++;
+// 		}
+// 	}
+// 	*resultCount = tempResultCount;
+// 	*toSplitTrianglesCount = tempToSplitTrianglesCount;
+// }
 
 extern "C" void maxEdge( int * maxEdgeArray, float * edge1, float * edge2, float * edge3, int edgeCount )
 {

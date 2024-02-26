@@ -70,14 +70,9 @@
             "args": [
                 "-Wall",
                 "-I../../include/",
-                "-I${env:NMPP}/include",
                 "main.cpp",
                 "../../common/dataInit.cpp",
-                "../../common/triangulation.cpp",
-                "../../pc/hash_C.cpp",
-                "../../pc/nmppsAdd_MulC_32f.cpp",
-                "-L${env:NMPP}/lib",
-                "-lnmpp-x64",
+                "../../pc/sumOfSquares.cpp",
                 "-o",
                 "result"
             ],
